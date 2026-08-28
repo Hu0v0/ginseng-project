@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-admin">
+    <!-- 权限门禁：非管理员会被拦下 -->
+    <div class="guard-mask" id="guardMask" style="display:none;">
+        <h3>⛔ 无权访问</h3>
+        <p id="guardMsg">该页面仅限管理员访问，即将跳转到登录页…</p>
+    </div>
+
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+                <a href="admin.html" class="active">后台管理</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;" id="authArea">
+                <span style="color: var(--text-secondary); font-size: 14px;" id="adminName"></span>
+                <button class="btn btn-default btn-sm" id="logoutBtn">退出登录</button>
+            </div>
+    </header>
+
+    <main class="admin-section flex-main">
+        <div class="container">
+            <!-- 标签页切换 -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="sample" onclick="switchTab('sample')">🗂 样本数据管理</button>
+                <button class="tab-btn" data-tab="user" onclick="switchTab('user')">👥 用户管理</button>
+                <button class="tab-btn" data-tab="order" onclick="switchTab('order')">📅 预约处理 <span id="pendingBadge" style="display:none; background:var(--danger-color); color:#fff; border-radius:10px; padding:1px 7px; font-size:11px; margin-left:4px;"></span></button>
+            </div>
+
+            <!-- ============ 面板一：样本数据管理 ============ -->
+            <div class="tab-panel active" id="panel-sample">
+                <div class="admin-header-bar">
+                    <div>
+                        <h2>检测样本数据</h2>
+                        <div class="sub">新增、编辑、删除人参重金属检测样本数据</div>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-default" onclick="exportSamplesCSV()">📤 导出 CSV</button>
+                        <button class="btn btn-primary" onclick="openAddSampleModal()">➕ 新增样本</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-box"><div class="num" id="statTotal">--</div><div class="lbl">累计样本数</div></div>
+                    <div class="stat-box"><div class="num" id="statQualified">--</div><div class="lbl">合格样本</div></div>
+                    <div class="stat-box"><div class="num" id="statUnqualified">--</div><div class="lbl">超标样本</div></div>
+                    <div class="stat-box"><div class="num" id="statOrigin">--</div><div class="lbl">覆盖产区</div></div>
+                </div>
+
+                <div class="toolbar">
+                    <input type="text" id="sampleSearch" placeholder="🔍 按样本编号 / 品种 / 产地 搜索…" oninput="samplePage=1; renderSampleTable()">
+                    <button class="btn btn-default btn-sm" onclick="loadRecords()">🔄 刷新</button>
+                    <span style="margin-left:auto; color: var(--text-tertiary); font-size: 13px;" id="sampleCountTip"></span>
+                </div>
+
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>样本编号</th><th>品种</th><th>年限</th><th>部位</th><th>产地</th>
+                                <th>铅Pb</th><th>砷As</th><th>镉Cd</th><th>汞Hg</th><th>铜Cu</th>
+                                <th>检测日期</th><th>检测人</th><th>状态</th><th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sampleTableBody">
+                            <tr><td colspan="15" class="empty-tip">加载中…</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="samplePagination"></div>
+                </div>
+            </div>
+
+            <!-- ============ 面板二：用户管理 ============ -->
+            <div class="tab-panel" id="panel-user">
+                <div class="admin-header-bar">
+                    <div>
+                        <h2>平台用户管理</h2>
+                        <div class="sub">查看注册用户、修改角色权限、删除用户</div>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-default" onclick="exportUsersCSV()">📤 导出 CSV</button>
+                        <button class="btn btn-primary" onclick="openAddUserModal()">➕ 新增用户</button>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <input type="text" id="userSearch" placeholder="🔍 按用户名 / 手机号 / 邮箱 搜索…" oninput="userPage=1; renderUserTable()">
+                    <button class="btn btn-default btn-sm" onclick="loadUsers()">🔄 刷新</button>
+                    <span style="margin-left:auto; color: var(--text-tertiary); font-size: 13px;" id="userCountTip"></span>
+                </div>
+
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>用户名</th><th>手机号</th><th>邮箱</th><th>用户类型</th><th>角色</th><th>注册时间</th><th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <tr><td colspan="8" class="empty-tip">加载中…</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="userPagination"></div>
+                </div>
+            </div>
+
+            <!-- ============ 面板三：预约处理 ============ -->
+            <div class="tab-panel" id="panel-order">
+                <div class="admin-header-bar">
+                    <div>
+                        <h2>用户预约处理</h2>
+                        <div class="sub">审核用户提交的检测服务预约，通过或驳回并回复处理意见</div>
+                    </div>
+                    <button class="btn btn-default" onclick="exportOrdersCSV()">📤 导出 CSV</button>
+                </div>
+
+                <div class="toolbar">
+                    <input type="text" id="orderSearch" placeholder="🔍 按用户名 / 服务类型 / 联系人 搜索…" oninput="orderPage=1; renderOrderTable()">
+                    <select id="orderStatusFilter" onchange="orderPage=1; renderOrderTable()" style="padding:8px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); font-size:14px; outline:none;">
+                        <option value="">全部状态</option>
+                        <option value="待处理">待处理</option>
+                        <option value="已通过">已通过</option>
+                        <option value="已驳回">已驳回</option>
+                    </select>
+                    <button class="btn btn-default btn-sm" onclick="loadOrders()">🔄 刷新</button>
+                    <span style="margin-left:auto; color: var(--text-tertiary); font-size: 13px;" id="orderCountTip"></span>
+                </div>
+
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>编号</th><th>提交用户</th><th>服务类型</th><th>联系人</th><th>联系电话</th><th>样本数</th><th>需求说明</th><th>提交时间</th><th>状态</th><th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody">
+                            <tr><td colspan="10" class="empty-tip">加载中…</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="orderPagination"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <!-- 样本 新增/编辑弹窗 -->
+    <div class="modal-mask" id="sampleModalMask">
+        <div class="modal">
+            <h3 id="sampleModalTitle">新增样本</h3>
+            <form id="sampleForm">
+                <input type="hidden" id="fRecordId">
+                <div class="form-grid">
+                    <div class="fld"><label>样本编号 *</label><input type="text" id="fSampleId" placeholder="如 GS2025001260" required></div>
+                    <div class="fld"><label>人参品种 *</label><input type="text" id="fName" placeholder="如 园参 / 林下参" required></div>
+                    <div class="fld"><label>生长年限</label><input type="text" id="fAge" placeholder="如 5年"></div>
+                    <div class="fld"><label>检测部位</label>
+                        <select id="fPart"><option value="根">根</option><option value="茎">茎</option><option value="叶">叶</option></select>
+                    </div>
+                    <div class="fld full"><label>产地 *</label><input type="text" id="fOrigin" placeholder="如 通化 通化县" required></div>
+                    <div class="fld"><label>铅 Pb (mg/kg) *</label><input type="number" step="0.0001" id="fLead" required></div>
+                    <div class="fld"><label>砷 As (mg/kg) *</label><input type="number" step="0.0001" id="fArsenic" required></div>
+                    <div class="fld"><label>镉 Cd (mg/kg) *</label><input type="number" step="0.0001" id="fCadmium" required></div>
+                    <div class="fld"><label>汞 Hg (mg/kg) *</label><input type="number" step="0.0001" id="fMercury" required></div>
+                    <div class="fld"><label>铜 Cu (mg/kg)</label><input type="number" step="0.0001" id="fCopper"></div>
+                    <div class="fld"><label>检测日期 *</label><input type="date" id="fDate" required></div>
+                    <div class="fld full"><label>检测人 *</label><input type="text" id="fInspector" placeholder="如 徐敏" required></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-default" onclick="closeSampleModal()">取消</button>
+                    <button type="submit" class="btn btn-primary" id="sampleSubmitBtn">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 用户 新增/编辑弹窗 -->
+    <div class="modal-mask" id="userModalMask">
+        <div class="modal">
+            <h3 id="userModalTitle">新增用户</h3>
+            <form id="userForm">
+                <input type="hidden" id="uUserId">
+                <div class="form-grid">
+                    <div class="fld"><label>用户名 *</label><input type="text" id="uUsername" placeholder="登录账号" required></div>
+                    <div class="fld"><label id="uPwdLabel">登录密码 *</label><input type="text" id="uPassword" placeholder="设置密码"></div>
+                    <div class="fld"><label>手机号</label><input type="text" id="uPhone" placeholder="选填"></div>
+                    <div class="fld"><label>邮箱</label><input type="text" id="uEmail" placeholder="选填"></div>
+                    <div class="fld"><label>用户类型</label>
+                        <select id="uType"><option value="personal">个人</option><option value="enterprise">企业</option></select>
+                    </div>
+                    <div class="fld"><label>角色权限 *</label>
+                        <select id="uRole">
+                            <option value="user">普通用户 user</option>
+                            <option value="inspector">检测员 inspector</option>
+                            <option value="admin">管理员 admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-default" onclick="closeUserModal()">取消</button>
+                    <button type="submit" class="btn btn-primary" id="userSubmitBtn">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 预约 处理弹窗 -->
+    <div class="modal-mask" id="orderModalMask">
+        <div class="modal" style="width: 520px;">
+            <h3 id="orderModalTitle">处理预约</h3>
+            <div id="orderDetail" style="background: var(--bg-page); border-radius: 8px; padding: 16px; margin-bottom: 20px; font-size: 14px; line-height: 1.9; color: var(--text-secondary);"></div>
+            <form id="orderForm">
+                <input type="hidden" id="oOrderId">
+                <div class="form-grid">
+                    <div class="fld full"><label>处理结果 *</label>
+                        <select id="oStatus">
+                            <option value="已通过">✅ 通过预约</option>
+                            <option value="已驳回">❌ 驳回预约</option>
+                            <option value="待处理">↩️ 重置为待处理</option>
+                        </select>
+                    </div>
+                    <div class="fld full"><label>回复用户（处理意见，用户可在“我的预约”中看到）</label>
+                        <textarea id="oReply" rows="4" placeholder="如：已受理，请于工作日携样本到实训中心；或：样本信息不全，请补充后重新提交…" style="padding:9px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); font-size:14px; outline:none; resize:vertical; font-family:inherit;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-default" onclick="closeOrderModal()">取消</button>
+                    <button type="submit" class="btn btn-primary" id="orderSubmitBtn">保存处理</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const STD = { lead: 0.05, arsenic: 0.02, cadmium: 0.01, mercury: 0.01, copper: 20.0 };
+        const PAGE_SIZE = 10;
+
+        let allRecords = [], samplePage = 1;
+        let allUsers = [], userPage = 1;
+        let allOrders = [], orderPage = 1;
+        let currentAdmin = null;
+
+        // ========== 权限门禁 ==========
+        function checkAdmin() {
+            let user = null;
+            try { user = JSON.parse(localStorage.getItem('currentUser')); } catch (e) {}
+            if (!user || user.role !== 'admin') {
+                const mask = document.getElementById('guardMask');
+                mask.style.display = 'flex';
+                document.getElementById('guardMsg').textContent =
+                    user ? `当前账号「${user.username}」不是管理员，无权访问本页面，即将返回首页…`
+                         : '请先以管理员身份登录，即将跳转到登录页…';
+                setTimeout(() => { window.location.href = user ? 'index.html' : 'login.html'; }, 2200);
+                return null;
+            }
+            document.getElementById('adminName').textContent = `管理员：${user.username}`;
+            return user;
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
+
+        // ========== 标签页切换 ==========
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + tab).classList.add('active');
+            if (tab === 'user' && !allUsers.length) loadUsers();
+            if (tab === 'order') { allOrders.length ? renderOrderTable() : loadOrders(); }
+        }
+
+        // ========== 通用：分页渲染 ==========
+        function renderPagination(container, totalItems, curPage, onGo) {
+            const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+            const el = document.getElementById(container);
+            if (totalItems <= PAGE_SIZE) { el.innerHTML = ''; return; }
+            let html = `<button ${curPage === 1 ? 'disabled' : ''} data-go="${curPage - 1}">上一页</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === curPage ? 'active' : ''}" data-go="${i}">${i}</button>`;
+            }
+            html += `<button ${curPage === totalPages ? 'disabled' : ''} data-go="${curPage + 1}">下一页</button>`;
+            html += `<span class="page-info">第 ${curPage}/${totalPages} 页</span>`;
+            el.innerHTML = html;
+            el.querySelectorAll('button[data-go]').forEach(btn => {
+                btn.addEventListener('click', () => onGo(parseInt(btn.dataset.go, 10)));
+            });
+        }
+
+        // ========================================================
+        //  样本数据管理
+        // ========================================================
+        async function loadRecords() {
+            try {
+                const res = await fetch(`${API_BASE}/detection/`);
+                const r = await res.json();
+                if (r.code === 200) {
+                    allRecords = r.data;
+                    renderSampleTable();
+                    updateSampleStats();
+                }
+            } catch (err) {
+                document.getElementById('sampleTableBody').innerHTML =
+                    '<tr><td colspan="15" class="empty-tip">❌ 无法连接后端，请确认后端已启动（http://127.0.0.1:8000）</td></tr>';
+            }
+        }
+
+        function updateSampleStats() {
+            const total = allRecords.length;
+            const qualified = allRecords.filter(r => r.status === '合格').length;
+            const origins = new Set(allRecords.map(r => r.origin));
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statQualified').textContent = qualified;
+            document.getElementById('statUnqualified').textContent = total - qualified;
+            document.getElementById('statOrigin').textContent = origins.size;
+        }
+
+        function filteredSamples() {
+            const kw = document.getElementById('sampleSearch').value.trim().toLowerCase();
+            if (!kw) return allRecords;
+            return allRecords.filter(r =>
+                (r.sample_id || '').toLowerCase().includes(kw) ||
+                (r.name || '').toLowerCase().includes(kw) ||
+                (r.origin || '').toLowerCase().includes(kw));
+        }
+
+        function renderSampleTable() {
+            const list = filteredSamples();
+            document.getElementById('sampleCountTip').textContent = `共 ${list.length} 条记录`;
+            const tbody = document.getElementById('sampleTableBody');
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="15" class="empty-tip">暂无数据</td></tr>';
+                document.getElementById('samplePagination').innerHTML = '';
+                return;
+            }
+            const start = (samplePage - 1) * PAGE_SIZE;
+            const pageList = list.slice(start, start + PAGE_SIZE);
+            const cell = (v, std) => {
+                if (v === null || v === undefined) return '—';
+                const cls = (std !== undefined && v > std) ? 'val-danger' : '';
+                return `<span class="${cls}">${v}</span>`;
+            };
+            tbody.innerHTML = pageList.map(r => `
+                <tr>
+                    <td>${r.id}</td>
+                    <td>${r.sample_id || '—'}</td>
+                    <td>${r.name || '—'}</td>
+                    <td>${r.age || '—'}</td>
+                    <td>${r.part || '—'}</td>
+                    <td>${r.origin || '—'}</td>
+                    <td>${cell(r.lead, STD.lead)}</td>
+                    <td>${cell(r.arsenic, STD.arsenic)}</td>
+                    <td>${cell(r.cadmium, STD.cadmium)}</td>
+                    <td>${cell(r.mercury, STD.mercury)}</td>
+                    <td>${cell(r.copper, STD.copper)}</td>
+                    <td>${r.detection_date || '—'}</td>
+                    <td>${r.inspector || '—'}</td>
+                    <td><span class="tag ${r.status === '合格' ? 'tag-success' : 'tag-danger'}">${r.status}</span></td>
+                    <td class="op-btns">
+                        <a class="btn btn-default btn-sm" href="${API_BASE}/detection/report/${encodeURIComponent(r.sample_id)}" target="_blank" title="下载系统生成的检测报告">📥 报告</a>
+                        <button class="btn btn-default btn-sm" onclick="openEditSampleModal(${r.id})">编辑</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteRecord(${r.id}, '${r.sample_id}')">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+            renderPagination('samplePagination', list.length, samplePage, (p) => { samplePage = p; renderSampleTable(); });
+        }
+
+        function openAddSampleModal() {
+            document.getElementById('sampleModalTitle').textContent = '新增样本';
+            document.getElementById('sampleForm').reset();
+            document.getElementById('fRecordId').value = '';
+            document.getElementById('fSampleId').disabled = false;
+            document.getElementById('sampleModalMask').classList.add('active');
+        }
+
+        function openEditSampleModal(id) {
+            const r = allRecords.find(x => x.id === id);
+            if (!r) return;
+            document.getElementById('sampleModalTitle').textContent = `编辑样本（ID: ${id}）`;
+            document.getElementById('fRecordId').value = id;
+            const sidInput = document.getElementById('fSampleId');
+            sidInput.value = r.sample_id || '';
+            sidInput.disabled = true;
+            document.getElementById('fName').value = r.name || '';
+            document.getElementById('fAge').value = r.age || '';
+            document.getElementById('fPart').value = r.part || '根';
+            document.getElementById('fOrigin').value = r.origin || '';
+            document.getElementById('fLead').value = r.lead ?? '';
+            document.getElementById('fArsenic').value = r.arsenic ?? '';
+            document.getElementById('fCadmium').value = r.cadmium ?? '';
+            document.getElementById('fMercury').value = r.mercury ?? '';
+            document.getElementById('fCopper').value = r.copper ?? '';
+            document.getElementById('fDate').value = r.detection_date || '';
+            document.getElementById('fInspector').value = r.inspector || '';
+            document.getElementById('sampleModalMask').classList.add('active');
+        }
+
+        function closeSampleModal() {
+            document.getElementById('sampleModalMask').classList.remove('active');
+        }
+
+        document.getElementById('sampleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('fRecordId').value;
+            const num = v => v === '' ? null : parseFloat(v);
+            const payload = {
+                name: document.getElementById('fName').value.trim(),
+                age: document.getElementById('fAge').value.trim() || null,
+                part: document.getElementById('fPart').value,
+                origin: document.getElementById('fOrigin').value.trim(),
+                lead: num(document.getElementById('fLead').value),
+                arsenic: num(document.getElementById('fArsenic').value),
+                cadmium: num(document.getElementById('fCadmium').value),
+                mercury: num(document.getElementById('fMercury').value),
+                copper: num(document.getElementById('fCopper').value),
+                detection_date: document.getElementById('fDate').value,
+                inspector: document.getElementById('fInspector').value.trim()
+            };
+            const btn = document.getElementById('sampleSubmitBtn');
+            btn.disabled = true;
+
+            try {
+                // 保存样本（新增 / 修改）
+                btn.textContent = '保存样本中…';
+                let res;
+                if (id) {
+                    res = await fetch(`${API_BASE}/detection/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                } else {
+                    payload.sample_id = document.getElementById('fSampleId').value.trim();
+                    res = await fetch(`${API_BASE}/detection/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                }
+                const r = await res.json();
+                if (r.code !== 200) { alert(r.msg || '保存样本失败'); return; }
+
+                alert(id ? '修改成功' : '新增成功');
+                closeSampleModal();
+                loadRecords();
+            } catch (err) {
+                alert('请求失败，请确认后端已启动');
+            } finally {
+                btn.disabled = false; btn.textContent = '保存';
+            }
+        });
+
+        async function deleteRecord(id, sampleId) {
+            if (!confirm(`确定要删除样本「${sampleId}」（ID: ${id}）吗？此操作不可恢复。`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/detection/${id}`, { method: 'DELETE' });
+                const r = await res.json();
+                if (r.code === 200) { alert('删除成功'); loadRecords(); }
+                else { alert(r.msg || '删除失败'); }
+            } catch (err) { alert('请求失败，请确认后端已启动'); }
+        }
+
+        // 导出样本 CSV（导出当前搜索结果的全部，不受分页限制）
+        function exportSamplesCSV() {
+            const list = filteredSamples();
+            if (!list.length) { alert('没有可导出的数据'); return; }
+            const headers = ['ID', '样本编号', '品种', '年限', '部位', '产地', '铅Pb', '砷As', '镉Cd', '汞Hg', '铜Cu', '检测日期', '检测人', '状态', '报告下载地址'];
+            const rows = list.map(r => {
+                const reportUrl = r.sample_id ? `${API_BASE}/detection/report/${encodeURIComponent(r.sample_id)}` : '';
+                return [r.id, r.sample_id, r.name, r.age, r.part, r.origin, r.lead, r.arsenic, r.cadmium, r.mercury, r.copper, r.detection_date, r.inspector, r.status, reportUrl];
+            });
+            downloadCSV(headers, rows, '检测样本数据');
+        }
+
+        // ========================================================
+        //  用户管理
+        // ========================================================
+        async function loadUsers() {
+            try {
+                const res = await fetch(`${API_BASE}/user/`);
+                const r = await res.json();
+                if (r.code === 200) { allUsers = r.data; renderUserTable(); }
+            } catch (err) {
+                document.getElementById('userTableBody').innerHTML =
+                    '<tr><td colspan="8" class="empty-tip">❌ 无法连接后端，请确认后端已启动</td></tr>';
+            }
+        }
+
+        function filteredUsers() {
+            const kw = document.getElementById('userSearch').value.trim().toLowerCase();
+            if (!kw) return allUsers;
+            return allUsers.filter(u =>
+                (u.username || '').toLowerCase().includes(kw) ||
+                (u.phone || '').toLowerCase().includes(kw) ||
+                (u.email || '').toLowerCase().includes(kw));
+        }
+
+        const roleLabel = { admin: '管理员', inspector: '检测员', user: '普通用户' };
+        function renderUserTable() {
+            const list = filteredUsers();
+            document.getElementById('userCountTip').textContent = `共 ${list.length} 个用户`;
+            const tbody = document.getElementById('userTableBody');
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-tip">暂无用户</td></tr>';
+                document.getElementById('userPagination').innerHTML = '';
+                return;
+            }
+            const start = (userPage - 1) * PAGE_SIZE;
+            const pageList = list.slice(start, start + PAGE_SIZE);
+            tbody.innerHTML = pageList.map(u => {
+                const isSelf = currentAdmin && u.id === currentAdmin.id;
+                return `
+                <tr>
+                    <td>${u.id}</td>
+                    <td>${u.username || '—'}${isSelf ? ' <span style="color:var(--primary-color);font-size:11px;">(我)</span>' : ''}</td>
+                    <td>${u.phone || '—'}</td>
+                    <td>${u.email || '—'}</td>
+                    <td>${u.user_type === 'enterprise' ? '企业' : '个人'}</td>
+                    <td><span class="role-tag role-${u.role || 'user'}">${roleLabel[u.role] || u.role}</span></td>
+                    <td>${(u.created_at || '—').toString().replace('T', ' ').slice(0, 19)}</td>
+                    <td class="op-btns">
+                        <button class="btn btn-default btn-sm" onclick="openEditUserModal(${u.id})">编辑</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, '${u.username}', ${isSelf})">删除</button>
+                    </td>
+                </tr>`;
+            }).join('');
+            renderPagination('userPagination', list.length, userPage, (p) => { userPage = p; renderUserTable(); });
+        }
+
+        function openAddUserModal() {
+            document.getElementById('userModalTitle').textContent = '新增用户';
+            document.getElementById('userForm').reset();
+            document.getElementById('uUserId').value = '';
+            document.getElementById('uUsername').disabled = false;
+            document.getElementById('uPwdLabel').textContent = '登录密码 *';
+            document.getElementById('uPassword').required = true;
+            document.getElementById('uPassword').placeholder = '设置密码';
+            document.getElementById('userModalMask').classList.add('active');
+        }
+
+        function openEditUserModal(id) {
+            const u = allUsers.find(x => x.id === id);
+            if (!u) return;
+            document.getElementById('userModalTitle').textContent = `编辑用户（ID: ${id}）`;
+            document.getElementById('uUserId').value = id;
+            const nameInput = document.getElementById('uUsername');
+            nameInput.value = u.username || '';
+            nameInput.disabled = true; // 后端不支持改用户名
+            document.getElementById('uPwdLabel').textContent = '登录密码（留空则不修改）';
+            document.getElementById('uPassword').required = false;
+            document.getElementById('uPassword').value = '';
+            document.getElementById('uPassword').placeholder = '留空表示不修改';
+            document.getElementById('uPhone').value = u.phone || '';
+            document.getElementById('uEmail').value = u.email || '';
+            document.getElementById('uType').value = u.user_type || 'personal';
+            document.getElementById('uRole').value = u.role || 'user';
+            document.getElementById('userModalMask').classList.add('active');
+        }
+
+        function closeUserModal() { document.getElementById('userModalMask').classList.remove('active'); }
+
+        document.getElementById('userForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('uUserId').value;
+            const btn = document.getElementById('userSubmitBtn');
+            btn.disabled = true; btn.textContent = '保存中…';
+            try {
+                let res;
+                if (id) {
+                    // 编辑：只提交可改字段，密码留空则不传
+                    const payload = {
+                        phone: document.getElementById('uPhone').value.trim() || null,
+                        email: document.getElementById('uEmail').value.trim() || null,
+                        user_type: document.getElementById('uType').value,
+                        role: document.getElementById('uRole').value
+                    };
+                    const pwd = document.getElementById('uPassword').value;
+                    if (pwd) payload.password = pwd;
+                    res = await fetch(`${API_BASE}/user/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                } else {
+                    // 新增：复用注册接口
+                    const payload = {
+                        username: document.getElementById('uUsername').value.trim(),
+                        password: document.getElementById('uPassword').value,
+                        phone: document.getElementById('uPhone').value.trim() || null,
+                        email: document.getElementById('uEmail').value.trim() || null,
+                        user_type: document.getElementById('uType').value,
+                        role: document.getElementById('uRole').value
+                    };
+                    res = await fetch(`${API_BASE}/user/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                }
+                const r = await res.json();
+                if (r.code === 200) { alert(id ? '修改成功' : '新增成功'); closeUserModal(); loadUsers(); }
+                else { alert(r.msg || '操作失败'); }
+            } catch (err) { alert('请求失败，请确认后端已启动'); }
+            finally { btn.disabled = false; btn.textContent = '保存'; }
+        });
+
+        async function deleteUser(id, username, isSelf) {
+            if (isSelf) { alert('不能删除当前登录的管理员账号'); return; }
+            if (!confirm(`确定要删除用户「${username}」（ID: ${id}）吗？此操作不可恢复。`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/user/${id}`, { method: 'DELETE' });
+                const r = await res.json();
+                if (r.code === 200) { alert('删除成功'); loadUsers(); }
+                else { alert(r.msg || '删除失败'); }
+            } catch (err) { alert('请求失败，请确认后端已启动'); }
+        }
+
+        function exportUsersCSV() {
+            const list = filteredUsers();
+            if (!list.length) { alert('没有可导出的数据'); return; }
+            const headers = ['ID', '用户名', '手机号', '邮箱', '用户类型', '角色', '注册时间'];
+            const rows = list.map(u => [u.id, u.username, u.phone, u.email, u.user_type, u.role, (u.created_at || '').toString().replace('T', ' ').slice(0, 19)]);
+            downloadCSV(headers, rows, '平台用户数据');
+        }
+
+        // ========================================================
+        //  预约处理
+        // ========================================================
+        const orderStatusMeta = {
+            '待处理': { cls: 'tag-warning', color: 'var(--warning-color)', bg: '#fff3e0' },
+            '已通过': { cls: 'tag-success', color: 'var(--success-color)', bg: '#e8f5e9' },
+            '已驳回': { cls: 'tag-danger',  color: 'var(--danger-color)',  bg: '#ffebee' }
+        };
+
+        async function loadOrders() {
+            const tbody = document.getElementById('orderTableBody');
+            tbody.innerHTML = '<tr><td colspan="10" class="empty-tip">加载中…</td></tr>';
+            try {
+                const res = await fetch(`${API_BASE}/order/`);
+                const r = await res.json();
+                if (r.code === 200) {
+                    allOrders = r.data;
+                    renderOrderTable();
+                    updatePendingBadge();
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="10" class="empty-tip">${r.msg || '加载失败'}</td></tr>`;
+                }
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="10" class="empty-tip">❌ 无法连接后端，请确认后端已启动（http://127.0.0.1:8000）</td></tr>';
+            }
+        }
+
+        // 顶部“预约处理”标签上的待处理数量徽章
+        function updatePendingBadge() {
+            const pending = allOrders.filter(o => o.status === '待处理').length;
+            const badge = document.getElementById('pendingBadge');
+            if (pending > 0) { badge.textContent = pending; badge.style.display = 'inline-block'; }
+            else { badge.style.display = 'none'; }
+        }
+
+        function filteredOrders() {
+            const kw = document.getElementById('orderSearch').value.trim().toLowerCase();
+            const status = document.getElementById('orderStatusFilter').value;
+            return allOrders.filter(o => {
+                if (status && o.status !== status) return false;
+                if (!kw) return true;
+                return (o.username || '').toLowerCase().includes(kw) ||
+                       (o.service_type || '').toLowerCase().includes(kw) ||
+                       (o.contact || '').toLowerCase().includes(kw);
+            });
+        }
+
+        function fmtTime(t) { return (t || '').toString().replace('T', ' ').slice(0, 19) || '—'; }
+        function esc(v) {
+            return (v === null || v === undefined) ? '' : String(v)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function renderOrderTable() {
+            const list = filteredOrders();
+            document.getElementById('orderCountTip').textContent = `共 ${list.length} 条预约`;
+            const tbody = document.getElementById('orderTableBody');
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="10" class="empty-tip">暂无预约记录</td></tr>';
+                document.getElementById('orderPagination').innerHTML = '';
+                return;
+            }
+            const start = (orderPage - 1) * PAGE_SIZE;
+            const pageList = list.slice(start, start + PAGE_SIZE);
+            tbody.innerHTML = pageList.map(o => {
+                const meta = orderStatusMeta[o.status] || { cls: 'tag-default' };
+                const remark = o.remark ? esc(o.remark) : '<span style="color:var(--text-tertiary)">无</span>';
+                return `
+                <tr>
+                    <td>#${o.id}</td>
+                    <td>${esc(o.username) || '—'}</td>
+                    <td>${esc(o.service_type) || '—'}</td>
+                    <td>${esc(o.contact) || '—'}</td>
+                    <td>${esc(o.phone) || '—'}</td>
+                    <td>${o.sample_count ?? '—'}</td>
+                    <td style="max-width:220px; white-space:normal;">${remark}</td>
+                    <td>${fmtTime(o.created_at)}</td>
+                    <td><span class="tag ${meta.cls}">${o.status}</span></td>
+                    <td class="op-btns">
+                        <button class="btn btn-primary btn-sm" onclick="openHandleOrderModal(${o.id})">处理</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteOrder(${o.id})">删除</button>
+                    </td>
+                </tr>`;
+            }).join('');
+            renderPagination('orderPagination', list.length, orderPage, (p) => { orderPage = p; renderOrderTable(); });
+        }
+
+        function openHandleOrderModal(id) {
+            const o = allOrders.find(x => x.id === id);
+            if (!o) return;
+            document.getElementById('orderModalTitle').textContent = `处理预约 #${o.id}`;
+            document.getElementById('oOrderId').value = id;
+            document.getElementById('orderDetail').innerHTML = `
+                <div><strong>提交用户：</strong>${esc(o.username)}</div>
+                <div><strong>服务类型：</strong>${esc(o.service_type)}</div>
+                <div><strong>联系人：</strong>${esc(o.contact)} &nbsp;|&nbsp; <strong>电话：</strong>${esc(o.phone)}</div>
+                <div><strong>送检数量：</strong>${o.sample_count ?? '—'} 份</div>
+                <div><strong>需求说明：</strong>${o.remark ? esc(o.remark) : '无'}</div>
+                <div><strong>提交时间：</strong>${fmtTime(o.created_at)}</div>
+            `;
+            document.getElementById('oStatus').value = (o.status === '待处理') ? '已通过' : o.status;
+            document.getElementById('oReply').value = o.admin_reply || '';
+            document.getElementById('orderModalMask').classList.add('active');
+        }
+
+        function closeOrderModal() { document.getElementById('orderModalMask').classList.remove('active'); }
+
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('oOrderId').value;
+            const payload = {
+                status: document.getElementById('oStatus').value,
+                admin_reply: document.getElementById('oReply').value.trim() || null
+            };
+            const btn = document.getElementById('orderSubmitBtn');
+            btn.disabled = true; btn.textContent = '保存中…';
+            try {
+                const res = await fetch(`${API_BASE}/order/handle/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const r = await res.json();
+                if (r.code === 200) { alert('处理成功'); closeOrderModal(); loadOrders(); }
+                else { alert(r.msg || '处理失败'); }
+            } catch (err) { alert('请求失败，请确认后端已启动'); }
+            finally { btn.disabled = false; btn.textContent = '保存处理'; }
+        });
+
+        async function deleteOrder(id) {
+            if (!confirm(`确定要删除预约 #${id} 吗？此操作不可恢复。`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/order/${id}`, { method: 'DELETE' });
+                const r = await res.json();
+                if (r.code === 200) { alert('删除成功'); loadOrders(); }
+                else { alert(r.msg || '删除失败'); }
+            } catch (err) { alert('请求失败，请确认后端已启动'); }
+        }
+
+        function exportOrdersCSV() {
+            const list = filteredOrders();
+            if (!list.length) { alert('没有可导出的数据'); return; }
+            const headers = ['编号', '提交用户', '服务类型', '联系人', '联系电话', '样本数', '需求说明', '状态', '管理员回复', '提交时间'];
+            const rows = list.map(o => [o.id, o.username, o.service_type, o.contact, o.phone, o.sample_count, o.remark, o.status, o.admin_reply, fmtTime(o.created_at)]);
+            downloadCSV(headers, rows, '用户预约数据');
+        }
+
+        // ========== 通用 CSV 下载（加 BOM 防 Excel 中文乱码）==========
+        function downloadCSV(headers, rows, filename) {
+            const esc = v => {
+                v = (v === null || v === undefined) ? '' : String(v);
+                return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+            };
+            const lines = [headers.map(esc).join(',')].concat(rows.map(row => row.map(esc).join(',')));
+            const csv = '\uFEFF' + lines.join('\r\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}_${new Date().toISOString().slice(0, 10)}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ========== 初始化 ==========
+        currentAdmin = checkAdmin();
+        if (currentAdmin) {
+            loadRecords();
+            loadOrders();  // 进入页面即拉取预约，用于显示“预约处理”标签上的待处理数量徽章
+        }
+    </script>
+</body>
+</html>

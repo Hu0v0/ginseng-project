@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标准法规查询 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body class="flex flex-column page-standard">
+    <!-- ========== 顶部导航栏（与全站统一） ========== -->
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <!-- Logo -->
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <!-- 导航菜单 -->
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html" class="active">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <!-- 操作按钮 -->
+            <div class="flex-align-center" style="gap: 12px;" id="authArea">
+                <a href="login.html" class="btn btn-default btn-sm">登录</a>
+                <a href="register.html" class="btn btn-primary btn-sm">注册</a>
+            </div>
+        </div>
+    </header>
+    <!-- ========== 页面主体 ========== -->
+    <main class="page-main flex-main">
+        <div class="container">
+            <div class="layout-wrap">
+                <!-- 左侧侧边栏 -->
+                <aside class="sidebar">
+                    <!-- 关键词检索（修复：input增加id="searchInput"，按钮布局优化） -->
+                    <div class="card">
+                        <div class="card-header">关键词检索</div>
+                        <div class="card-body">
+                            <input type="text" id="searchInput" class="search-input" placeholder="输入标准号/标准名称关键词">
+                            <div class="btn-row">
+                                <button class="btn btn-primary btn-sm search-btn">搜索</button>
+                                <button class="btn btn-default btn-sm" id="resetSearchBtn">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 标准状态筛选 -->
+                    <div class="card">
+                        <div class="card-header">标准状态</div>
+                        <div class="card-body">
+                            <ul class="filter-list">
+                                <li><a href="#" class="filter-item active">全部状态</a></li>
+                                <li><a href="#" class="filter-item">现行有效</a></li>
+                                <li><a href="#" class="filter-item">即将实施</a></li>
+                                <li><a href="#" class="filter-item">已废止</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 最新发布 TOP5 -->
+                    <div class="card">
+                        <div class="card-header">最新发布 TOP5</div>
+                        <div class="card-body">
+                            <ul class="top-list">
+                                <li><a href="#">GB 2762-2022 食品中污染物限量</a></li>
+                                <li><a href="#">GB 2763-2021 农药最大残留限量</a></li>
+                                <li><a href="#">GB 5009.12-2017 铅的测定</a></li>
+                                <li><a href="#">NY/T 761-2008 农药多残留测定</a></li>
+                                <li><a href="#">HJ 535-2009 水质氨氮测定</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 热门检测领域 -->
+                    <div class="card">
+                        <div class="card-header">热门检测领域</div>
+                        <div class="card-body">
+                            <div class="tag-group">
+                                <span class="tag tag-primary">农药残留检测</span>
+                                <span class="tag tag-primary">兽药残留检测</span>
+                                <span class="tag tag-primary">重金属检测</span>
+                                <span class="tag tag-primary">食品添加剂检测</span>
+                                <span class="tag tag-primary">微生物检测</span>
+                                <span class="tag tag-primary">理化指标检测</span>
+                                <span class="tag tag-primary">环境水质检测</span>
+                                <span class="tag tag-primary">土壤环境检测</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- 右侧主内容 -->
+                <div class="main-content">
+                    <!-- 页面标题 -->
+                    <div class="page-title">
+                        <h1>标准法规查询</h1>
+                        <p>覆盖国家、行业、地方各级权威检测标准与法规文件，实时更新、溯源可查。平台收录食品安全、农产品质量、环境监测等多领域现行有效标准，支持标准号、关键词全文检索，快速定位检测依据。</p>
+                    </div>
+                    <!-- 数据统计卡片 -->
+                    <div class="stat-row">
+                        <div class="card stat-card">
+                            <div class="stat-num">12800+</div>
+                            <div class="stat-label">现行有效标准</div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-num">3600+</div>
+                            <div class="stat-label">法律法规文件</div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-num">800+</div>
+                            <div class="stat-label">年度更新量</div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-num">12</div>
+                            <div class="stat-label">覆盖检测领域</div>
+                        </div>
+                    </div>
+                    <!-- 分类标签页 + 表格 -->
+                    <div class="card">
+                        <div class="tab-nav">
+                            <div class="tab-item active" data-tab="gbstandard">国家标准（GB）</div>
+                            <div class="tab-item" data-tab="nystandard">行业标准（NY/HJ等）</div>
+                            <div class="tab-item" data-tab="dbstandard">地方标准（DB）</div>
+                            <div class="tab-item" data-tab="tstandard">团体标准（T/）</div>
+                            <div class="tab-item" data-tab="law">上位法律</div>
+                            <div class="tab-item" data-tab="notice">公告通知</div>
+                        </div>
+                        <div class="table-panel">
+                            <!-- 标准列表表格 -->
+                            <div class="tab-content" id="gbstandardTab">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="140">
+                                            <col width="450">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="valid">
+                                                <td>GB 2762-2022</td>
+                                                <td><a href="standard/GB2762-2022.pdf" target="_blank">食品安全国家标准 食品中污染物限量</a></td>
+                                                <td>2022-07-28</td>
+                                                <td>2023-06-30</td>
+                                                <td title="将于2026-09-02废止，新标准为GB 2762-2025"><span class="tag tag-warning">即将废止</span></td>
+                                            </tr>
+                                            <tr data-status="will">
+                                                <td>GB 2762-2025</td>
+                                                <td><a href="standard/GB2762-2025.pdf" target="_blank">食品安全国家标准 食品中污染物限量</a></td>
+                                                <td>2025-09-02</td>
+                                                <td>2026-09-02</td>
+                                                <td><span class="tag tag-warning">即将实施</span></td>
+                                            </tr>
+                                            <tr data-status="expired">
+                                                <td>GB 2760-2014</td>
+                                                <td><a href="standard/GB2760-2014.pdf" target="_blank">食品安全国家标准 食品添加剂使用标准</a></td>
+                                                <td>2014-12-24</td>
+                                                <td>2015-05-24</td>
+                                                <td title="已于2025-02-08废止，新标准为GB 2760-2024"><span class="tag tag-danger">已废止</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB 2760-2024</td>
+                                                <td><a href="standard/GB2760-2024.pdf" target="_blank">食品安全国家标准 食品添加剂使用标准</a></td>
+                                                <td>2024-02-08</td>
+                                                <td>2025-02-08</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB 5009.11-2024</td>
+                                                <td title="砷检测法定国标"><a href="standard/GB5009.11-2024.pdf" target="_blank">食品安全国家标准 食品中总砷及无机砷的测定</a></td>
+                                                <td>2024-02-08</td>
+                                                <td>2024-08-08</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB 5009.12-2023</td>
+                                                <td title="铅检测法定国标"><a href="standard/GB5009.12-2023.pdf" target="_blank">食品安全国家标准 食品中铅的测定</a></td>
+                                                <td>2023-09-06</td>
+                                                <td>2024-03-06</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB 5009.15-2023</td>
+                                                <td title="镉检测法定国标"><a href="standard/GB5009.15-2023.pdf" target="_blank">食品安全国家标准 食品中镉的测定</a></td>
+                                                <td>2023-09-06</td>
+                                                <td>2024-03-06</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB 5009.17-2021</td>
+                                                <td title="汞检测法定国标"><a href="standard/GB-5009.17-2021.pdf" target="_blank">食品安全国家标准 食品中总汞及有机汞的测定</a></td>
+                                                <td>2021-09-07</td>
+                                                <td>2022-03-07</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 19506-2009</td>
+                                                <td title="长白山人参重金属分级标准"><a href="standard/GBT 19506 2009.pdf" target="_blank">地理标志产品 吉林长白山人参</a></td>
+                                                <td>2009-03-30</td>
+                                                <td>2009-10-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 18765-2015</td>
+                                                <td title="野山参品质配套评价"><a href="standard/GBT18765-2015.pdf" target="_blank">野山参鉴定及分等质量</a></td>
+                                                <td>2015-07-03</td>
+                                                <td>2015-11-02</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 22534-2018</td>
+                                                <td title="鲜人参分级参考"><a href="standard/GBT22534-2018dz.pdf" target="_blank">保鲜人参分等质量</a></td>
+                                                <td>2018-06-07</td>
+                                                <td>2018-10-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 22536-2018</td>
+                                                <td title="药用生晒参分级参考"><a href="standard/GBT+22536-2018.pdf" target="_blank">生晒参分等质量</a></td>
+                                                <td>2018-06-07</td>
+                                                <td>2018-10-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 22538-2018</td>
+                                                <td title="红参分级参考"><a href="standard/GBT22538-2018.pdf" target="_blank">红参分等质量</a></td>
+                                                <td>2018-06-07</td>
+                                                <td>2018-10-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>GB/T 22540-2018</td>
+                                                <td title="食用蜜参分级参考"><a href="standard/GBT+22540-2018.pdf" target="_blank">蜜制人参分等质量</a></td>
+                                                <td>2018-06-07</td>
+                                                <td>2018-10-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="nystandardTab" style="display: none;">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="140">
+                                            <col width="450">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="expired">
+                                                <td>NY/T 1043-2016</td>
+                                                <td title="暂无文本">绿色食品 人参和西洋参</td>
+                                                <td>2016-12-30</td>
+                                                <td>2017-05-01</td>
+                                                <td title="已于2026-05-01废止，新标准为NY/T 1043-2025"><span class="tag tag-danger">已废止</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>NY/T 1043-2025</td>
+                                                <td title="绿色人参重金属新标准"><a href="standard/NYT1043-2025.pdf" target="_blank">绿色食品 人参和西洋参</a></td>
+                                                <td>2025-12-09</td>
+                                                <td>2026-05-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>NY/T 391-2021</td>
+                                                <td title="土壤重金属检测依据"><a href="standard/NYT391-2021.pdf" target="_blank">绿色食品 产地环境质量</a></td>
+                                                <td>2021-03-01</td>
+                                                <td>2021-09-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="dbstandardTab" style="display: none;">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="140">
+                                            <col width="450">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="valid">
+                                                <td>DBS22/ 024-2024</td>
+                                                <td title="鲜参、食用人参强制限量"><a href="standard/DBS22024-2024.pdf" target="_blank">食品安全地方标准 食品原料用人参</a></td>
+                                                <td>2024-11-29</td>
+                                                <td>2024-12-29</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="expired">
+                                                <td>DB22/T 1531-2011</td>
+                                                <td><a href="standard/DB22T1531-2011.pdf" target="_blank">人参中铜、铅、镉的测定 电感耦合等离子体质谱法</a></td>
+                                                <td>2012-04-01</td>
+                                                <td>2014-05-01</td>
+                                                <td title="已于2025-04-25废止"><span class="tag tag-danger">已废止</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="tstandardTab" style="display: none;">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="140">
+                                            <col width="420">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="valid">
+                                                <td>T/CNHFA 111.5-2023</td>
+                                                <td title="保健食品人参管控，暂无文本"><a href="">保健食品用原料 人参</a></td>
+                                                <td>2023-04-04</td>
+                                                <td>2023-04-10</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>T/CATCM 001-2018</td>
+                                                <td title="无公害人参分级参考，暂无文本">无公害人参药材及饮片农药与重金属及有害元素的最大残留限量</td>
+                                                <td>2018-05-07</td>
+                                                <td>2018-06-07</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>T/FSRS 6.9-2024</td>
+                                                <td title="抚松、通化保鲜人参团体规范，暂无文本">保鲜人参</td>
+                                                <td>2024-09-30</td>
+                                                <td>2024-10-30</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="lawTab" style="display: none;">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="200">
+                                            <col width="380">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="valid">
+                                                <td>主席令第二十一号</td>
+                                                <td title="食品人参合规法律"><a href="standard/食品安全法.pdf" target="_blank">中华人民共和国食品安全法</a></td>
+                                                <td>2018-12-29</td>
+                                                <td>2019-12-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>主席令第三十一号</td>
+                                                <td title="药用人参合规法律"><a href="standard/中华人民共和国药品管理法.html" target="_blank"></a>中华人民共和国药品管理法</td>
+                                                <td>2019-08-26</td>
+                                                <td>2019-12-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>主席令第八十六号</td>
+                                                <td title="初级农产品人参管控"><a href="standard/中华人民共和国农产品质量安全法.html" target="_blank">中华人民共和国农产品质量安全法</a></td>
+                                                <td>2022-09-02</td>
+                                                <td>2023-01-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>吉林省人大常委会公告第 80 号</td>
+                                                <td title="通化人参产区地方产业法规"><a href="standard/吉林省人参产业条例-吉林省农业农村厅（吉林省乡村振兴局）.html" target="_blank">吉林省人参产业条例</a></td>
+                                                <td>2025-11-28</td>
+                                                <td>2026-01-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="noticeTab" style="display: none;">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <colgroup>
+                                            <col width="200">
+                                            <col width="380">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="100">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>标准编号</th>
+                                                <th>标准名称</th>
+                                                <th>发布日期</th>
+                                                <th>实施日期</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="standardList">
+                                            <tr data-status="valid">
+                                                <td>市监总局 2024 年 18 号公告</td>
+                                                <td title="保健食品强制检测要求"><a href="standard/市场监管总局关于发布《保健食品原料人参 西洋参 灵芝备案产品技术要求》的公告.pdf" target="_blank"></a>保健食品原料人参西洋参灵芝备案产品技术要求</td>
+                                                <td>2024-05-20</td>
+                                                <td>2024-06-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                            <tr data-status="valid">
+                                                <td>国家药监局 2024 年 12 号通告</td>
+                                                <td title="中药材人参重金属法定限值"><a href="https://www.gov.cn/zhengce/zhengceku/202503/content_7015673.htm" target="_blank">《中华人民共和国药典 2025 年版》实施通告</a></td>
+                                                <td>2024-10-08</td>
+                                                <td>2025-01-01</td>
+                                                <td><span class="tag tag-success">现行有效</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- 分页 -->
+                            <div class="pagination" id="pageBox" style="display: none;">
+                                <button class="page-btn" id="prevBtn">上一页</button>
+                                <span id="pageNumBox" style="margin:0 10px;"></span>
+                                <button class="page-btn" id="nextBtn">下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- ========== 页脚（与全站统一） ========== -->
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script>
+const PAGE_LIMIT = 10;
+let currentPage = 1;
+let allRows = [];
+let activeTabId = "gbstandardTab";
+let filterStatus = "all";
+let searchKeyword = "";
+
+// 刷新侧边栏【最新发布TOP5】：按发布日期倒序取前5
+function refreshTop5() {
+    const topListBox = document.querySelector(".top-list");
+    // 复制全量数据，不影响原列表
+    let dataList = [...allRows];
+    // 按发布日期降序排序（发布日期是每行第3个td）
+    dataList.sort((a, b) => {
+        // 提取a行发布日期
+        const trA = document.createElement("tr");
+        trA.innerHTML = a.html;
+        const dateA = new Date(trA.cells[2].innerText.trim());
+        // 提取b行发布日期
+        const trB = document.createElement("tr");
+        trB.innerHTML = b.html;
+        const dateB = new Date(trB.cells[2].innerText.trim());
+        return dateB - dateA; // 大日期在前（最新）
+    });
+    // 截取前5条
+    const top5 = dataList.slice(0, 5);
+    // 生成html
+    let html = "";
+    if (top5.length === 0) {
+        html = "<li>暂无最新标准</li>";
+    } else {
+        top5.forEach(item => {
+            const tempTr = document.createElement("tr");
+            tempTr.innerHTML = item.html;
+            const code = tempTr.cells[0].innerText.trim();
+            const name = tempTr.cells[1].innerText.trim();
+            const link = tempTr.cells[1].querySelector("a")?.href || "#";
+            html += `<li><a href="${link}" target="_blank">${code} ${name}</a></li>`;
+        });
+    }
+    topListBox.innerHTML = html;
+}
+
+// 缓存每行文本用于检索
+function initTablePagination(tabId) {
+    activeTabId = tabId;
+    currentPage = 1;
+    const tabBox = document.getElementById(tabId);
+    const trList = tabBox.querySelectorAll("#standardList tr");
+    allRows = Array.from(trList).map(tr => {
+        const code = tr.querySelector("td:first-child").innerText.toLowerCase();
+        const name = tr.querySelector("td:nth-child(2)").innerText.toLowerCase();
+        return {
+            html: tr.outerHTML,
+            status: tr.dataset.status,
+            text: code + " " + name
+        }
+    });
+    filterTableData();
+    refreshTop5(); // 切换Tab后刷新TOP5
+}
+
+// 过滤：状态 + 关键词双重筛选
+function filterTableData() {
+    // 1. 状态筛选
+    let list = allRows;
+    if (filterStatus !== "all") {
+        list = list.filter(item => item.status === filterStatus);
+    }
+    // 2. 关键词检索
+    const kw = searchKeyword.trim().toLowerCase();
+    if (kw) {
+        list = list.filter(item => item.text.includes(kw));
+    }
+
+    const tableDom = document.querySelector(`#${activeTabId} #standardList`);
+    const pageBox = document.getElementById("pageBox");
+    const total = list.length;
+    const totalPage = Math.ceil(total / PAGE_LIMIT);
+    const start = (currentPage - 1) * PAGE_LIMIT;
+    const pageData = list.slice(start, start + PAGE_LIMIT);
+
+    // 渲染表格，空数据提示
+    if (pageData.length === 0) {
+        tableDom.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#999;">暂无匹配标准，请更换关键词或筛选条件</td>`;
+    } else {
+        tableDom.innerHTML = pageData.map(i => i.html).join("");
+    }
+        pageBox.style.display = "flex";
+
+    document.getElementById("pageNumBox").innerText = `第${currentPage} / 共${totalPage || 1}页，匹配${total}条`;
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage >= totalPage;
+
+    refreshTop5(); // 搜索/筛选后刷新TOP5
+}
+
+// 分页按钮
+document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        filterTableData();
+    }
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+    const filtered = filterStatus === "all" ? allRows : allRows.filter(i => i.status === filterStatus);
+    const totalPage = Math.ceil(filtered.length / PAGE_LIMIT);
+    if (currentPage < totalPage) {
+        currentPage++;
+        filterTableData();
+    }
+});
+
+// Tab切换
+const tabItems = document.querySelectorAll('.tab-item');
+const tabMap = {
+    gbstandard: 'gbstandardTab',
+    nystandard: 'nystandardTab',
+    dbstandard: 'dbstandardTab',
+    tstandard: 'tstandardTab',
+    law: 'lawTab',
+    notice: 'noticeTab',
+};
+tabItems.forEach(item => {
+    item.addEventListener('click', function () {
+        tabItems.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const targetId = tabMap[this.dataset.tab];
+        Object.values(tabMap).forEach(id => document.getElementById(id).style.display = 'none');
+        document.getElementById(targetId).style.display = 'block';
+        initTablePagination(targetId);
+    });
+});
+
+// 筛选状态点击（提前定义filterItems，修复变量顺序错误）
+const filterItems = document.querySelectorAll('.filter-item');
+filterItems.forEach(item => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+        filterItems.forEach(s => s.classList.remove('active'));
+        this.classList.add('active');
+        const txt = this.textContent.trim();
+        if (txt === "全部状态") filterStatus = "all";
+        else if (txt === "现行有效") filterStatus = "valid";
+        else if (txt === "即将实施") filterStatus = "will";
+        else if (txt === "已废止") filterStatus = "expired";
+        currentPage = 1;
+        filterTableData();
+    });
+});
+
+// 搜索相关DOM
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.querySelector(".search-btn");
+const resetSearchBtn = document.getElementById("resetSearchBtn");
+
+// 点击搜索
+searchBtn.addEventListener("click", () => {
+    searchKeyword = searchInput.value;
+    currentPage = 1;
+    filterTableData();
+});
+// 回车搜索
+searchInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        searchKeyword = searchInput.value;
+        currentPage = 1;
+        filterTableData();
+    }
+});
+// 重置搜索
+resetSearchBtn.addEventListener("click", () => {
+    searchKeyword = "";
+    searchInput.value = "";
+    filterStatus = "all";
+    filterItems.forEach(s => s.classList.remove("active"));
+    filterItems[0].classList.add("active");
+    currentPage = 1;
+    filterTableData();
+});
+
+// 页面初始化
+window.addEventListener('DOMContentLoaded', () => {
+    initTablePagination("gbstandardTab");
+});
+    </script>
+</body>
+</html>

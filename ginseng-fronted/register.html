@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-register">
+    <!-- ========== 顶部导航栏 ========== -->
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <!-- Logo -->
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;">
+                <a href="login.html">
+                <button class="btn btn-default btn-sm">登录</button>
+                </a>
+                <a href="register.html">
+                <button class="btn btn-primary btn-sm">注册</button>
+               </a>
+            </div>
+    </header>
+    <!-- 注册主体 -->
+    <section class="register-section flex-main mt-70">
+        <div class="container">
+            <div class="register-wrap">
+                <!-- 左侧品牌区 -->
+                <div class="register-left">
+                    <div class="brand-info">
+                        <h2>加入参安平台</h2>
+                        <p>专注人参重金属安全检测，构建中药材质量安全数字化服务体系，守护道地药材品质。</p>
+                        <ul class="brand-advantages">
+                            <li>权威CMA/CNAS检测报告在线查询</li>
+                            <li>人参全产业链质量溯源管理</li>
+                            <li>企业专属质量数据统计分析</li>
+                            <li>7×12小时专业客服技术支持</li>
+                        </ul>
+                    </div>
+                    <div class="brand-footer">
+                        已有账号？<a href="login.html" style="color:#fff;text-decoration:underline;">立即登录</a>
+                    </div>
+                </div>
+
+                <!-- 右侧表单区 -->
+                <div class="register-right">
+                    <div class="form-header">
+                        <h3>创建账号</h3>
+                        <p>请填写真实信息，以便后续检测服务与报告管理</p>
+                    </div>
+
+                    <form id="registerForm">
+                        <!-- 用户类型 -->
+                        <div class="user-type-group">
+                            <div class="type-radio">
+                                <input type="radio" name="userType" id="personal" value="personal" checked>
+                                <label for="personal">个人用户</label>
+                            </div>
+                            <div class="type-radio">
+                                <input type="radio" name="userType" id="enterprise" value="enterprise">
+                                <label for="enterprise">企业用户</label>
+                            </div>
+                        </div>
+
+                        <!-- 用户名 -->
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" placeholder="请设置4-16位登录账号" required>
+                        </div>
+
+                        <!-- 手机号码 -->
+                        <div class="form-group">
+                            <label for="phone">手机号码</label>
+                            <input type="tel" id="phone" placeholder="请输入常用手机号" required>
+                        </div>
+
+                        <!-- 邮箱 -->
+                        <div class="form-group">
+                            <label for="email">邮箱地址</label>
+                            <input type="email" id="email" placeholder="用于接收检测报告与通知" required>
+                        </div>
+
+                        <!-- 设置密码 -->
+                        <div class="form-group">
+                            <label for="password">设置密码</label>
+                            <input type="password" id="password" placeholder="8-20位，包含字母和数字" required>
+                        </div>
+
+                        <!-- 确认密码 -->
+                        <div class="form-group">
+                            <label for="confirmPwd">确认密码</label>
+                            <input type="password" id="confirmPwd" placeholder="请再次输入密码" required>
+                        </div>
+
+                        <!-- 用户协议 -->
+                        <div class="agreement">
+                            <input type="checkbox" id="agreement" required>
+                            <label for="agreement">我已阅读并同意 <a href="#">《用户服务协议》</a> 和 <a href="#">《隐私政策》</a></label>
+                        </div>
+
+                        <!-- 注册按钮 -->
+                        <button type="submit" class="register-btn">立即注册</button>
+
+                        <div class="login-tip">
+                            已有账号？<a href="login.html">去登录</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚（与全站统一） -->
+     <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <script>
+        // 表单基础校验 + 对接后端注册接口
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pwd = document.getElementById('password').value;
+            const confirmPwd = document.getElementById('confirmPwd').value;
+            const userType = document.querySelector('input[name="userType"]:checked').value;
+
+            if (!username) {
+                alert('请输入用户名');
+                return;
+            }
+            if (pwd !== confirmPwd) {
+                alert('两次输入的密码不一致，请重新确认');
+                return;
+            }
+            if (pwd.length < 8) {
+                alert('密码长度不能少于8位');
+                return;
+            }
+
+            const submitBtn = this.querySelector('.register-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = '注册中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/user/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        password: pwd,
+                        phone: phone,
+                        email: email,
+                        user_type: userType
+                    })
+                });
+                const result = await res.json();
+                if (result.code === 200) {
+                    alert('注册成功，即将跳转至登录页');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.msg || '注册失败，请重试');
+                }
+            } catch (err) {
+                alert('网络异常，无法连接服务器，请确认后端已启动');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = '立即注册';
+            }
+        });
+    </script>
+</body>
+</html>

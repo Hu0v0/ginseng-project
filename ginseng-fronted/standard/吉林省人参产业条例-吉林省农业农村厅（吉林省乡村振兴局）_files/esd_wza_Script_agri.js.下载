@@ -1,0 +1,1743 @@
+var $jscomp = $jscomp || {};
+$jscomp.scope = {};
+$jscomp.findInternal = function(a, b, d) {
+    a instanceof String && (a = String(a));
+    for (var e = a.length, g = 0; g < e; g++) {
+        var c = a[g];
+        if (b.call(d, c, g, a))
+            return {
+                i: g,
+                v: c
+            }
+    }
+    return {
+        i: -1,
+        v: void 0
+    }
+}
+;
+$jscomp.ASSUME_ES5 = !1;
+$jscomp.ASSUME_NO_NATIVE_MAP = !1;
+$jscomp.ASSUME_NO_NATIVE_SET = !1;
+$jscomp.SIMPLE_FROUND_POLYFILL = !1;
+$jscomp.defineProperty = $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties ? Object.defineProperty : function(a, b, d) {
+    a != Array.prototype && a != Object.prototype && (a[b] = d.value)
+}
+;
+$jscomp.getGlobal = function(a) {
+    a = ["object" == typeof window && window, "object" == typeof self && self, "object" == typeof global && global, a];
+    for (var b = 0; b < a.length; ++b) {
+        var d = a[b];
+        if (d && d.Math == Math)
+            return d
+    }
+    throw Error("Cannot find global object");
+}
+;
+$jscomp.global = $jscomp.getGlobal(this);
+$jscomp.polyfill = function(a, b, d, e) {
+    if (b) {
+        d = $jscomp.global;
+        a = a.split(".");
+        for (e = 0; e < a.length - 1; e++) {
+            var g = a[e];
+            g in d || (d[g] = {});
+            d = d[g]
+        }
+        a = a[a.length - 1];
+        e = d[a];
+        b = b(e);
+        b != e && null != b && $jscomp.defineProperty(d, a, {
+            configurable: !0,
+            writable: !0,
+            value: b
+        })
+    }
+}
+;
+$jscomp.polyfill("Array.prototype.find", function(a) {
+    return a ? a : function(b, a) {
+        return $jscomp.findInternal(this, b, a).v
+    }
+}, "es6", "es3");
+var _EsdDynamicTransformationFunction = function(a) {
+    var b = {
+        navBlock: {}
+    };
+    b.navBlock.selector = {};
+    a("a").each(function() {
+        var b = this.href;
+        "" != b && void 0 != b || a(this).attr("href", "javascript:void(0)");
+        b = this.title;
+        var f = this.text;
+        "" != b && void 0 != b || "" == f && void 0 == f || a(this).attr("title", a.trim(f))
+    });
+    a("option").each(function() {
+        var b = this.title
+          , f = this.text;
+        "" != b && void 0 != b || "" == f && void 0 == f || a(this).attr("title", a.trim(f))
+    });
+    a('img[src="./images/index_zwgk_05_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_02_20180507.png"]').attr("title", "\u65e0\u6548\u56fe\u7247").attr("alt", "\u65e0\u6548\u56fe\u7247");
+    a('img[src="./rdzt/201901/W020190130341552080335.png"]').attr("title", "\u5409\u6797\u7701\u53bf\u57df\u53d1\u5c55").attr("alt", "\u5409\u6797\u7701\u53bf\u57df\u53d1\u5c55");
+    a('img[src="./images/index_zwgk_07_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_01_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_04_20180507.png"]').attr("title", "\u65e0\u6548\u56fe\u7247").attr("alt", "\u65e0\u6548\u56fe\u7247");
+    a('img[src="./rdzt/201809/W020190912535425579571.jpg"]').attr("title", "\u4e2d\u56fd\u519c\u6c11\u4e30\u6536\u8282").attr("alt", "\u4e2d\u56fd\u519c\u6c11\u4e30\u6536\u8282");
+    a('img[src="./images/index_zwgk_17_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_15_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./qt/sypk/201807/W020190114606861753702.jpg"]').attr("title", "\u5b89\u5168\u4eba\u4eba\u6293\u5e78\u798f\u5343\u4e07\u5bb6 \u751f\u547d\u5927\u4e8e\u5929\u8d23\u4efb\u91cd\u4e8e\u5c71 \u4e8b\u6545\u4e0d\u53ef\u9006\u751f\u547d\u4e0d\u91cd\u6765").attr("alt", "\u5b89\u5168\u4eba\u4eba\u6293\u5e78\u798f\u5343\u4e07\u5bb6 \u751f\u547d\u5927\u4e8e\u5929\u8d23\u4efb\u91cd\u4e8e\u5c71 \u4e8b\u6545\u4e0d\u53ef\u9006\u751f\u547d\u4e0d\u91cd\u6765");
+    a('img[src="./images/index_zwgk_10_20180507.png"]').attr("title", "\u65e0\u6548\u56fe\u7247").attr("alt", "\u65e0\u6548\u56fe\u7247");
+    a('img[src="./xwfb/bmdt/201912/W020191221642422952709.jpg"]').attr("title", "\u53d1\u5c55\u7eff\u8272\u98df\u54c1 \u52a9\u529b\u4ea7\u4e1a\u8131\u8d2b \u7701\u7eff\u529e\u771f\u60c5\u6276\u8d2b\u51fa\u5b9e\u62db").attr("alt", "\u53d1\u5c55\u7eff\u8272\u98df\u54c1 \u52a9\u529b\u4ea7\u4e1a\u8131\u8d2b \u7701\u7eff\u529e\u771f\u60c5\u6276\u8d2b\u51fa\u5b9e\u62db");
+    a('img[src="./xwfb/bmdt/201912/W020191216300415621177.jpg"]').attr("title", "\u6211\u7701\u7cae\u98df\u751f\u4ea7\u53c8\u83b7\u5927\u4e30\u6536 \u603b\u4ea7\u91cf\u8fbe775.6\u4ebf\u65a4").attr("alt", "\u6211\u7701\u7cae\u98df\u751f\u4ea7\u53c8\u83b7\u5927\u4e30\u6536 \u603b\u4ea7\u91cf\u8fbe775.6\u4ebf\u65a4");
+    a('img[src="./qt/sypk/201901/W020190402301801097293.png"]').attr("title", "\u626b\u9ed1\u9664\u6076\u5409\u6797\u4eae\u5251 \u7ebf\u7d22\u7535\u8bdd043182717734").attr("alt", "\u626b\u9ed1\u9664\u6076\u5409\u6797\u4eae\u5251 \u7ebf\u7d22\u7535\u8bdd043182717734");
+    a('img[src="./xwfb/bmdt/201912/W020191205336444933771.jpg"]').attr("title", "\u5168\u7701\u519c\u4e1a\u7cfb\u7edf\u5b89\u5168\u751f\u4ea7\u57f9\u8bad\u66a8\u519c\u673a\u5b89\u5168\u4e8b\u6545\u5e94\u6025\u6f14\u7ec3\u6d3b\u52a8\u5728\u957f\u6625\u4e3e\u529e").attr("alt", "\u5168\u7701\u519c\u4e1a\u7cfb\u7edf\u5b89\u5168\u751f\u4ea7\u57f9\u8bad\u66a8\u519c\u673a\u5b89\u5168\u4e8b\u6545\u5e94\u6025\u6f14\u7ec3\u6d3b\u52a8\u5728\u957f\u6625\u4e3e\u529e");
+    a('img[src="./qt/sypk/images/P020180730544489544160.gif"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/nw_index_20170714_56.jpg"]').attr("title", "\u515a\u653f\u673a\u5173").attr("alt", "\u515a\u653f\u673a\u5173");
+    a('img[src="./hdjl/zxft/fthg/201904/W020190402311375019694.jpg"]').attr("title", "\u4e1c\u4e30\uff1a\u5bcc\u7852\u6728\u8033\u4ea7\u4e1a\u56ed\u5185\u81ea\u52a8\u6d47\u704c\u533a\u91cc\u5de5\u4eba\u4eec\u6b63\u5fd9\u7740\u91c7\u6458\u6728\u8033").attr("alt", "\u4e1c\u4e30\uff1a\u5bcc\u7852\u6728\u8033\u4ea7\u4e1a\u56ed\u5185\u81ea\u52a8\u6d47\u704c\u533a\u91cc\u5de5\u4eba\u4eec\u6b63\u5fd9\u7740\u91c7\u6458\u6728\u8033");
+    a('img[src="./images/index_zwgk_14_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_08_20180507.png"]').attr("title", "\u65e0\u6548\u56fe\u7247").attr("alt", "\u65e0\u6548\u56fe\u7247");
+    a('img[src="./rdzt/201805/W020180529576570469261.png"]').attr("title", "\u4e2d\u592e\u73af\u4fdd\u7763\u67e5\u8fdb\u884c\u65f6").attr("alt", "\u4e2d\u592e\u73af\u4fdd\u7763\u67e5\u8fdb\u884c\u65f6");
+    a('img[src="./xwfb/bmdt/201912/W020191218420487719087.jpg"]').attr("title", "2019\u5e74\u6211\u7701\u6301\u7eed\u5f00\u5c55\u519c\u4e1a\u7ecf\u7406\u4eba\u57f9\u8bad\u5de5\u4f5c").attr("alt", "2019\u5e74\u6211\u7701\u6301\u7eed\u5f00\u5c55\u519c\u4e1a\u7ecf\u7406\u4eba\u57f9\u8bad\u5de5\u4f5c");
+    a('img[src="./qt/tbsc/images/P020180724374517328224.png"]').attr("title", "\u5409\u6797\u7701\u519c\u4e1a\u519c\u6751\u5385").attr("alt", "\u5409\u6797\u7701\u519c\u4e1a\u519c\u6751\u5385");
+    a('img[src="./images/index_zwgk_16_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_03_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/index_zwgk_09_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./images/ghs_footer_icon.png"]').attr("title", "\u5409\u516c\u7f51\u5b89\u5907").attr("alt", "\u5409\u516c\u7f51\u5b89\u5907");
+    a('img[src="./images/index_zwgk_06_20180507.png"]').attr("title", "\u65e0\u6548\u56fe\u7247").attr("alt", "\u65e0\u6548\u56fe\u7247");
+    a('img[src="./rdzt/201805/W020180529576406713331.png"]').attr("title", "\u7387\u5148\u5b9e\u73b0\u519c\u4e1a\u73b0\u4ee3\u5316").attr("alt", "\u7387\u5148\u5b9e\u73b0\u519c\u4e1a\u73b0\u4ee3\u5316");
+    a('img[src="./images/index_zwgk_12_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a('img[src="./qt/sypk/201909/W020190920557639692048.png"]').attr("title", "\u5409\u6797\u7701\u519c\u4e1a\u519c\u6751\u5385\u673a\u5173\u4f5c\u98ce\u8bc4\u8bae\u76d1\u7763\u7535\u8bdd043188904923").attr("alt", "\u5409\u6797\u7701\u519c\u4e1a\u519c\u6751\u5385\u673a\u5173\u4f5c\u98ce\u8bc4\u8bae\u76d1\u7763\u7535\u8bdd043188904923");
+    a('img[src="./qt/images/P020190812325477657853.png"]').attr("title", "\u5e86\u795d\u65b0\u4fee\u8ba2\u7684\u300a\u4e2d\u534e\u4eba\u6c11\u5171\u548c\u56fd\u653f\u5e9c\u4fe1\u606f\u516c\u5f00\u6761\u4f8b\u300b\u9881\u5e03\u5b9e\u65bd").attr("alt", "\u5e86\u795d\u65b0\u4fee\u8ba2\u7684\u300a\u4e2d\u534e\u4eba\u6c11\u5171\u548c\u56fd\u653f\u5e9c\u4fe1\u606f\u516c\u5f00\u6761\u4f8b\u300b\u9881\u5e03\u5b9e\u65bd");
+    a('img[src="./images/index_zwgk_13_20180507.png"]').attr("title", "\u88c5\u9970\u56fe\u7247").attr("alt", "\u88c5\u9970\u56fe\u7247");
+    a("img").each(function() {
+        var b = this.alt
+          , f = this.title
+          , d = this.parentElement.text;
+        if ("" == this.alt || void 0 == this.alt)
+            "" != f && void 0 != f ? a(this).attr("alt", f) : "" != d && void 0 != d && a(this).attr("alt", d);
+        if ("" == this.title || void 0 == this.title)
+            "" != b && void 0 != b ? a(this).attr("title", b) : "" != d && void 0 != d && a(this).attr("title", d)
+    });
+    a("img").each(function() {
+        if ("" == this.alt && "" == this.title || void 0 == this.alt && void 0 == this.title)
+            a(this).attr("title", "\u56fe\u7247"),
+            a(this).attr("alt", "\u56fe\u7247")
+    });
+    b.navBlock.selector.top = ".logo_box";
+    b.navBlock.selector.nav = ".nav_box";
+    b.navBlock.selector.footer = ".bottom_box";
+    b.currentUrl = window.location.href;
+    b.isSiteIndexPage = "http://agri.jl.gov.cn" == b.currentUrl || "http://agri.jl.gov.cn/" == b.currentUrl || "http://agri.jl.gov.cn/#" == b.currentUrl || "http://agri.jl.gov.cn/index.html" == b.currentUrl ? !0 : !1;
+    b.placeholderKeyword = "\u8bf7\u8f93\u5165\u5173\u952e\u641c\u7d22\u8bcd";
+    b.placeholderUsername = "\u7528\u6237\u540d";
+    b.placeholderPassword = "\u5bc6\u7801";
+    b.placeholderSpecialText1 = "\u60a8\u5bf9\u5168\u7701\u57ce\u5e02\u7ba1\u7406\u6548\u80fd\u63d0\u5347\u5de5\u4f5c\u6709\u4f55\u610f\u89c1\u6216\u5efa\u8bae";
+    b.inputObject = a('input[name="searchword"]');
+    a(b.inputObject).attr({
+        title: b.placeholderKeyword,
+        placeholder: b.placeholderKeyword
+    });
+    b.placeholderSelectOtherProvince = "\u519c\u4e1a\u519c\u6751\u90e8\u4e0b\u62c9\u6846";
+    b.placeholderSelectAllCities = "\u7701\u653f\u5e9c\u90e8\u95e8\u4e0b\u62c9\u6846";
+    b.placeholderSelectOtherAgent = "\u5168\u56fd\u5404\u7701(\u5e02)\u519c\u4e1a\u7f51\u7ad9\u4e0b\u62c9\u6846";
+    b.inputObject = a(".bottom ul li select:eq(0)");
+    a(b.inputObject).attr({
+        title: b.placeholderSelectOtherProvince
+    });
+    b.inputObject = a(".bottom ul li select:eq(1)");
+    a(b.inputObject).attr({
+        title: b.placeholderSelectAllCities
+    });
+    b.inputObject = a(".bottom ul li select:eq(2)");
+    a(b.inputObject).attr({
+        title: b.placeholderSelectOtherAgent
+    });
+    if (b.isSiteIndexPage)
+        var d = function() {
+            b.esdRotationAgriPartOneFrontNum1 = a("body > div.navBlock > a");
+            b.esdRotationAgriPartOneANum1 = a(".index_new_box li:eq(1) a:eq(1)");
+            b.esdRotationAgriPartOneANum2 = a(".index_new_box li:eq(2) a:eq(1)");
+            b.esdRotationAgriPartOneANum3 = a(".index_new_box li:eq(3) a:eq(1)");
+            b.esdRotationAgriPartOneANum4 = a(".index_new_box li:eq(4) a:eq(1)");
+            b.esdRotationAgriPartOneANum5 = a(".index_new_more a:first");
+            b.esdRotationAgriPartOneCircleNum1 = a(".index_new_dbox li:eq(0)");
+            b.esdRotationAgriPartOneCircleNum2 = a(".index_new_dbox li:eq(1)");
+            b.esdRotationAgriPartOneCircleNum3 = a(".index_new_dbox li:eq(2)");
+            b.esdRotationAgriPartOneCircleNum4 = a(".index_new_dbox li:eq(2)");
+            b.esdRotationAgriPartOneAfterNum1 = a(".nr_box .index_box .index_line1 .index_zwgk_box .index_zwgk_top a");
+            b.esdRotationAgriPartOneFrontNum1.focus(function(c) {
+                a(this).bind("keydown.keydown_0_0", function(c) {
+                    if (c.shiftKey && 9 == c.keyCode)
+                        a(this).unbind("keydown.keydown_0_0");
+                    else if (9 == c.keyCode)
+                        return b.esdRotationAgriPartOneCircleNum1.click(),
+                        b.esdRotationAgriPartOneANum1.focus(),
+                        a(this).unbind("keydown.keydown_0_0"),
+                        !1
+                })
+            });
+            b.esdRotationAgriPartOneANum1.focus(function(c) {
+                a(this).bind("keydown.keydown_0_1", function(c) {
+                    c.shiftKey && 9 == c.keyCode ? b.esdRotationAgriPartOneFrontNum1.focus() : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum2.click(),
+                    b.esdRotationAgriPartOneANum2.focus());
+                    a(this).unbind("keydown.keydown_0_1");
+                    return !1
+                })
+            });
+            b.esdRotationAgriPartOneANum2.focus(function(c) {
+                a(this).bind("keydown.keydown_0_2", function(c) {
+                    c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum1.click(),
+                    b.esdRotationAgriPartOneANum1.focus()) : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum3.click(),
+                    b.esdRotationAgriPartOneANum3.focus());
+                    a(this).unbind("keydown.keydown_0_2");
+                    return !1
+                })
+            });
+            b.esdRotationAgriPartOneANum3.focus(function(c) {
+                a(this).bind("keydown.keydown_0_3", function(c) {
+                    c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum2.click(),
+                    b.esdRotationAgriPartOneANum2.focus()) : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum4.click(),
+                    b.esdRotationAgriPartOneANum4.focus());
+                    a(this).unbind("keydown.keydown_0_3");
+                    return !1
+                })
+            });
+            b.esdRotationAgriPartOneANum4.focus(function(c) {
+                a(this).bind("keydown.keydown_0_4", function(c) {
+                    c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum3.click(),
+                    b.esdRotationAgriPartOneANum3.focus()) : 9 == c.keyCode && b.esdRotationAgriPartOneANum5.focus();
+                    a(this).unbind("keydown.keydown_0_4");
+                    return !1
+                })
+            });
+            b.esdRotationAgriPartOneANum5.focus(function(c) {
+                a(this).bind("keydown.keydown_0_5", function(c) {
+                    c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum4.click(),
+                    b.esdRotationAgriPartOneANum4.focus()) : 9 == c.keyCode && b.esdTabAgriPartOnethPre.focus();
+                    a(this).unbind("keydown.keydown_0_5");
+                    return !1
+                })
+            })
+        };
+    "http://agri.jl.gov.cn/xwfb/" == b.currentUrl && (b.esdRotationAgriPartOneFrontNum1 = a(".zly_2018_dafz a:last"),
+    b.esdRotationAgriPartOneANum1 = a(".index_new_box li:eq(1) a:eq(1)"),
+    b.esdRotationAgriPartOneANum2 = a(".index_new_box li:eq(2) a:eq(1)"),
+    b.esdRotationAgriPartOneANum3 = a(".index_new_box li:eq(3) a:eq(1)"),
+    b.esdRotationAgriPartOneANum4 = a(".index_new_box li:eq(4) a:eq(1)"),
+    b.esdRotationAgriPartOneANum5 = a(".index_new_more a:first"),
+    b.esdRotationAgriPartOneCircleNum1 = a(".index_new_dbox li:eq(0)"),
+    b.esdRotationAgriPartOneCircleNum2 = a(".index_new_dbox li:eq(1)"),
+    b.esdRotationAgriPartOneCircleNum3 = a(".index_new_dbox li:eq(2)"),
+    b.esdRotationAgriPartOneCircleNum4 = a(".index_new_dbox li:eq(2)"),
+    b.esdRotationAgriPartOneCircleNum5 = a(".index_new_more a:first"),
+    b.esdRotationAgriPartOneAfterNum1 = a(".w575 .zly_2018_h2 a:first"),
+    b.esdRotationAgriPartOneFrontNum1.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_0", function(c) {
+            if (c.shiftKey && 9 == c.keyCode)
+                a(this).unbind("keydown.xwfb_0_0");
+            else if (9 == c.keyCode)
+                return b.esdRotationAgriPartOneCircleNum1.click(),
+                b.esdRotationAgriPartOneANum1.focus(),
+                a(this).unbind("keydown.xwfb_0_0"),
+                !1
+        })
+    }),
+    b.esdRotationAgriPartOneANum1.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_1", function(c) {
+            c.shiftKey && 9 == c.keyCode ? b.esdRotationAgriPartOneFrontNum1.focus() : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum2.click(),
+            b.esdRotationAgriPartOneANum2.focus());
+            a(this).unbind("keydown.xwfb_0_1");
+            return !1
+        })
+    }),
+    b.esdRotationAgriPartOneANum2.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_2", function(c) {
+            c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum1.click(),
+            b.esdRotationAgriPartOneANum1.focus()) : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum3.click(),
+            b.esdRotationAgriPartOneANum3.focus());
+            a(this).unbind("keydown.xwfb_0_2");
+            return !1
+        })
+    }),
+    b.esdRotationAgriPartOneANum3.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_3", function(c) {
+            c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum2.click(),
+            b.esdRotationAgriPartOneANum2.focus()) : 9 == c.keyCode && (b.esdRotationAgriPartOneCircleNum4.click(),
+            b.esdRotationAgriPartOneANum4.focus());
+            a(this).unbind("keydown.xwfb_0_3");
+            return !1
+        })
+    }),
+    b.esdRotationAgriPartOneANum4.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_4", function(c) {
+            c.shiftKey && 9 == c.keyCode ? (b.esdRotationAgriPartOneCircleNum3.click(),
+            b.esdRotationAgriPartOneANum3.focus()) : 9 == c.keyCode && b.esdRotationAgriPartOneANum5.focus();
+            a(this).unbind("keydown.xwfb_0_4");
+            return !1
+        })
+    }),
+    b.esdRotationAgriPartOneANum5.focus(function(c) {
+        a(this).bind("keydown.xwfb_0_5", function(c) {
+            if (c.shiftKey && 9 == c.keyCode)
+                return b.esdRotationAgriPartOneCircleNum4.click(),
+                b.esdRotationAgriPartOneANum4.focus(),
+                a(this).unbind("keydown.xwfb_0_5"),
+                !1;
+            9 == c.keyCode && a(this).unbind("keydown.xwfb_0_5")
+        })
+    }),
+    b.getIframeInfos = function(b, a) {
+        void 0 != a && (b.aLink_num = a.contentWindow.document.getElementsByTagName("a").length,
+        b.first_aLink = a.contentWindow.document.getElementsByTagName("a")[0],
+        b.last_aLink = a.contentWindow.document.getElementsByTagName("a")[b.aLink_num - 1],
+        b.self = a)
+    }
+    ,
+    b.iframe3 = {},
+    b.iframe4 = {},
+    b.iframeElement3 = document.getElementsByTagName("iframe")[0],
+    b.iframeElement4 = document.getElementsByTagName("iframe")[1],
+    b.iframeTab3 = a(".index_hdjl_new dl dt a:first"),
+    b.iframeTab4 = a(".index_hdjl_new dl dt a:last"),
+    void 0 != b.iframeElement3 && void 0 != b.iframeElement4 && (b.iframeIntervalXwfb = setInterval(function() {
+        void 0 != b.iframeElement3.contentWindow.document.getElementsByTagName("a")[0] && void 0 != b.iframeElement4.contentWindow.document.getElementsByTagName("a")[0] && (clearInterval(b.iframeIntervalXwfb),
+        b.getIframeInfos(b.iframe3, b.iframeElement3),
+        b.getIframeInfos(b.iframe4, b.iframeElement4),
+        b.iframeTab3.focus(function(c) {
+            a(this).mouseover();
+            a(this).bind("keydown.iframeKeydown_3", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    b.iframeTab3.trigger("blur");
+                else if (9 == c.keyCode)
+                    return b.iframeTab3.trigger("blur"),
+                    a(b.iframe3.self).focus(),
+                    !1
+            })
+        }),
+        b.iframeTab3.blur(function() {
+            a(this).unbind("keydown.iframeKeydown_3")
+        }),
+        a(b.iframe3.first_aLink).focus(function() {
+            a(b.iframe3.self.contentWindow.document).bind("keydown.iframeKeydown_first1", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    return a(this).trigger("blur"),
+                    b.iframeTab3.focus(),
+                    !1
+            })
+        }),
+        a(b.iframe3.first_aLink).blur(function() {
+            a(b.iframe3.self.contentWindow.document).unbind("keydown.iframeKeydown_first1")
+        }),
+        a(b.iframe3.last_aLink).focus(function() {
+            a(b.iframe3.self.contentWindow.document).bind("keydown.iframeKeydown_first1", function(c) {
+                if ((!c.shiftKey || 9 != c.keyCode) && 9 == c.keyCode)
+                    return a(this).trigger("blur"),
+                    b.iframeTab4.focus(),
+                    !1
+            })
+        }),
+        a(b.iframe3.last_aLink).blur(function() {
+            a(b.iframe3.self.contentWindow.document).unbind("keydown.iframeKeydown_first1")
+        }),
+        b.iframeTab4.focus(function(c) {
+            a(this).mouseover();
+            a(this).bind("keydown.iframeKeydown_4", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    return b.iframeTab4.trigger("blur"),
+                    b.iframeTab3.mouseover(),
+                    a(b.iframe3.last_aLink).focus(),
+                    !1;
+                if (9 == c.keyCode)
+                    return b.iframeTab4.trigger("blur"),
+                    a(b.iframe4.self).focus(),
+                    !1
+            })
+        }),
+        b.iframeTab4.blur(function() {
+            a(this).unbind("keydown.iframeKeydown_4")
+        }))
+    }, 500)),
+    b.esdTabXwfb2Title1 = a(".index_new_list dl dt a:eq(0)"),
+    b.esdTabXwfb2Title2 = a(".index_new_list dl dt a:eq(1)"),
+    b.esdTabXwfb2Title3 = a(".index_new_list dl dt a:eq(2)"),
+    b.esdTabXwfb2Title1Content1 = a(".index_new_list dl dd:eq(0) a:first"),
+    b.esdTabXwfb2Title2Content1 = a(".index_new_list dl dd:eq(1) a:first"),
+    b.esdTabXwfb2Title3Content1 = a(".index_new_list dl dd:eq(2) a:first"),
+    b.esdTabXwfb2Title1ContentLast = a(".index_new_list dl dd:eq(0) a:last"),
+    b.esdTabXwfb2Title2ContentLast = a(".index_new_list dl dd:eq(1) a:last"),
+    b.esdTabXwfb2Title3ContentLast = a(".index_new_list dl dd:eq(2) a:last"),
+    b.esdTabXwfb2Title1.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xwfb_2_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title1Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1.blur(function() {
+        a(this).unbind("keydown.xwfb_2_1")
+    }),
+    b.esdTabXwfb2Title1Content1.focus(function() {
+        a(this).bind("keydown.xwfb_2_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1Content1.blur(function() {
+        a(this).unbind("keydown.xwfb_2_1_1")
+    }),
+    b.esdTabXwfb2Title1ContentLast.focus(function() {
+        a(this).bind("keydown.xwfb_2_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1ContentLast.blur(function() {
+        a(this).unbind("keydown.xwfb_2_1_n")
+    }),
+    b.esdTabXwfb2Title2.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xwfb_2_2", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb2Title1.mouseover(),
+                b.esdTabXwfb2Title1ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb2Title2Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2.blur(function() {
+        a(this).unbind("keydown.xwfb_2_2")
+    }),
+    b.esdTabXwfb2Title2Content1.focus(function() {
+        a(this).bind("keydown.xwfb_2_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2Content1.blur(function() {
+        a(this).unbind("keydown.xwfb_2_2_1")
+    }),
+    b.esdTabXwfb2Title2ContentLast.focus(function() {
+        a(this).bind("keydown.xwfb_2_2_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2ContentLast.blur(function() {
+        a(this).unbind("keydown.xwfb_2_2_n")
+    }),
+    b.esdTabXwfb2Title3.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xwfb_2_3", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb2Title2.mouseover(),
+                b.esdTabXwfb2Title2ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb2Title3Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title3.blur(function() {
+        a(this).unbind("keydown.xwfb_2_3")
+    }),
+    b.esdTabXwfb2Title3Content1.focus(function() {
+        a(this).bind("keydown.xwfb_2_3_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title3Content1.blur(function() {
+        a(this).unbind("keydown.xwfb_2_3_1")
+    }));
+    "http://agri.jl.gov.cn/xdny/" == b.currentUrl && (b.esdTabXwfb1Title1 = a(".xdny_line1_l .xdny_nyjxh  dt p a:eq(0)"),
+    b.esdTabXwfb1Title2 = a(".xdny_line1_l .xdny_nyjxh  dt p a:eq(1)"),
+    b.esdTabXwfb1Title3 = a(".xdny_line1_l .xdny_nyjxh  dt p a:eq(2)"),
+    b.esdTabXwfb1Title1Content1 = a(".xdny_line1_l .xdny_nyjxh dd:eq(0) a:first"),
+    b.esdTabXwfb1Title2Content1 = a(".xdny_line1_l .xdny_nyjxh dd:eq(1) a:first"),
+    b.esdTabXwfb1Title3Content1 = a(".xdny_line1_l .xdny_nyjxh dd:eq(2) a:first"),
+    b.esdTabXwfb1Title1ContentLast = a(".xdny_line1_l .xdny_nyjxh dd:eq(0) a:last"),
+    b.esdTabXwfb1Title2ContentLast = a(".xdny_line1_l .xdny_nyjxh dd:eq(1) a:last"),
+    b.esdTabXwfb1Title3ContentLast = a(".xdny_line1_l .xdny_nyjxh dd:eq(2) a:last"),
+    b.esdTabXwfb1Title1.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_1_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb1Title1Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title1.blur(function() {
+        a(this).unbind("keydown.xdny_1_1")
+    }),
+    b.esdTabXwfb1Title1Content1.focus(function() {
+        a(this).bind("keydown.xdny_1_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb1Title1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title1Content1.blur(function() {
+        a(this).unbind("keydown.xdny_1_1_1")
+    }),
+    b.esdTabXwfb1Title1ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_1_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb1Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title1ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_1_1_n")
+    }),
+    b.esdTabXwfb1Title2.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_1_2", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb1Title1.mouseover(),
+                b.esdTabXwfb1Title1ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb1Title2Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title2.blur(function() {
+        a(this).unbind("keydown.xdny_1_2")
+    }),
+    b.esdTabXwfb1Title2Content1.focus(function() {
+        a(this).bind("keydown.xdny_1_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb1Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title2Content1.blur(function() {
+        a(this).unbind("keydown.xdny_1_2_1")
+    }),
+    b.esdTabXwfb1Title2ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_1_2_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb1Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title2ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_1_2_n")
+    }),
+    b.esdTabXwfb1Title3.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_1_3", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb1Title2.mouseover(),
+                b.esdTabXwfb1Title2ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb1Title3Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title3.blur(function() {
+        a(this).unbind("keydown.xdny_1_3")
+    }),
+    b.esdTabXwfb1Title3Content1.focus(function() {
+        a(this).bind("keydown.xdny_1_3_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb1Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb1Title3Content1.blur(function() {
+        a(this).unbind("keydown.xdny_1_3_1")
+    }),
+    b.esdTabXwfb2Title1 = a(".xdny_line1_r dl dt a:eq(0)"),
+    b.esdTabXwfb2Title2 = a(".xdny_line1_r dl dt a:eq(1)"),
+    b.esdTabXwfb2Title3 = a(".xdny_line1_r dl dt a:eq(2)"),
+    b.esdTabXwfb2Title1Content1 = a(".xdny_line1_r dl dd:eq(0) a:first"),
+    b.esdTabXwfb2Title2Content1 = a(".xdny_line1_r dl dd:eq(1) a:first"),
+    b.esdTabXwfb2Title3Content1 = a(".xdny_line1_r dl dd:eq(2) a:first"),
+    b.esdTabXwfb2Title1ContentLast = a(".xdny_line1_r dl dd:eq(0) a:last"),
+    b.esdTabXwfb2Title2ContentLast = a(".xdny_line1_r dl dd:eq(1) a:last"),
+    b.esdTabXwfb2Title3ContentLast = a(".xdny_line1_r dl dd:eq(2) a:last"),
+    b.esdTabXwfb2Title1.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_2_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title1Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1.blur(function() {
+        a(this).unbind("keydown.xdny_2_1")
+    }),
+    b.esdTabXwfb2Title1Content1.focus(function() {
+        a(this).bind("keydown.xdny_2_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1Content1.blur(function() {
+        a(this).unbind("keydown.xdny_2_1_1")
+    }),
+    b.esdTabXwfb2Title1ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_2_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title1ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_2_1_n")
+    }),
+    b.esdTabXwfb2Title2.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_2_2", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb2Title1.mouseover(),
+                b.esdTabXwfb2Title1ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb2Title2Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2.blur(function() {
+        a(this).unbind("keydown.xdny_2_2")
+    }),
+    b.esdTabXwfb2Title2Content1.focus(function() {
+        a(this).bind("keydown.xdny_2_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2Content1.blur(function() {
+        a(this).unbind("keydown.xdny_2_2_1")
+    }),
+    b.esdTabXwfb2Title2ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_2_2_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb2Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title2ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_2_2_n")
+    }),
+    b.esdTabXwfb2Title3.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_2_3", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb2Title2.mouseover(),
+                b.esdTabXwfb2Title2ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb2Title3Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title3.blur(function() {
+        a(this).unbind("keydown.xdny_2_3")
+    }),
+    b.esdTabXwfb2Title3Content1.focus(function() {
+        a(this).bind("keydown.xdny_2_3_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb2Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb2Title3Content1.blur(function() {
+        a(this).unbind("keydown.xdny_2_3_1")
+    }),
+    b.esdTabXwfb3Title1 = a(".xdny_line2 dl dt a:eq(0)"),
+    b.esdTabXwfb3Title2 = a(".xdny_line2 dl dt a:eq(1)"),
+    b.esdTabXwfb3Title3 = a(".xdny_line2 dl dt a:eq(2)"),
+    b.esdTabXwfb3Title4 = a(".xdny_line2 dl dt a:eq(3)"),
+    b.esdTabXwfb3Title1Content1 = a(".xdny_line2 dl dd:eq(0) a:first"),
+    b.esdTabXwfb3Title2Content1 = a(".xdny_line2 dl dd:eq(1) a:first"),
+    b.esdTabXwfb3Title3Content1 = a(".xdny_line2 dl dd:eq(2) a:first"),
+    b.esdTabXwfb3Title4Content1 = a(".xdny_line2 dl dd:eq(3) a:first"),
+    b.esdTabXwfb3Title1ContentLast = a(".xdny_line2 dl dd:eq(0) a:last"),
+    b.esdTabXwfb3Title2ContentLast = a(".xdny_line2 dl dd:eq(1) a:last"),
+    b.esdTabXwfb3Title3ContentLast = a(".xdny_line2 dl dd:eq(2) a:last"),
+    b.esdTabXwfb3Title4ContentLast = a(".xdny_line2 dl dd:eq(3) a:last"),
+    b.esdTabXwfb3Title1.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_3_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb3Title1Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title1.blur(function() {
+        a(this).unbind("keydown.xdny_3_1")
+    }),
+    b.esdTabXwfb3Title1Content1.focus(function() {
+        a(this).bind("keydown.xdny_3_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb3Title1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title1Content1.blur(function() {
+        a(this).unbind("keydown.xdny_3_1_1")
+    }),
+    b.esdTabXwfb3Title1ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_3_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb3Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title1ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_3_1_n")
+    }),
+    b.esdTabXwfb3Title2.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_3_2", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb3Title1.mouseover(),
+                b.esdTabXwfb3Title1ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb3Title2Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title2.blur(function() {
+        a(this).unbind("keydown.xdny_3_2")
+    }),
+    b.esdTabXwfb3Title2Content1.focus(function() {
+        a(this).bind("keydown.xdny_3_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb3Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title2Content1.blur(function() {
+        a(this).unbind("keydown.xdny_3_2_1")
+    }),
+    b.esdTabXwfb3Title2ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_3_2_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb3Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title2ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_3_2_n")
+    }),
+    b.esdTabXwfb3Title3.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_3_3", function(c) {
+            c.shiftKey && 9 == c.keyCode ? (b.esdTabXwfb3Title2.mouseover(),
+            b.esdTabXwfb3Title2ContentLast.focus()) : 9 == c.keyCode && b.esdTabXwfb3Title3Content1.focus();
+            a(this).unbind("keydown.xdny_3_3");
+            return !1
+        })
+    }),
+    b.esdTabXwfb3Title3Content1.focus(function() {
+        a(this).bind("keydown.xdny_3_3_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb3Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title3Content1.blur(function() {
+        a(this).unbind("keydown.xdny_3_3_1")
+    }),
+    b.esdTabXwfb3Title3ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_3_3_n", function(c) {
+            if (c.shiftKey && 9 == c.keyCode)
+                a(this).unbind("keydown.xdny_3_3_n");
+            else if (9 == c.keyCode)
+                return b.esdTabXwfb3Title4.focus(),
+                a(this).unbind("keydown.xdny_3_3_n"),
+                !1
+        })
+    }),
+    b.esdTabXwfb3Title4.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_3_4", function(c) {
+            c.shiftKey && 9 == c.keyCode ? (b.esdTabXwfb3Title3.mouseover(),
+            b.esdTabXwfb3Title3ContentLast.focus()) : 9 == c.keyCode && b.esdTabXwfb3Title4Content1.focus();
+            a(this).unbind("keydown.xdny_3_4");
+            return !1
+        })
+    }),
+    b.esdTabXwfb3Title4Content1.focus(function() {
+        a(this).bind("keydown.xdny_3_4_1", function(c) {
+            if (c.shiftKey && 9 == c.keyCode)
+                return b.esdTabXwfb3Title4.focus(),
+                a(this).unbind("keydown.xdny_3_4_1"),
+                !1;
+            9 == c.keyCode && a(this).unbind("keydown.xdny_3_4_1")
+        })
+    }),
+    b.esdTabXwfb3Title4ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_3_4_n", function(b) {
+            b.shiftKey && 9 == b.keyCode ? a(this).unbind("keydown.xdny_3_4_n") : 9 == b.keyCode && a(this).unbind("keydown.xdny_3_4_n")
+        })
+    }),
+    b.esdTabXwfb4Title1 = a(".xdny_line3 dl dt a:eq(0)"),
+    b.esdTabXwfb4Title2 = a(".xdny_line3 dl dt a:eq(1)"),
+    b.esdTabXwfb4Title3 = a(".xdny_line3 dl dt a:eq(2)"),
+    b.esdTabXwfb4Title1Content1 = a(".xdny_line3 dl dd:eq(0) a:first"),
+    b.esdTabXwfb4Title2Content1 = a(".xdny_line3 dl dd:eq(1) a:first"),
+    b.esdTabXwfb4Title3Content1 = a(".xdny_line3 dl dd:eq(2) a:first"),
+    b.esdTabXwfb4Title1ContentLast = a(".xdny_line3 dl dd:eq(0) a:last"),
+    b.esdTabXwfb4Title2ContentLast = a(".xdny_line3 dl dd:eq(1) a:last"),
+    b.esdTabXwfb4Title3ContentLast = a(".xdny_line3 dl dd:eq(2) a:last"),
+    b.esdTabXwfb4Title1.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_4_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb4Title1Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title1.blur(function() {
+        a(this).unbind("keydown.xdny_4_1")
+    }),
+    b.esdTabXwfb4Title1Content1.focus(function() {
+        a(this).bind("keydown.xdny_4_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb4Title1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title1Content1.blur(function() {
+        a(this).unbind("keydown.xdny_4_1_1")
+    }),
+    b.esdTabXwfb4Title1ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_4_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb4Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title1ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_4_1_n")
+    }),
+    b.esdTabXwfb4Title2.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_4_2", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb4Title1.mouseover(),
+                b.esdTabXwfb4Title1ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb4Title2Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title2.blur(function() {
+        a(this).unbind("keydown.xdny_4_2")
+    }),
+    b.esdTabXwfb4Title2Content1.focus(function() {
+        a(this).bind("keydown.xdny_4_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb4Title2.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title2Content1.blur(function() {
+        a(this).unbind("keydown.xdny_4_2_1")
+    }),
+    b.esdTabXwfb4Title2ContentLast.focus(function() {
+        a(this).bind("keydown.xdny_4_2_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabXwfb4Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title2ContentLast.blur(function() {
+        a(this).unbind("keydown.xdny_4_2_n")
+    }),
+    b.esdTabXwfb4Title3.focus(function(c) {
+        a(this).mouseover();
+        a(this).bind("keydown.xdny_4_3", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                b.esdTabXwfb4Title2.mouseover(),
+                b.esdTabXwfb4Title2ContentLast.focus();
+            else if (9 == a.keyCode)
+                return b.esdTabXwfb4Title3Content1.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title3.blur(function() {
+        a(this).unbind("keydown.xdny_4_3")
+    }),
+    b.esdTabXwfb4Title3Content1.focus(function() {
+        a(this).bind("keydown.xdny_4_3_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabXwfb4Title3.focus(),
+                !1
+        })
+    }),
+    b.esdTabXwfb4Title3Content1.blur(function() {
+        a(this).unbind("keydown.xdny_4_3_1")
+    }));
+    if (b.isSiteIndexPage) {
+        /*b.intervalAgri=setInterval(function(){void 0!=a(".index_new_box li:eq(2) a:eq(1)")&&void 0!=a("#pageListTable a:first")&&void 0!=document.getElementsByTagName("iframe")[1].contentWindow.document.getElementsByTagName("a")[0]&&(clearInterval(b.intervalAgri),d(),e(),g())},500);*/
+        var e = function() {
+            b.esdTabAgriPartOnethPre = a(".nr_box .index_box .index_line1 .index_zwgk_box .index_zwgk_top a");
+            b.esdTabAgriPartOneth1Title = a(".index_zwgk_left01 dt p a:eq(0)");
+            b.esdTabAgriPartOneth2Title = a(".index_zwgk_left01 dt p a:eq(1)");
+            b.esdTabAgriPartOneth3Title = a(".index_zwgk_left01 dt p a:eq(2)");
+            b.esdTabAgriPartOneth4Title = a(".index_zwgk_left01 dt p a:eq(3)");
+            b.esdTabAgriPartOneth5Title = a(".index_zwgk_left01 dt p a:eq(4)");
+            b.esdTabAgriPartOneth1ContentFirst = a("#pageListTable a:first");
+            b.esdTabAgriPartOneth4ContentFirst = a("#pageListTable").next().find("a:first");
+            b.esdTabAgriPartOneth1ContentLast = a("#pageListTable a:last");
+            b.esdTabAgriPartOneth4ContentLast = a("#pageListTable").next().find("a:last");
+            b.esdTabAgriPartOneth1Block = a("#pageListTable");
+            b.esdTabAgriPartOneth4Block = a(".index_zwgk_left .index_zwgk_left01 > dd:eq(1)");
+            b.esdTabAgriPartOnethZiXunTitle = a(".index_zwgk_right a:first");
+            b.esdTabAgriPartOnethPre.focus(function(c) {
+                a(this).bind("keydown.keydown_0_1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdRotationAgriPartOneANum5.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOneth4Block.hide(),
+                        b.esdTabAgriPartOneth1Block.show(),
+                        b.esdTabAgriPartOneth1Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOnethPre.blur(function() {
+                a(this).unbind("keydown.keydown_0_1")
+            });
+            b.esdTabAgriPartOneth1Title.focus(function(c) {
+                a(this).bind("keydown.keydown_1_1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOnethPre.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOneth1ContentFirst.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth1Title.blur(function() {
+                a(this).unbind("keydown.keydown_1_1")
+            });
+            b.esdTabAgriPartOneth1ContentFirst.focus(function() {
+                a(this).bind("keydown.keydown_1_1_1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth1Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth1ContentFirst.blur(function() {
+                a(this).unbind("keydown.keydown_1_1_1")
+            });
+            b.esdTabAgriPartOneth1ContentLast.focus(function() {
+                a(this).bind("keydown.keydown_1_1_n", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth2Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth1ContentLast.blur(function() {
+                a(this).unbind("keydown.keydown_1_1_n")
+            });
+            b.esdTabAgriPartOneth2Title.focus(function() {
+                a(this).bind("keydown.keydown_1_2", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth4Block.hide(),
+                        b.esdTabAgriPartOneth1Block.show(),
+                        b.esdTabAgriPartOneth1ContentLast.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOneth3Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth2Title.blur(function() {
+                a(this).unbind("keydown.keydown_1_2")
+            });
+            b.esdTabAgriPartOneth3Title.focus(function() {
+                a(this).bind("keydown.keydown_1_3", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth2Title.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOneth1Block.hide(),
+                        b.esdTabAgriPartOneth4Block.show(),
+                        b.esdTabAgriPartOneth4Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth3Title.blur(function() {
+                a(this).unbind("keydown.keydown_1_3")
+            });
+            b.esdTabAgriPartOneth4Title.focus(function(c) {
+                a(this).bind("keydown.keydown_1_4", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth3Title.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOneth4ContentFirst.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth4Title.blur(function() {
+                a(this).unbind("keydown.keydown_1_4")
+            });
+            b.esdTabAgriPartOneth4ContentFirst.focus(function() {
+                a(this).bind("keydown.keydown_1_4_1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth4Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth4ContentFirst.blur(function() {
+                a(this).unbind("keydown.keydown_1_4_1")
+            });
+            b.esdTabAgriPartOneth4ContentLast.focus(function() {
+                a(this).bind("keydown.keydown_1_4_n", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth5Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth4ContentLast.blur(function() {
+                a(this).unbind("keydown.keydown_1_4_n")
+            });
+            b.esdTabAgriPartOneth5Title.focus(function(c) {
+                a(this).bind("keydown.keydown_1_5", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth4ContentLast.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartOnethZiXunTitle.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOneth5Title.blur(function() {
+                a(this).unbind("keydown.keydown_1_5")
+            });
+            b.esdTabAgriPartOnethZiXunTitle.focus(function(c) {
+                a(this).bind("keydown.keydown_1_6", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartOneth5Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartOnethZiXunTitle.blur(function() {
+                a(this).unbind("keydown.keydown_1_6")
+            })
+        }
+          , g = function() {
+            b.getIframeInfos = function(a, b) {
+                void 0 != b && (a.aLink_num = b.contentWindow.document.getElementsByTagName("a").length,
+                a.first_aLink = b.contentWindow.document.getElementsByTagName("a")[0],
+                a.last_aLink = b.contentWindow.document.getElementsByTagName("a")[a.aLink_num - 1],
+                a.self = b)
+            }
+            ;
+            b.iframe1 = {};
+            b.iframe2 = {};
+            b.iframeElement1 = document.getElementsByTagName("iframe")[0];
+            b.iframeElement2 = document.getElementsByTagName("iframe")[1];
+            b.esdTabAgriPartSecond1Title = a(".index_new_01 dl dt a:eq(0)");
+            b.esdTabAgriPartSecond2Title = a(".index_new_01 dl dt a:eq(1)");
+            b.esdTabAgriPartSecond2TitleSub1Title = a(".index_xxzz h3:eq(0) a:first");
+            b.esdTabAgriPartSecond3TitleSub2Title = a(".index_xxzz h3:eq(0) a:last");
+            b.esdTabAgriPartSecond3Title = a(".index_new_01 dl dt a:eq(2)");
+            b.esdTabAgriPartSecond1ContentFirst = a(".index_new_01 dl dd:eq(0) a:first");
+            b.esdTabAgriPartSecond2ContentFirstSub1ContentFirst = a("iframe:eq(0)").contents().find("#testUl a:first");
+            b.esdTabAgriPartSecond2ContentFirstSub2ContentFirst = a("iframe:eq(1)").contents().find("#testUl a:first");
+            b.esdTabAgriPartSecond3ContentFirst = a(".index_new_01 dl dd:eq(2) a:first");
+            b.esdTabAgriPartSecond1ContentLast = a(".index_new_01 dl dd:eq(0) a:last");
+            b.esdTabAgriPartSecond2ContentFirstSub1ContentLast = a("iframe:eq(0)").contents().find("#testUl a:last");
+            b.esdTabAgriPartSecond2ContentFirstSub2ContentLast = a("iframe:eq(1)").contents().find("#testUl a:last");
+            b.esdTabAgriPartSecond3ContentLast = a(".index_new_01 dl dd:eq(2) a:last");
+            b.esdTabAgriPartSecond1Title.focus(function(c) {
+                a(this).mouseover();
+                a(this).bind("keydown.keydown_2_1", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.esdTabAgriPartSecond1ContentFirst.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartSecond1Title.blur(function() {
+                a(this).unbind("keydown.keydown_2_1")
+            });
+            b.esdTabAgriPartSecond1ContentFirst.focus(function() {
+                a(this).bind("keydown.keydown_2_1_1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartSecond1Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartSecond1ContentFirst.blur(function() {
+                a(this).unbind("keydown.keydown_2_1_1")
+            });
+            b.esdTabAgriPartSecond1ContentLast.focus(function() {
+                a(this).bind("keydown.keydown_2_1_n", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.esdTabAgriPartSecond2Title.mouseover(),
+                        b.esdTabAgriPartSecond2Title.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartSecond1ContentLast.blur(function() {
+                a(this).unbind("keydown.keydown_2_1_n")
+            });
+            b.esdTabAgriPartSecond2Title.focus(function(c) {
+                a(this).bind("keydown.keydown_2_2", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.esdTabAgriPartSecond1Title.mouseover(),
+                        b.esdTabAgriPartSecond1ContentLast.focus(),
+                        !1;
+                    if (9 == a.keyCode)
+                        return b.esdTabAgriPartSecond2TitleSub1Title.mouseover(),
+                        b.iframeTab1.focus(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartSecond2Title.blur(function() {
+                a(this).unbind("keydown.keydown_2_2")
+            });
+            b.iframeTab1 = a(".index_xxzz h3:eq(0) a:first");
+            b.iframeTab2 = a(".index_xxzz h3:eq(0) a:last");
+            b.getIframeInfos(b.iframe1, b.iframeElement1);
+            b.getIframeInfos(b.iframe2, b.iframeElement2);
+            b.iframeTab1.focus(function(c) {
+                a(this).bind("keydown.iframeKeydown_1", function(c) {
+                    if (c.shiftKey && 9 == c.keyCode)
+                        return b.esdTabAgriPartSecond2Title.focus(),
+                        !1;
+                    if (9 == c.keyCode)
+                        return a(b.iframe1.self).focus(),
+                        !1
+                })
+            });
+            b.iframeTab1.blur(function() {
+                a(this).unbind("keydown.iframeKeydown_1")
+            });
+            a(b.iframe1.first_aLink).focus(function() {
+                a(b.iframe1.self.contentWindow.document).bind("keydown.iframeKeydown_first1", function(a) {
+                    if (a.shiftKey && 9 == a.keyCode)
+                        return b.iframeTab1.focus(),
+                        !1
+                })
+            });
+            a(b.iframe1.first_aLink).blur(function() {
+                a(b.iframe1.self.contentWindow.document).unbind("keydown.iframeKeydown_first1")
+            });
+            a(b.iframe1.last_aLink).focus(function() {
+                a(b.iframe1.self.contentWindow.document).bind("keydown.iframeKeydown_last1", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.iframeTab2.mouseover(),
+                        b.iframeTab2.focus(),
+                        !1
+                })
+            });
+            a(b.iframe1.last_aLink).blur(function() {
+                a(b.iframe1.self.contentWindow.document).unbind("keydown.iframeKeydown_last1")
+            });
+            b.iframeTab2.focus(function(c) {
+                a(this).bind("keydown.iframeKeydown_2", function(c) {
+                    if (c.shiftKey && 9 == c.keyCode)
+                        return b.iframeTab1.mouseover(),
+                        a(b.iframe1.last_aLink).focus(),
+                        !1;
+                    if (9 == c.keyCode)
+                        return a(b.iframe2.self).focus(),
+                        !1
+                })
+            });
+            b.iframeTab2.blur(function() {
+                a(this).unbind("keydown.iframeKeydown_2")
+            });
+            a(b.iframe2.last_aLink).focus(function() {
+                a(b.iframe2.self.contentWindow.document).bind("keydown.iframeKeydown_last2", function(a) {
+                    if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                        return b.esdTabAgriPartSecond3Title.focus(),
+                        !1
+                })
+            });
+            a(b.iframe2.last_aLink).blur(function() {
+                a(b.iframe2.self.contentWindow.document).unbind("keydown.iframeKeydown_last2")
+            });
+            b.esdTabAgriPartSecond3Title.focus(function(c) {
+                a(this).mouseover();
+                a(this).bind("keydown.keydown_2_2", function(c) {
+                    if (c.shiftKey && 9 == c.keyCode)
+                        return b.esdTabAgriPartSecond2Title.mouseover(),
+                        a(b.iframe2.last_aLink).focus(),
+                        !1;
+                    if (9 == c.keyCode)
+                        return b.esdTabAgriPartThird1Title.focus(),
+                        a(".index_new_02 dl dd").hide(),
+                        a(".index_new_02 dl dd:eq(0)").show(),
+                        !1
+                })
+            });
+            b.esdTabAgriPartSecond3Title.blur(function() {
+                a(this).unbind("keydown.keydown_2_2")
+            })
+        };
+        b.esdTabAgriPartThird1Title = a(".index_new_02 dl dt a:eq(0)");
+        b.esdTabAgriPartThird2Title = a(".index_new_02 dl dt a:eq(1)");
+        b.esdTabAgriPartThird3Title = a(".index_new_02 dl dt a:eq(2)");
+        b.esdTabAgriPartThird4Title = a(".index_new_02 dl dt a:eq(3)");
+        b.esdTabAgriPartThird5Title = a(".index_new_02 dl dt a:eq(4)");
+        b.esdTabAgriPartThird1ContentFirst = a(".index_new_02 dl dd:eq(0) a:first");
+        b.esdTabAgriPartThird2ContentFirst = a(".index_new_02 dl dd:eq(1) a:first");
+        b.esdTabAgriPartThird3ContentFirst = a(".index_new_02 dl dd:eq(2) a:first");
+        b.esdTabAgriPartThird4ContentFirst = a(".index_new_02 dl dd:eq(3) a:first");
+        b.esdTabAgriPartThird5ContentFirst = a(".index_new_02 dl dd:eq(4) a:first");
+        b.esdTabAgriPartThird1ContentLast = a(".index_new_02 dl dd:eq(0) a:last");
+        b.esdTabAgriPartThird2ContentLast = a(".index_new_02 dl dd:eq(1) a:last");
+        b.esdTabAgriPartThird3ContentLast = a(".index_new_02 dl dd:eq(2) a:last");
+        b.esdTabAgriPartThird4ContentLast = a(".index_new_02 dl dd:eq(3) a:last");
+        b.esdTabAgriPartThird5ContentLast = a(".index_new_02 dl dd:eq(4) a:last");
+        b.esdTabAgriPartThird1Title.focus(function(c) {
+            a(this).bind("keydown.keydown_3_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartSecond3Title.focus(),
+                    !1;
+                if (9 == a.keyCode)
+                    return b.esdTabAgriPartThird1ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird1Title.blur(function() {
+            a(this).unbind("keydown.keydown_3_1")
+        });
+        b.esdTabAgriPartThird1ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_3_1_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartThird1Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird1ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_3_1_1")
+        });
+        b.esdTabAgriPartThird1ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_3_1_n", function(c) {
+                if ((!c.shiftKey || 9 != c.keyCode) && 9 == c.keyCode)
+                    return a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(1)").show(),
+                    b.esdTabAgriPartThird2Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird1ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_3_1_n")
+        });
+        b.esdTabAgriPartThird2Title.focus(function(c) {
+            a(this).bind("keydown.keydown_3_2", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(0)").show(),
+                    b.esdTabAgriPartThird1ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return b.esdTabAgriPartThird2ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird2Title.blur(function() {
+            a(this).unbind("keydown.keydown_3_2")
+        });
+        b.esdTabAgriPartThird2ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_3_2_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartThird2Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird2ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_3_2_1")
+        });
+        b.esdTabAgriPartThird2ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_3_2_n", function(c) {
+                if ((!c.shiftKey || 9 != c.keyCode) && 9 == c.keyCode)
+                    return a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(2)").show(),
+                    b.esdTabAgriPartThird3Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird2ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_3_2_n")
+        });
+        b.esdTabAgriPartThird3Title.focus(function(c) {
+            a(this).bind("keydown.keydown_3_3", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(1)").show(),
+                    b.esdTabAgriPartThird2ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return b.esdTabAgriPartThird3ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird3Title.blur(function() {
+            a(this).unbind("keydown.keydown_3_3")
+        });
+        b.esdTabAgriPartThird3ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_3_3_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartThird3Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird3ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_3_3_1")
+        });
+        b.esdTabAgriPartThird3ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_3_3_n", function(c) {
+                if ((!c.shiftKey || 9 != c.keyCode) && 9 == c.keyCode)
+                    return a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(3)").show(),
+                    b.esdTabAgriPartThird4Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird3ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_3_3_n")
+        });
+        b.esdTabAgriPartThird4Title.focus(function(c) {
+            a(this).bind("keydown.keydown_3_4", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(2)").show(),
+                    b.esdTabAgriPartThird3ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return b.esdTabAgriPartThird4ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird4Title.blur(function() {
+            a(this).unbind("keydown.keydown_3_4")
+        });
+        b.esdTabAgriPartThird4ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_3_4_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartThird4Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird4ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_3_4_1")
+        });
+        b.esdTabAgriPartThird4ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_3_4_n", function(c) {
+                if ((!c.shiftKey || 9 != c.keyCode) && 9 == c.keyCode)
+                    return a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(4)").show(),
+                    b.esdTabAgriPartThird5Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird4ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_3_4_n")
+        });
+        b.esdTabAgriPartThird5Title.focus(function(c) {
+            a(this).bind("keydown.keydown_3_4", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_new_02 dl dd").hide(),
+                    a(".index_new_02 dl dd:eq(3)").show(),
+                    b.esdTabAgriPartThird4ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return b.esdTabAgriPartThird5ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird5Title.blur(function() {
+            a(this).unbind("keydown.keydown_3_4")
+        });
+        b.esdTabAgriPartThird5ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_3_4_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartThird5Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartThird5ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_3_4_1")
+        });
+        b.esdTabAgriPartForth1Title = a(".index_hdjl_new dl dt a:eq(0)");
+        b.esdTabAgriPartForth2Title = a(".index_hdjl_new dl dt a:eq(1)");
+        b.esdTabAgriPartForth3Title = a(".index_hdjl_new dl dt a:eq(2)");
+        b.esdTabAgriPartForth1ContentFirst = a(".index_hdjl_new dl dd:first a:first");
+        b.esdTabAgriPartForth2ContentFirst = a(".index_hdjl_new dl dd:eq(1) a:first");
+        b.esdTabAgriPartForth1ContentLast = a(".index_hdjl_new dl dd:first a:last");
+        b.esdTabAgriPartForth2ContentLast = a(".index_hdjl_new dl dd:eq(1) a:last");
+        b.esdTabAgriPartForth1Title.focus(function(c) {
+            a(".index_hdjl_new dl dd").hide();
+            a(".index_hdjl_new dl dd:eq(0)").show();
+            a(this).bind("keydown.keydown_4_1", function(a) {
+                if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                    return b.esdTabAgriPartForth1ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth1Title.blur(function() {
+            a(this).unbind("keydown.keydown_4_1")
+        });
+        b.esdTabAgriPartForth1ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_4_1_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartForth1Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth1ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_4_1_1")
+        });
+        b.esdTabAgriPartForth1ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_4_1_n", function(a) {
+                if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                    return b.esdTabAgriPartForth2Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth1ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_4_1_n")
+        });
+        b.esdTabAgriPartForth2Title.focus(function(c) {
+            a(".index_hdjl_new dl dd").hide();
+            a(".index_hdjl_new dl dd:eq(1)").show();
+            a(this).bind("keydown.keydown_4_2", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_hdjl_new dl dd").hide(),
+                    a(".index_hdjl_new dl dd:eq(0)").show(),
+                    b.esdTabAgriPartForth1ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return b.esdTabAgriPartForth2ContentFirst.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth2Title.blur(function() {
+            a(this).unbind("keydown.keydown_4_2")
+        });
+        b.esdTabAgriPartForth2ContentFirst.focus(function() {
+            a(this).bind("keydown.keydown_4_2_1", function(a) {
+                if (a.shiftKey && 9 == a.keyCode)
+                    return b.esdTabAgriPartForth2Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth2ContentFirst.blur(function() {
+            a(this).unbind("keydown.keydown_4_2_1")
+        });
+        b.esdTabAgriPartForth2ContentLast.focus(function() {
+            a(this).bind("keydown.keydown_4_2_n", function(a) {
+                if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                    return b.esdTabAgriPartForth3Title.focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth2ContentLast.blur(function() {
+            a(this).unbind("keydown.keydown_4_2_n")
+        });
+        b.esdTabAgriPartForth3Title.focus(function(c) {
+            a(".index_hdjl_new dl dd").hide();
+            a(".index_hdjl_new dl dd:eq(2)").show();
+            a(this).bind("keydown.keydown_4_3", function(c) {
+                if (c.shiftKey && 9 == c.keyCode)
+                    a(".index_hdjl_new dl dd").hide(),
+                    a(".index_hdjl_new dl dd:eq(1)").show(),
+                    b.esdTabAgriPartForth2ContentLast.focus();
+                else if (9 == c.keyCode)
+                    return a(".bottom ul li select:eq(0)").focus(),
+                    !1
+            })
+        });
+        b.esdTabAgriPartForth3Title.blur(function() {
+            a(this).unbind("keydown.keydown_4_3")
+        })
+    }
+    "http://agri.jl.gov.cn/zwgk/" == b.currentUrl && (b.esdTabAgri_zwgk_1_Title = a(".index_hdjl_dq"),
+    b.esdTabAgri_zwgk_2_Title = a(".index_hdjl_dq").next(),
+    b.esdTabAgri_zwgk_1_ContentFirst = a(".index_hdjl_new dl dd:first a:first"),
+    b.esdTabAgri_zwgk_2_ContentFirst = a(".index_hdjl_new dl dd:eq(1) a:first"),
+    b.esdTabAgri_zwgk_1_ContentLast = a(".index_hdjl_new dl dd:first a:last"),
+    b.esdTabAgri_zwgk_2_ContentLast = a(".index_hdjl_new dl dd:eq(1) a:last"),
+    b.esdTabAgri_zwgk_1_Title.focus(function(c) {
+        a(".index_hdjl_new dl dd").hide();
+        a(".index_hdjl_new dl dd:eq(0)").show();
+        a(this).bind("keydown.zwgk_1", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabAgri_zwgk_1_ContentFirst.focus(),
+                !1
+        })
+    }),
+    b.esdTabAgri_zwgk_1_Title.blur(function() {
+        a(this).unbind("keydown.zwgk_1")
+    }),
+    b.esdTabAgri_zwgk_1_ContentFirst.focus(function() {
+        a(this).bind("keydown.zwgk_1_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabAgri_zwgk_1_Title.focus(),
+                !1
+        })
+    }),
+    b.esdTabAgri_zwgk_1_ContentFirst.blur(function() {
+        a(this).unbind("keydown.zwgk_1_1")
+    }),
+    b.esdTabAgri_zwgk_1_ContentLast.focus(function() {
+        a(this).bind("keydown.zwgk_1_n", function(a) {
+            if ((!a.shiftKey || 9 != a.keyCode) && 9 == a.keyCode)
+                return b.esdTabAgri_zwgk_2_Title.focus(),
+                !1
+        })
+    }),
+    b.esdTabAgri_zwgk_1_ContentLast.blur(function() {
+        a(this).unbind("keydown.zwgk_1_n")
+    }),
+    b.esdTabAgri_zwgk_2_Title.focus(function(c) {
+        a(".index_hdjl_new dl dd").hide();
+        a(".index_hdjl_new dl dd:eq(1)").show();
+        a(this).bind("keydown.zwgk_2", function(c) {
+            if (c.shiftKey && 9 == c.keyCode)
+                a(".index_hdjl_new dl dd").hide(),
+                a(".index_hdjl_new dl dd:eq(0)").show(),
+                b.esdTabAgri_zwgk_1_ContentLast.focus();
+            else if (9 == c.keyCode)
+                return b.esdTabAgri_zwgk_2_ContentFirst.focus(),
+                !1
+        })
+    }),
+    b.esdTabAgri_zwgk_2_Title.blur(function() {
+        a(this).unbind("keydown.zwgk_2")
+    }),
+    b.esdTabAgri_zwgk_2_ContentFirst.focus(function() {
+        a(this).bind("keydown.zwgk_2_1", function(a) {
+            if (a.shiftKey && 9 == a.keyCode)
+                return b.esdTabAgri_zwgk_2_Title.focus(),
+                !1
+        })
+    }),
+    b.esdTabAgri_zwgk_2_ContentFirst.blur(function() {
+        a(this).unbind("keydown.zwgk_2_1")
+    }));
+    b.isSiteIndexPage || (a(".zly_2018_c").attr("id", "main"),
+    b.navBlock.selector.main = "#main",
+    b.navBlock.selector.content = "#zoom",
+    a(".zly_2018_dq").addClass("navBlock"),
+    a(".zly_2018_c").addClass("navBlock"),
+    a(".zly_2018_dq").nextAll("div:first").find(" > div > div").addClass("navBlock"),
+    0 == a(".zly_2018_xxbtul").length && a(".zly_2018_dq").nextAll("div:first").find(" > div > div > div").addClass("navBlock"),
+    b.navBlock.selector.activate = ".navBlock");
+    b.isSiteIndexPage && (b.navBlock.selector.main = ".nr_box",
+    b.navBlock.selector.left = ".index_new",
+    b.navBlock.selector.right = ".index_zwgk_box",
+    b.navBlock.selector.content = ".nr_box",
+    a("body > div:nth-child(6)").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line1 > div.index_new.bgfff15").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line1 > div.index_zwgk_box.bgfff15").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line3.bgfff15").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line2 > div.index_new_list.bgfff15.index_new_01").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line2 > div.index_new_list.index_zwgk.bgfff15.index_new_02").addClass("navBlock"),
+    a("body > div.nr_box > div > div.index_line2 > div.index_hdjl_new.bgfff15").addClass("navBlock"),
+    b.navBlock.selector.activate = ".navBlock");
+    "http://agri.jl.gov.cn/zwgk/" == b.currentUrl && (b.navBlock.selector.main = ".zly_2018_c",
+    b.navBlock.selector.left = "#d1",
+    b.navBlock.selector.right = "#do",
+    b.navBlock.selector.content = ".zly_2018_c");
+    "http://agri.jl.gov.cn/xwfb/" == b.currentUrl && (b.navBlock.selector.main = ".zly_2018_c",
+    b.navBlock.selector.left = "#d1",
+    b.navBlock.selector.right = "#do",
+    b.navBlock.selector.content = ".zly_2018_c");
+    "http://agri.jl.gov.cn/xdny/" == b.currentUrl && (b.navBlock.selector.main = ".nr_box",
+    b.navBlock.selector.left = ".nr_box .xdny_line1_l",
+    b.navBlock.selector.right = ".nr_box .xdny_line1_r",
+    b.navBlock.selector.content = ".nr_box .zw_bx");
+    "http://agri.jl.gov.cn/wsbs/" == b.currentUrl && (b.navBlock.selector.main = ".nr_box",
+    b.navBlock.selector.left = ".nr_box .xczx_line02_l",
+    b.navBlock.selector.right = ".nr_box .xczx_line02_r",
+    b.navBlock.selector.content = ".nr_box .zw_bx");
+    "http://agri.jl.gov.cn/hdjl/" == b.currentUrl && (b.navBlock.selector.main = ".zly_2018_c",
+    b.navBlock.selector.left = ".zly_2018_c .w802",
+    b.navBlock.selector.right = ".zly_2018_c .picture_new",
+    b.navBlock.selector.content = ".zly_2018_c");
+    "http://agri.jl.gov.cn/xczx/" == b.currentUrl && (b.navBlock.selector.main = ".nr_box",
+    b.navBlock.selector.left = ".nr_box .xczx_line02_l",
+    b.navBlock.selector.right = ".nr_box .xczx_line02_r",
+    b.navBlock.selector.content = ".nr_box .xczx_line02");
+    "http://agri.jl.gov.cn/rdzt/" == b.currentUrl && (b.navBlock.selector.main = ".zly_2018_c",
+    b.navBlock.selector.left = ".zly_2018_c",
+    b.navBlock.selector.right = ".zly_2018_c",
+    b.navBlock.selector.content = ".zly_2018_c");
+    "http://agri.jl.gov.cn/yyfw/" == b.currentUrl && (b.navBlock.selector.main = ".zly_2018_c",
+    b.navBlock.selector.left = ".zly_2018_c",
+    b.navBlock.selector.right = ".zly_2018_c",
+    b.navBlock.selector.content = ".zly_2018_c");
+    a(document).bind("keydown.keydown_9001", function(b) {
+        b.shiftKey && 20 == b.keyCode && (a("*").focus(function() {
+            a(this).css({
+                outline: "2px dashed red"
+            })
+        }),
+        a("*").blur(function() {
+            a(this).css({
+                outline: "0px black"
+            })
+        }))
+    });
+    b.navBlock.debug = !0;
+    b.navBlock.selector.activate = ".navBlock";
+    b.navBlock.sIndex = -1;
+    b.navBlock.maxIndex = -1;
+    b.navBlock.minIndex = 0;
+    b.navBlock.keyShowSelect = function(c) {
+        a(b.navBlock.selector.activate).each(function(f, d) {
+            c == f && (b.navBlock.debugView(d),
+            a(d).find("a").each(function(b, c) {
+                0 == b && a(c).focus()
+            }))
+        })
+    }
+    ;
+    a(b.navBlock.selector.activate).each(function(a, d) {
+        b.navBlock.maxIndex++
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 49 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.top)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 50 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.nav)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 51 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.main)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 52 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.content)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 53 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.left)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 54 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.right)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 55 == a.keyCode && b.navBlock.keySelectScroll(b.navBlock.selector.footer)
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 56 == a.keyCode && b.navBlock.sIndex < b.navBlock.maxIndex && (b.navBlock.sIndex++,
+        b.navBlock.keyShowSelect(b.navBlock.sIndex))
+    });
+    a(document).keydown(function(a) {
+        a.altKey && 57 == a.keyCode && b.navBlock.sIndex > b.navBlock.minIndex && (b.navBlock.sIndex--,
+        b.navBlock.keyShowSelect(b.navBlock.sIndex))
+    });
+    b.navBlock.keySelectScroll = function(c) {
+        0 < a(c).length && (b.navBlock.appendIns(c, !0),
+        b.navBlock.debugView(c),
+        a(c).find("a").each(function(b) {
+            0 == b && a(this).focus()
+        }),
+        b.navBlock.appendIns(c, !1))
+    }
+    ;
+    b.navBlock.appendIns = function(b, d) {
+        1 == d ? a(b).append("<ins id='esdNavBlockIns' style='clear: both;display: block;'></ins>") : a("#esdNavBlockIns").remove()
+    }
+    ;
+    1 == b.navBlock.debug && (a("body").append("<div id='show_top' class='lineshow'></div>"),
+    a("body").append("<div id='show_bottom' class='lineshow'></div>"),
+    a("body").append("<div id='show_left' class='lineshow'></div>"),
+    a("body").append("<div id='show_right' class='lineshow'></div>"),
+    a(".lineshow").css({
+        display: "none"
+    }));
+    b.navBlock.debugView = function(c) {
+        if (1 == b.navBlock.debug) {
+            var d = a(c).offset()
+              , e = a(c).outerWidth();
+            c = a(c).outerHeight();
+            a("#show_top").css({
+                "z-index": "9999",
+                border: "red 2px solid",
+                position: "absolute",
+                top: d.top,
+                left: d.left,
+                width: e,
+                height: "0px"
+            });
+            a("#show_bottom").css({
+                "z-index": "9999",
+                border: "red 2px solid",
+                position: "absolute",
+                top: d.top + c,
+                left: d.left,
+                width: e,
+                height: "0px"
+            });
+            a("#show_left").css({
+                "z-index": "9999",
+                border: "red 2px solid",
+                position: "absolute",
+                top: d.top,
+                left: d.left,
+                width: "0px",
+                height: c
+            });
+            a("#show_right").css({
+                "z-index": "9999",
+                border: "red 2px solid",
+                position: "absolute",
+                top: d.top,
+                left: d.left + e,
+                width: "0px",
+                height: c
+            });
+            a("html,body").animate({
+                scrollTop: a("#show_top").offset().top
+            }, 200);
+            a(".lineshow").css({
+                display: "block"
+            })
+        }
+    }
+};
+if (void 0 == window.jQuery)
+    var wzaInitInterval = setInterval(function() {
+        null != document.body && (clearInterval(wzaInitInterval),
+        document.body.onload = function() {
+            var a = document.createElement("script");
+            a.setAttribute("type", "text/javascript");
+            a.setAttribute("src", window.location.protocol + "//" + window.location.href.split("/")[2] + "/wza/bwscript/jquery-1.12.4.min.js");
+            a.setAttribute("charset", "utf-8");
+            a.setAttribute("id", "ESDWebAppInnerIframe");
+            document.body.appendChild(a);
+            var b = setInterval(function() {
+                void 0 != window.jQuery && (clearInterval(b),
+                setTimeout(_EsdDynamicTransformationFunction(jQuery), 1E3))
+            }, 500)
+        }
+        )
+    }, 10);
+else
+    jQuery(function() {
+        setTimeout(_EsdDynamicTransformationFunction(jQuery), 1E3)
+    });
+$(function() {
+    $("img").each(function() {
+        var a = $(this).attr("title");
+        $(this).bind("mouseover", function() {
+            $(this).attr("title", "")
+        });
+        $(this).bind("mouseout", function() {
+            $(this).attr("title", a)
+        })
+    });
+    $("a").each(function() {
+        var a = $(this).attr("title");
+        $(this).mouseover(function() {
+            $(this).attr("title", "")
+        });
+        $(this).mouseout(function() {
+            $(this).attr("title", a)
+        })
+    })
+});

@@ -1,0 +1,44 @@
+# Render 一键部署配置（免费套餐）
+# 在 Render 官网新建 Blueprint 并绑定本仓库即可自动创建：
+#   - 免费 PostgreSQL 数据库
+#   - 免费 Web 服务（后端 FastAPI）
+# 部署完成后，把后端地址填到前端 js/api-config.js 的 CLOUD_API。
+
+databases:
+  - name: ginseng-db
+    databaseName: ginseng_db
+    plan: free
+    region: singapore
+
+services:
+  - type: web
+    name: ginseng-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: ginseng-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DB_DRIVER
+        value: postgresql+psycopg2
+      - key: DB_HOST
+        fromDatabase:
+          name: ginseng-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ginseng-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: ginseng-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ginseng-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ginseng-db
+          property: database

@@ -1,0 +1,95 @@
+if(top==self&&typeof(EsdInit)=="undefined"){
+    EsdInit = {};
+    EsdInit.basePath = "https://www.mangren.com/commonToolbarV6_9/";
+    EsdInit.initJSPath = EsdInit.basePath+"/boots/test/esdToolsInit.js";
+    EsdInit.openType = "click";
+    EsdInit.jsNotLoad = true;
+    EsdInit.cookieDoamin = "";
+     
+    EsdInit.init = function(){
+        var toolbarOpenStatus = EsdInit.getCookie("wzaIsOn");
+        if(toolbarOpenStatus=="true"||toolbarOpenStatus==true||window.location.search.indexOf("ewt=1")>-1){
+			EsdInit.openType = "click";
+            EsdInit.loadScript(null);
+		}
+    };
+    
+    document.onkeydown = function(e){
+        if (e.ctrlKey) {
+            if(typeof(EsdToolbar)=="undefined"){
+                if (e.keyCode == 192) {  //ctrl+~
+                    EsdInit.openType = "keydown";
+                    EsdInit.loadScript(null);
+                }
+            }
+        }
+    }
+
+    EsdInit.openClickFunc = function(){
+        EsdInit.openType = "click";
+        EsdInit.loadScript(null);
+    };
+    
+    EsdInit.openKeydownFunc = function(e){
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            EsdInit.openType = "keydown";
+            EsdInit.loadScript(null);
+        }
+    };
+    
+    EsdInit.loadScript = function(callback){
+        if(EsdInit.jsNotLoad){
+            EsdInit.jsLoaded = true;
+            var init_js = document.createElement('script'); 
+            init_js.setAttribute('type', 'text/javascript'); 
+            init_js.setAttribute('src', EsdInit.initJSPath); 
+            init_js.setAttribute('charset', 'utf-8'); 
+            document.head.appendChild(init_js);
+            init_js.onload = function(){
+                if(callback!=null){
+                    callback();
+                }
+            };
+        }
+    };
+
+    EsdInit.checkUsePC = function (){
+		var userAgentInfo = navigator.userAgent.toLowerCase();
+		var agents = new Array("android", "iphone", "symbianOS", "windows phone", "ipad", "ipod");
+		var flag = true;
+		for (var i = 0; i < agents.length; i++) {
+			if (userAgentInfo.indexOf(agents[i]) > 0) {
+				flag = false; 
+				break; 
+			}
+		}
+		return flag;
+	};
+    EsdInit.getCookie = function(name){
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') 
+				c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) 
+				return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	};
+	EsdInit.setCookie = function(name, value, days){
+		document.cookie = name + "=" + value + "; path=/"+EsdInit.cookieDoamin;
+	};
+    EsdInit.openElderlyFunc = function(e){
+        EsdInit.openType = "click";
+		EsdInit.loadScript(function(){
+			if(typeof(EsdToolbarInit=="object")){
+				EsdToolbarInit.elderly.open();
+			}else{
+				console.error("辅助工具打开失败");
+			}
+		});
+    };
+    EsdInit.init();
+}

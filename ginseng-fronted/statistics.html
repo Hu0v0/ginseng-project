@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-statistics">
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html" class="active">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;" id="authArea">
+                <a href="login.html">
+                <button class="btn btn-default btn-sm">登录</button>
+                </a>
+                <a href="register.html">
+                <button class="btn btn-primary btn-sm">注册</button>
+               </a>
+            </div>
+    </header>
+
+    <main class="stats-section flex-main">
+        <div class="container">
+            <!-- 顶部Banner -->
+            <div class="page-banner" style="padding: 40px 0; margin-bottom: 30px;">
+                <h1>数据统计中心</h1>
+                <p>通化人参重金属检测数据分析 · 合格率 · 元素分布 · 产区对比</p>
+            </div>
+
+            <!-- 总览卡片 -->
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-label">累计检测样本</div>
+                    <div class="overview-value" id="totalCount">326<span class="unit">份</span></div>
+                    <div class="overview-sub"><span class="trend-up">↑ 36.7%</span> 较上年度</div>
+                </div>
+                <div class="overview-card blue">
+                    <div class="overview-label">合格率</div>
+                    <div class="overview-value" id="qualifiedRate">94.2<span class="unit">%</span></div>
+                    <div class="overview-sub"><span class="trend-up">↑ 2.1%</span> 较上年度</div>
+                </div>
+                <div class="overview-card orange">
+                    <div class="overview-label">超标样本数</div>
+                    <div class="overview-value" id="unqualifiedCount">19<span class="unit">份</span></div>
+                    <div class="overview-sub"><span class="trend-down">↓ 21%</span> 较上年度</div>
+                </div>
+                <div class="overview-card purple">
+                    <div class="overview-label">覆盖产区</div>
+                    <div class="overview-value" id="originCount">12<span class="unit">个</span></div>
+                    <div class="overview-sub"><span class="trend-up">↑ 5家</span> 新增合作</div>
+                </div>
+            </div>
+
+            <!-- 图表行：柱状图 + 饼图 -->
+            <div class="chart-row">
+                <!-- 柱状图 -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">月度检测量趋势</div>
+                        <div class="chart-filter">
+                            <button class="filter-btn">本年</button>
+                            <button class="filter-btn active">近12月</button>
+                            <button class="filter-btn">全部</button>
+                        </div>
+                    </div>
+                    <div class="bar-chart" id="barChart">
+                        <!-- 动态生成 -->
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot green"></div>
+                            合格样本
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot red"></div>
+                            超标样本
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 饼图 -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">检测结果分布</div>
+                    </div>
+                    <div class="pie-chart-wrap">
+                        <div class="pie-chart">
+                            <svg id="pieSvg" viewBox="0 0 200 200" width="200" height="200"></svg>
+                            <div class="pie-center">
+                                <div class="num" id="pieCenterNum">--</div>
+                                <div class="label">合格率</div>
+                            </div>
+                        </div>
+                        <div class="pie-legend">
+                            <div class="pie-legend-item">
+                                <span class="legend-color">
+                                    <span class="legend-sq" style="background: #43a047;"></span>
+                                    合格样本
+                                </span>
+                                <span class="percent" id="pieLegendQualified">--</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <span class="legend-color">
+                                    <span class="legend-sq" style="background: #c62828;"></span>
+                                    超标样本
+                                </span>
+                                <span class="percent" id="pieLegendUnqualified">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 元素检测分布 -->
+            <div class="element-stats">
+                <div class="chart-header">
+                    <div class="chart-title">各重金属元素检出率与超标情况</div>
+                    <span style="font-size: 12px; color: var(--text-tertiary);">单位：mg/kg</span>
+                </div>
+                <div class="element-grid" id="elementGrid">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <!-- 产区对比 -->
+            <div class="compare-row">
+                <div class="compare-card">
+                    <h4>🌲 园参 vs 林下参</h4>
+                    <ul class="compare-list" id="compareGarden"></ul>
+                </div>
+                <div class="compare-card">
+                    <h4>📈 不同年限人参</h4>
+                    <ul class="compare-list" id="compareAge"></ul>
+                </div>
+                <div class="compare-card">
+                    <h4>🧪 技术指标对比</h4>
+                    <ul class="compare-list">
+                        <li><span class="key">ICP-MS检出限</span><span class="val highlight">0.01 μg/kg</span></li>
+                        <li><span class="key">检测线性范围</span><span class="val">0.01~500 μg/L</span></li>
+                        <li><span class="key">加标回收率</span><span class="val">95%~108%</span></li>
+                        <li><span class="key">相对标准偏差</span><span class="val highlight">< 3%</span></li>
+                        <li><span class="key">单次检测周期</span><span class="val">6-8小时</span></li>
+                        <li><span class="key">方法验证</span><span class="val highlight">已完成</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 详细数据表 -->
+            <div class="data-table-section">
+                <div class="chart-header">
+                    <div class="chart-title">各产区检测数据明细</div>
+                    <a href="#" style="font-size: 13px; color: var(--primary-color);">导出完整数据 →</a>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>产区名称</th>
+                            <th>样本数</th>
+                            <th>合格数</th>
+                            <th>超标数</th>
+                            <th>合格率</th>
+                            <th>主要超标元素</th>
+                            <th>风险等级</th>
+                        </tr>
+                    </thead>
+                    <tbody id="regionTableBody">
+                        <tr><td colspan="7" class="empty-tip" style="text-align:center;color:var(--text-tertiary);padding:24px;">加载中…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // ========== 渲染函数 ==========
+        // 渲染柱状图（数据格式：[{ m, q, u }]）
+        function renderBarChart(barData) {
+            const barChart = document.getElementById('barChart');
+            barChart.innerHTML = '';
+            if (!barData.length) {
+                barChart.innerHTML = '<p style="color: var(--text-tertiary); font-size: 13px; padding: 20px;">暂无检测数据</p>';
+                return;
+            }
+            const maxVal = Math.max(...barData.map(d => d.q + d.u), 1);
+            barData.forEach(d => {
+                const total = d.q + d.u;
+                const qH = (d.q / maxVal) * 100;
+                const uH = (d.u / maxVal) * 100;
+                const group = document.createElement('div');
+                group.className = 'bar-group';
+                group.innerHTML = `
+                    <div class="bar-wrapper">
+                        <div class="bar qualified" style="height: ${qH}%;">
+                            <span class="bar-label">${total}</span>
+                        </div>
+                        ${d.u > 0 ? `<div class="bar unqualified" style="height: ${uH}%;"></div>` : ''}
+                    </div>
+                    <div class="bar-month">${d.m}</div>
+                `;
+                barChart.appendChild(group);
+            });
+        }
+
+        // 渲染元素分布图（数据格式：[{ sym, name, rate, total, cls }]）
+        function renderElements(elements) {
+            const elementGrid = document.getElementById('elementGrid');
+            elementGrid.innerHTML = '';
+            elements.forEach(e => {
+                const div = document.createElement('div');
+                div.className = 'element-stat';
+                div.innerHTML = `
+                    <div class="el-sym">${e.sym}</div>
+                    <div class="el-name">${e.name}</div>
+                    <div class="el-bar">
+                        <div class="el-bar-fill ${e.cls}" style="width: ${Math.min(e.rate * 10, 100)}%;"></div>
+                    </div>
+                    <div class="el-info">超标 <span class="el-rate">${e.total}</span> 份</div>
+                    <div class="el-info">超标率 <span class="el-rate">${e.rate}%</span></div>
+                `;
+                elementGrid.appendChild(div);
+            });
+        }
+
+        // 渲染饼图（基于后端总览数据动态生成 SVG）
+        function renderPieChart(d) {
+            const total = d.total_count || 0;
+            const qualified = d.qualified_count || 0;
+            const rate = d.qualified_rate || 0;
+            const C = 2 * Math.PI * 80;
+            const qFrac = total > 0 ? qualified / total : 0;
+            const qdash = (C * qFrac).toFixed(1);
+            const udash = (C * (1 - qFrac)).toFixed(1);
+            document.getElementById('pieSvg').innerHTML = `
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#f0f1f2" stroke-width="24"/>
+                ${total > 0 ? `
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#43a047" stroke-width="24"
+                        stroke-dasharray="${qdash} ${C.toFixed(1)}" stroke-dashoffset="0" stroke-linecap="butt"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#c62828" stroke-width="24"
+                        stroke-dasharray="${udash} ${C.toFixed(1)}" stroke-dashoffset="${-qdash}" stroke-linecap="butt"/>` : ''}
+            `;
+            document.getElementById('pieCenterNum').textContent = rate + '%';
+            document.getElementById('pieLegendQualified').textContent = qualified + '份';
+            document.getElementById('pieLegendUnqualified').textContent = (total - qualified) + '份';
+        }
+
+        // 渲染各产区检测数据明细（从 /detection/ 聚合）
+        function renderRegions(records) {
+            const tbody = document.getElementById('regionTableBody');
+            if (!records.length) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-tip" style="text-align:center;color:var(--text-tertiary);padding:24px;">暂无检测数据，请先由管理员录入样本</td></tr>';
+                return;
+            }
+            const STD = { lead: 0.05, arsenic: 0.02, cadmium: 0.01, mercury: 0.01, copper: 20.0 };
+            const ELEM = { lead: '铅(Pb)', arsenic: '砷(As)', cadmium: '镉(Cd)', mercury: '汞(Hg)', copper: '铜(Cu)' };
+            const map = {};
+            records.forEach(r => {
+                const key = r.origin || '未知产区';
+                if (!map[key]) map[key] = { origin: key, total: 0, qualified: 0, unqualified: 0, over: {} };
+                const g = map[key];
+                g.total++;
+                if (r.status === '合格') g.qualified++; else g.unqualified++;
+                Object.keys(ELEM).forEach(k => {
+                    const v = r[k];
+                    if (v != null && STD[k] > 0 && v > STD[k]) {
+                        g.over[ELEM[k]] = (g.over[ELEM[k]] || 0) + 1;
+                    }
+                });
+            });
+            const rows = Object.values(map).map(g => {
+                const rate = g.total ? (g.qualified / g.total * 100).toFixed(1) : '0.0';
+                const mainElem = Object.entries(g.over).sort((a, b) => b[1] - a[1]).slice(0, 2).map(e => e[0]).join('、') || '—';
+                const risk = g.total === 0 || parseFloat(rate) >= 90 ? '低' : (parseFloat(rate) >= 85 ? '中' : '高');
+                return { ...g, rate, mainElem, risk };
+            }).sort((a, b) => b.total - a.total);
+            tbody.innerHTML = rows.map(g => `
+                <tr>
+                    <td>${esc(g.origin)}</td>
+                    <td>${g.total}</td>
+                    <td>${g.qualified}</td>
+                    <td>${g.unqualified}</td>
+                    <td><strong style="color: ${parseFloat(g.rate) >= 90 ? 'var(--success-color)' : (parseFloat(g.rate) >= 85 ? 'var(--warning-color)' : 'var(--danger-color)')};">${g.rate}%</strong></td>
+                    <td>${esc(g.mainElem)}</td>
+                    <td><span class="tag ${g.risk === '低' ? 'tag-success' : (g.risk === '中' ? 'tag-warning' : 'tag-danger')}">${g.risk}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // 渲染园参vs林下参、不同年限/部位（从 /detection/ 聚合）
+        function renderCompare(records) {
+            const avgLead = arr => arr.length ? (arr.reduce((s, r) => s + (r.lead || 0), 0) / arr.length).toFixed(2) : '—';
+            const ratePct = arr => arr.length ? (arr.filter(r => r.status === '合格').length / arr.length * 100).toFixed(1) + '%' : '—';
+            const yp = records.filter(r => (r.name || '').includes('园参'));
+            const lx = records.filter(r => (r.name || '').includes('林下参'));
+            const garden = [
+                { k: '园参平均铅含量', v: avgLead(yp) + ' mg/kg', hi: false },
+                { k: '林下参平均铅含量', v: avgLead(lx) + ' mg/kg', hi: true },
+                { k: '园参合格率', v: ratePct(yp), hi: false },
+                { k: '林下参合格率', v: ratePct(lx), hi: true },
+                { k: '园参样本数', v: yp.length + '份', hi: false },
+                { k: '林下参样本数', v: lx.length + '份', hi: false }
+            ];
+            document.getElementById('compareGarden').innerHTML = garden.map(x => `<li><span class="key">${x.k}</span><span class="val${x.hi ? ' highlight' : ''}">${x.v}</span></li>`).join('');
+
+            const ageGroup = { '1-2年生': [], '3-4年生': [], '5-6年生': [] };
+            records.forEach(r => {
+                const m = (r.age || '').match(/(\d+)\s*年/);
+                if (!m) return;
+                const n = parseInt(m[1], 10);
+                if (n <= 2) ageGroup['1-2年生'].push(r);
+                else if (n <= 4) ageGroup['3-4年生'].push(r);
+                else ageGroup['5-6年生'].push(r);
+            });
+            const byPart = { '根': [], '茎': [], '叶': [] };
+            records.forEach(r => { const p = r.part || '根'; if (byPart[p] !== undefined) byPart[p].push(r); });
+            const ageLead = g => ageGroup[g].length ? (ageGroup[g].reduce((s, r) => s + (r.lead || 0), 0) / ageGroup[g].length).toFixed(2) : '—';
+            const partLead = p => byPart[p].length ? (byPart[p].reduce((s, r) => s + (r.lead || 0), 0) / byPart[p].length).toFixed(2) : '—';
+            const maxPart = Object.keys(byPart).sort((a, b) => byPart[b].length - byPart[a].length)[0];
+            const ageItems = [
+                { k: '1-2年生 平均铅含量', v: ageLead('1-2年生') + ' mg/kg', hi: false },
+                { k: '3-4年生 平均铅含量', v: ageLead('3-4年生') + ' mg/kg', hi: false },
+                { k: '5-6年生 平均铅含量', v: ageLead('5-6年生') + ' mg/kg', hi: true },
+                { k: '根 vs 茎 vs 叶 (平均铅)', v: '根' + partLead('根') + ' > 茎' + partLead('茎') + ' > 叶' + partLead('叶'), hi: false },
+                { k: '样本最多部位', v: maxPart || '—', hi: false },
+                { k: '建议采收年限', v: '5-6年', hi: true }
+            ];
+            document.getElementById('compareAge').innerHTML = ageItems.map(x => `<li><span class="key">${x.k}</span><span class="val${x.hi ? ' highlight' : ''}">${x.v}</span></li>`).join('');
+        }
+
+        // HTML 转义
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        // ========== 拉取后端真实数据 ==========
+        async function loadStatistics() {
+            try {
+                // 1. 总览卡片
+                const ovRes = await fetch(`${API_BASE}/statistics/overview`);
+                const ov = await ovRes.json();
+                if (ov.code === 200) {
+                    const d = ov.data;
+                    document.getElementById('totalCount').innerHTML = `${d.total_count}<span class="unit">份</span>`;
+                    document.getElementById('qualifiedRate').innerHTML = `${d.qualified_rate}<span class="unit">%</span>`;
+                    document.getElementById('unqualifiedCount').innerHTML = `${d.unqualified_count}<span class="unit">份</span>`;
+                    document.getElementById('originCount').innerHTML = `${d.origin_count}<span class="unit">个</span>`;
+                    renderPieChart(d);
+                }
+
+                // 2. 月度趋势
+                const mRes = await fetch(`${API_BASE}/statistics/monthly`);
+                const m = await mRes.json();
+                if (m.code === 200) {
+                    // 后端返回 "YYYY-MM"，图表展示为 "MM月"
+                    const barShow = m.data.map(item => ({
+                        m: parseInt(item.month.split('-')[1], 10) + '月',
+                        q: item.qualified,
+                        u: item.unqualified
+                    }));
+                    renderBarChart(barShow);
+                }
+
+                // 3. 元素超标分布
+                const eRes = await fetch(`${API_BASE}/statistics/elements`);
+                const e = await eRes.json();
+                if (e.code === 200) {
+                    const elements = e.data.elements.map(item => ({
+                        sym: item.sym,
+                        name: item.name,
+                        rate: item.exceed_rate,
+                        total: item.exceed_count,
+                        cls: item.exceed_rate >= 5 ? 'warning' : 'safe'
+                    }));
+                    renderElements(elements);
+                }
+
+                // 4. 产区明细 + 园参/年限对比（从 /detection/ 实时聚合）
+                const detRes = await fetch(`${API_BASE}/detection/`);
+                const det = await detRes.json();
+                if (det.code === 200) {
+                    renderRegions(det.data);
+                    renderCompare(det.data);
+                }
+            } catch (err) {
+                // 后端不可用：保持空数据展示
+                console.warn('无法连接后端：', err);
+            }
+        }
+
+        loadStatistics();
+
+        // 过滤按钮切换
+        document.querySelectorAll('.chart-filter').forEach(filter => {
+            filter.addEventListener('click', function() {
+                filter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

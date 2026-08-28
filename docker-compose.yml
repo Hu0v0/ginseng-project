@@ -1,0 +1,56 @@
+# 云服务器一键部署（Docker Compose）
+# 在云服务器上安装 Docker + Docker Compose 后，进入本目录执行：
+#   docker compose up -d --build
+# 将自动启动：MySQL 数据库 + FastAPI 后端(8000) + 前端页面(80)
+# 部署后：
+#   1. 服务器安全组放行 80 / 8000 端口
+#   2. 前端 js/api-config.js 的 CLOUD_API 填 http://服务器公网IP:8000
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ginseng-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-123456}
+      MYSQL_DATABASE: ${DB_NAME:-ginseng_db}
+      TZ: Asia/Shanghai
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD:-123456}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./ginseng-backend
+    container_name: ginseng-backend
+    environment:
+      DB_DRIVER: mysql+pymysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD:-123456}
+      DB_NAME: ${DB_NAME:-ginseng_db}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+
+  frontend:
+    image: nginx:alpine
+    container_name: ginseng-frontend
+    volumes:
+      - ./ginseng-fronted:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mysql-data:

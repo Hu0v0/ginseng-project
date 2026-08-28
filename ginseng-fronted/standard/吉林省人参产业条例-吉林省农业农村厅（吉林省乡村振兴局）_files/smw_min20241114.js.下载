@@ -1,0 +1,547 @@
+ /*老年版*/
+var www=window.screen.width;
+window.headTool = {
+  init: function () {
+      var mode = this.getCookie("mode");
+      var location = window.location;
+      if (mode == 2) {
+          $("#toolbarOldman").text("关闭老年版")
+          $("body").addClass("oldModel");
+          $('link[href="//agri.jl.gov.cn/images/snw_recss20241114.css"]').attr('href', '//agri.jl.gov.cn/images/snw_recsssjd20241114.css');
+         $('link[href="//agri.jl.gov.cn/images/snw_main20241114.css"]').attr('href', '//agri.jl.gov.cn/images/snw_mainsjd20241114.css');
+         if (window.swiperInstance) {
+          swiperInstance.destroy();
+        }
+      } else {
+          $("#toolbarOldman").text("老年版");
+          $("body").removeClass("oldModel");    
+          $('link[href="//agri.jl.gov.cn/images/snw_recsssjd20241114.css"]').attr('href', '//agri.jl.gov.cn/images/snw_recss20241114.css');
+          $('link[href="//agri.jl.gov.cn/images/snw_mainsjd20241114.css"]').attr('href', '//agri.jl.gov.cn/images/snw_main20241114.css');
+         
+          if (window.swiperInstance) {
+            swiperInstance.destroy();
+          }
+           
+      }
+      return this;
+  },
+  switchOld: function () {
+      var mode = this.getCookie("mode");
+      if (mode == 2) {
+          this.setCookie("mode", 1)
+      } else {
+          this.setCookie("mode", 2)
+      }
+      window.location.reload();
+  },
+  getCookie: function (name) {
+      var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if (arr = document.cookie.match(reg)) {
+          return unescape(arr[2]);
+      } else {
+          return null;
+      }
+  },
+  setCookie: function (name, value) {
+      var Days = 30;
+      var exp = new Date();
+      exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+      document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+  }
+}.init();
+function inswiper(){
+  if (window.swiperInstance) {
+    swiperInstance.destroy();
+  }
+/*图片轮播*/
+var mySwiperlb = new Swiper('.swiper-containerlb',{
+  pagination: '.pagination',
+  autoplay : 5000,
+  loop : true,
+  grabCursor: true,
+  paginationClickable: true,
+
+})
+$('.arrow-left').on('click', function(e){
+  e.preventDefault()
+  mySwiperlb.swipePrev()
+})
+$('.arrow-right').on('click', function(e){
+  e.preventDefault()
+  mySwiperlb.swipeNext()
+ 
+})
+ 
+/*专题轮播*/
+var www=window.screen.width;
+if(www<=768){
+  var mySwiperzt = new Swiper('.mySwiperzt',{
+    autoplay : 5000,
+    loop : true,
+    spaceBetween: 10,
+    paginationClickable: true,
+    slidesPerView: 2
+  })
+}else if(www > 768){
+  var mySwiperzt = new Swiper('.mySwiperzt',{
+  autoplay : 5000,
+  loop : true,
+  spaceBetween: 10,
+  paginationClickable: true,
+  slidesPerView: 3
+})
+}
+
+$('.arrow-left1').on('click', function(e1){
+  e1.preventDefault()
+  mySwiperzt.swipePrev()
+})
+$('.arrow-right1').on('click', function(e1){
+  e1.preventDefault()
+  mySwiperzt.swipeNext()
+})
+/*发布会图片轮播*/
+var mySwiper = new Swiper('.swiper-containerfbh',{
+  pagination: '.paginationfbh',
+  autoplay : 5000,
+loop : true,
+  grabCursor: true,
+  paginationClickable: true
+})
+/*首页公开电话*/
+  var mySwipergkdh = new Swiper('.mySwipergkdh',{
+    autoplay : 5000,
+    pagination: '.paginationdh',
+    loop : true,
+    spaceBetween: 10,
+    paginationClickable: true,
+    slidesPerView: 3
+  })
+   
+/*公开电话*/
+var www=window.screen.width;
+if(www<=768){
+var mySwipergkdh = new Swiper('.mySwipergkdh1',{
+  autoplay : 5000,
+  pagination: '.paginationdh',
+  loop : true,
+  spaceBetween: 10,
+  paginationClickable: true,
+  slidesPerView: 1
+})
+}else{
+  var mySwipergkdh = new Swiper('.mySwipergkdh1',{
+    autoplay : 5000,
+    pagination: '.paginationdh',
+    loop : true,
+    spaceBetween: 10,
+    paginationClickable: true,
+    slidesPerView: 3
+})
+}
+
+}
+inswiper(1);
+ /*厅领导*/
+ $(".ld2024ul ul li").hover(function () {
+  var index = $(this).index();
+  $(this).addClass("active").siblings().removeClass("active");
+  $(".ld2024_main .news_list").eq(index).show().siblings().hide();
+});
+
+$(".zc2024ul ul li").hover(function () {
+  var index = $(this).index();
+  $(this).addClass("active").siblings().removeClass("active");
+  $(".zc2024_main .news_list").eq(index).show().siblings().hide();
+});
+function checkform(e) {
+    var sval = $("#search_val_nav").val();
+    var reg = /^[\+\~\`\@\?\*\%\{\}\#\,\!\=\.\&\$\|\/\:\;\-]/;
+    if (reg.test(sval) || sval == null || sval == "" || sval == "undefined" || (sval.length > 0 && sval.trim()
+            .length == 0)) {
+        alert("请输入搜索内容，不可以留着空或者先输入特殊符号进行搜索。");
+        return false;
+    }
+    if ($(".select_show").text() == "搜本站") {
+        window.open("//agri.jl.gov.cn/kz/ss/?q=" + sval);
+    } else {
+        window.open("https://intellsearch.jl.gov.cn/search/index.html?a=jl2&q=" + sval);
+        return false;
+    }
+}
+$(document).ready(function () {
+    $(".search_select").click(function (e) {
+        event.stopPropagation();
+        if (!$(this).hasClass("search_select_active")) {
+            $(this).addClass("search_select_active");
+        } else {
+            $(this).removeClass("search_select_active");
+        }
+    })
+    $(".search_select_box a").click(function (e) {
+        $(".select_show").val($(this).val()).html($(this).html());
+    });
+    $(document).click(function () {
+        $(".search_select").removeClass("search_select_active");
+    })
+})
+$(document).ready(function () {
+    $('.app_btn').click(function () {
+        $('.i_search_pc').toggle();
+
+    });
+})
+qglb(1);
+ 
+/*行限制*/
+hg(2);
+function hg(e) {
+  $('.currency_ul').each(function () {
+    var uid = $(this).attr("data-uid");
+
+    var www = window.screen.width;
+    var divlist = $(this).find('li')
+    var h = 0;
+    for (var i = 0; i < divlist.length; i++) {
+      h += divlist.eq(i).outerHeight(true);
+
+      if (h > uid && www > 760) {
+
+        divlist.eq(i).remove();
+      } else if (h > uid * 1 + 100 && www < 760) {
+        divlist.eq(i).remove();
+      }
+      else if (h > uid * 1 + 100 && www < 480) {
+        divlist.eq(i).remove();
+      }
+    }
+  }
+  )
+}
+/*意见征集*/
+zj(1);
+function zj(e){
+$('.zjsj').each(function () {
+var jssj =this;  
+var nowDate = new Date;
+if (new Date(jssj.innerText) >= nowDate) {
+               
+                jssj.innerText = "征集中";
+                jssj.className = 'zjz';
+            } else {
+                jssj.innerText = "已结束";
+                jssj.className = 'yjs';
+            }
+        
+        //console.log(jssj);
+
+
+})
+}
+
+/*重要转载 全国信息轮播 省厅要闻*/
+$('.tab-ul li').hover(function () {
+  var index = $(this).index();
+  $(this).addClass('cur').siblings().removeClass('cur');
+  $(this).parent().next().find('.tab-con').eq(index).show().siblings().hide();
+  hg();
+});
+ 
+/*重要转载*/
+$('.zyxxzx a').hover(function () {
+  var index = $(this).index();
+  $(this).addClass('active').siblings().removeClass('active');
+  $(this).parent().next().find('.zx_b').eq(index).show().siblings().hide();
+  hg();
+});
+/*重要转载*/
+$('.zc a').hover(function () {
+  var index = $(this).index();
+  $(this).addClass('active').siblings().removeClass('active');
+  $(this).parent().next().find('.zx_b').eq(index).show().siblings().hide();
+  hg();
+});
+/*惠农政策*/
+$('.hnzc a').hover(function () {
+  var index = $(this).index();
+  $(this).addClass('active').siblings().removeClass('active');
+  $(this).parent().next().find('.zx_b').eq(index).show().siblings().hide();
+  hg();
+});
+ 
+/*等高*/
+$(document).ready(function(){
+  var jg_height = 0;
+var jg_height = $('.jg2024c').height();
+
+$('.ld2024').outerHeight(jg_height);
+})
+$(document).ready(function(){
+var xxlist_height = 0;
+var xxlist_height = $('.xxlist_r').height()+22;
+
+$('.xxlist_l_bg').height(xxlist_height);
+})
+$(document).ready(function(){
+var w3_height = 0;
+var w3c_height = $('.w3c').height();
+
+var w3_height = $('.w3').height();
+if(w3_height>=w3c_height){
+  $('.w3c').height(w3_height);
+  $('.w3').height(w3_height);
+  $('.zcjd').height(w3_height-140);
+}else if(w3_height<=w3c_height){
+  $('.w3').height(w3c_height);
+  $('.w3c').height(w3c_height);
+  $('.zcjd').height(w3c_height-140);
+}
+
+
+})
+
+$(document).ready(function(){
+  var ywl_height = 0;
+  var ywr_height = $('.xxlist_r').height();
+  
+  var ywl_height = $('.xxlist_l').height();
+  if(ywl_height >= ywr_height){
+    $('.xxlist_l').height(ywl_height);
+    
+  }else if(ywl_height<= ywr_height){
+    $('.xxlist_l').height(ywr_height+20);
+    
+  }
+  
+  
+})
+
+$(document).ready(function(){
+  var ldl_height = 0;
+  var ldr_height = $('.ldr').height();
+  
+  var ldl_height = $('.ldl').height();
+  if(ldl_height >= ldr_height){
+    $('.ldl').height(ldl_height);
+    
+  }else if(ldl_height<= ldr_height){
+    $('.ldl').height(ldr_height+20);
+    
+  }
+  
+  
+})
+
+
+$(document).ready(function(){
+var gk_height = 0;
+var gk_height = $('.ld2024ul ul').height()-22;
+
+$('.ld2024_main').height(gk_height);
+})
+$(".zqdh_t").click(function () {
+        
+  if ($(".zqdh_t .iconfont ").hasClass("icon-guanbi")) {
+      $(".zqdh_t .iconfont").removeClass("icon-guanbi");
+      $(".zqdhcd").hide(100);
+  } else {
+      $(".zqdh_t .iconfont").addClass("icon-guanbi");
+      $(".zqdhcd").show(500);
+  }
+}); 
+//现代农业
+
+  
+$(function () {
+  $('.lmx_topItem').hover(function () {
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+    var index = $(this).index()
+    $(this).parent().parent().find('.lmx_topList').hide()
+    $(this).parent().parent().find('.lmx_topList').eq(index).show()
+    $(this).parent().find('.lmx_topMore').hide()
+    $(this).parent().find('.lmx_topMore').eq(index).css('display','inline-block')
+  });
+  $('.lmx_topListItem').hover(function () {
+    $(this).siblings().removeClass('choose');
+    $(this).addClass('choose');
+  });
+  $('.lmx_bbTitleItem').hover(function () {
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+    var index = $(this).index()
+    // 
+    $(this).parent().parent().find('.lmx_bbList').hide()
+    $(this).parent().parent().find('.lmx_bbList').eq(index).show()
+    $(this).parent().find('.lmx_bbTitleMore').hide()
+    $(this).parent().find('.lmx_bbTitleMore').eq(index).css('display','inline-block')
+  });
+});
+
+//相关链接接口
+link();
+function link() {
+                  $.ajax({
+                      type: "GET",  //默认get
+                      url: "//www.jl.gov.cn/xglj/xglj.json",  //默认当前页
+                      dataType: "jsonp",
+                      jsonpCallback: "szfLinkResult",
+                      jsonp: "callback",
+                      success: function (res_link) {  //请求成功回调
+                          // 循环除去市州和其他
+                          for (var key in res_link) {
+                              if (key != "szxs" && key != "qt") {
+                                  for (var i = 0; i < res_link[key].length; i++) {
+                                      $(".link_" + key).append("<a href='" + res_link[key][i].url + "' target='_blank'>" + res_link[key][i].name + "</a>")
+                                      if(key == "sz"){
+                                          $(".link_" + key + "_top").append("<dd><a href='" + res_link[key][i].url + "' target='_blank'>" + res_link[key][i].name + "</a></dd>");
+                                      }
+                                  }
+                              }
+                              // 输出市州
+                              else if (key == "szxs") {
+                                  for (var key2 in res_link["szxs"]) {
+                                      for (var i = 0; i < res_link["szxs"][key2].length; i++) {
+                                          if (i == 0) {
+                                              $(".link_" + key2).append("<dt><a href='" + res_link["szxs"][key2][i].url + "' target='_blank'>" + res_link["szxs"][key2][i].name + "</a></dt>")
+                                          } else {
+                                              $(".link_" + key2).append("<dd><a href='" + res_link["szxs"][key2][i].url + "' target='_blank'>" + res_link["szxs"][key2][i].name + "</a></dd>")
+                                          }
+                                      }
+                                  }
+                              }
+                              //输出其他链接
+                              else {
+                                  for (var i = 0; i < res_link["qt"].length; i++) {
+                                      if(i < res_link["qt"].length -2){
+                                          $(".link_qt").append("<a href='" + res_link["qt"][i].url + "' target='_blank'>" + res_link["qt"][i].name + "</a>")
+                                      }else if(res_link["qt"][i].name == "国家税务总局吉林省税务局"){
+                                          $(".link_qt").append("<p style='height: 30px;line-height:30px;'><a href='" + res_link["qt"][i].url + "' target='_blank'>" + res_link["qt"][i].name + "</a></p>")
+                                          $(".link_gsj").append("<dd><a href='" + res_link["qt"][i].url + "' target='_blank'>" + res_link["qt"][i].name + "</a></dd>")
+                                     }else{
+                                     $(".link_qt").append("<p style='height: 30px;line-height:30px;'><a href='" + res_link["qt"][i].url + "' target='_blank'>" + res_link["qt"][i].name + "</a></p>")
+                                     }
+                                  }
+                              }
+                          }
+                                $(".link_W_Sub a").each(function () {
+                                var link = $(this).attr("href");
+                                if (link.indexOf("javascript") >= 0) {
+                                    $(this).attr("target", "_self");
+                                }
+                            })
+                      },
+                      error: function (e) {  //请求超时回调
+                          if (e.statusText == "timeout") {
+                              console.log("相关链接请求超时")
+                          }
+                      },
+                  })
+
+              }
+
+
+/*重要信息转载*/
+$.ajax({
+  type: "GET", //默认get
+  url: "https://www.jl.gov.cn/kzgn/nrtj/demo1/qgyw/",
+  dataType: "jsonp",
+  jsonpCallback: "qgywJsonpCallBack",
+  success: function (response) { //请求成功回调
+
+    i = 0;
+    $.each(response, function (i, json) {
+      i++;
+      if (i == 10) {
+        return false;
+      }
+      var str1 = json.pubDate;
+      str1 = str1.substr(5, 6);
+
+      var str2 = json.title;
+      //str2 = str2.substr(0, 30);
+      //if (json.title.substr(30) != "") {
+      // str2 += "..."
+      //}
+      var time1 = json.pubDate
+     
+      if(www<=768){time1 = time1.substr(5, 10);
+
+      }else{
+        time1 = time1
+
+      }
+      $("#gwy").append("<li><a title=" + json.title + " href='" + json.link + "'target=_blank>" + str2 + "</a><span>" + time1 + "</span></li>")
+hg(3);
+    })
+    $.ajax({
+      url: 'https://www.jl.gov.cn/kzgn/nrtj/demo1/fbcs/pushinfo2015.html',
+      dataType: "jsonp",
+      contentType: "application/x-www-form-urlencoded; charset=gb2312",
+      jsonp: "pushInfoJsonpCallBack",
+      jsonpCallback: "pushInfoJsonpCallBack",
+      success: function (data1) {
+
+        i = 0;
+        $.each(data1, function (i, json) {
+          i++;
+          if (i == 10) {
+            return false;
+          }
+          var str1 = json.pubDate;
+          str1 = str1.substr(5, 6);
+
+          var str2 = json.title;
+          //str2 = str2.substr(0, 30);
+          //if (json.title.substr(30) != "") {
+          //  str2 += "..."
+          //}
+          var time2 = json.pubDate
+          if(www<=768){time2 = time2.substr(5, 10);
+        
+          }else{
+            time2 = time2
+    
+          }
+         
+          $("#szf").append("<li><a title=" + json.title + " href='" + json.link + "'target=_blank>" + str2 + "</a><span>" + time2 + "</span></li>")
+
+        })
+      },
+      error: function () { }
+
+    });
+
+  },
+  error: function () { }
+
+});
+/*全国信息联播*/
+function qglb() {
+  $.ajax({
+    url: "https://www.agri.cn/qgxxlb/qgxxlb.jsonp",
+    dataType: "jsonp",
+    scriptCharset: "UTF-8",
+    jsonp: 'pushInfoJsonpCallBack',
+    jsonpCallback: 'pushInfoJsonpCallBack',
+    success: function success(qglb) {
+      //console.log(qglb);
+      var htm = "";
+      
+      for (var i = 0; i < 10; i++) {
+        time3 = qglb[i].pubDate;
+      if(www<=768){time3 = time3.substr(5, 10);
+        
+      }else{
+        time3 = time3;
+
+      }
+        htm += '<li><a target="_blank" title="' + qglb[i].title + '" href="' + qglb[i].link + '"><p>[' + qglb[i].source + ']</p> ' + qglb[i].title + '</a><span class="date">' + time3 + '</span></li>';
+      }
+      $("#qgxxlb_list").html(htm);
+      hg();
+    },
+    error: function error(e) { console.log('全国信息联播error' + e); }
+  });
+}
+ 

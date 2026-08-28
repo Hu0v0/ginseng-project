@@ -1,0 +1,218 @@
+* {
+	margin: 0px; padding: 0px;
+}
+body {
+	line-height: 18px; font-family: "????",Verdana, Geneva, sans-serif; font-size: 12px;
+}
+td {
+	font-size: 12px;
+}
+p {
+	font-size: 12px;
+}
+select {
+	font-size: 12px;
+}
+input {
+	font-size: 12px;
+}
+a img {
+	border: currentColor; border-image: none;
+}
+p {
+	margin: 0px;
+}
+ul {
+	margin: 0px;
+}
+ol {
+	margin: 0px;
+}
+form {
+	margin: 0px;
+}
+h1 {
+	margin: 0px;
+}
+h2 {
+	margin: 0px;
+}
+h3 {
+	margin: 0px;
+}
+h4 {
+	margin: 0px;
+}
+h5 {
+	margin: 0px;
+}
+.f14 {
+	font-size: 14px;
+}
+.lh19 {
+	line-height: 19px;
+}
+.main {
+	margin: 0px auto; width: 750px; text-align: left;
+}
+.hspace {
+	height: 2px; overflow: hidden; clear: both; font-size: 0px;
+}
+.b1 {
+	border: 1px solid rgb(0, 0, 0); border-image: none;
+}
+.wrapper {
+	margin: 0px auto;
+	width: 1000px;
+	position: relative;
+	background-color: #FFFFFF;
+}
+.fl {
+	float: left; display: inline;
+}
+.fr {
+	float: right; display: inline;
+}
+a {
+	color: rgb(0, 92, 129); text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+ul {
+	list-style: none;
+}
+li {
+	list-style: none;
+}
+.blank {
+	height: 9px; overflow: hidden; clear: both; font-size: 0px;
+}
+.blank14 {
+	height: 14px; clear: both;
+}
+.ml10 {
+	margin-left: 10px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mt5 {
+	margin-top: 5px;
+}
+.mt2 {
+	margin-top: 2px;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.mr16 {
+	margin-right: 15px;
+}
+.pl10 {
+	padding-left: 10px;
+}
+.pl25 {
+	padding-left: 25px;
+}
+.list {
+	padding: 8px 0px; float: left;
+}
+.list li {
+	background: url(list_bg.jpg) no-repeat 12px 12px; height: 26px; line-height: 26px; overflow: hidden; padding-right: 6px; padding-left: 22px; font-size: 14px;
+}
+.headerTop {
+	height: 27px;
+	color: rgb(136, 136, 136);
+	line-height: 26px;
+	background-color: #FFFFFF;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.headerTop a {
+	padding: 0px 6px; color: rgb(136, 136, 136);
+}
+.headerTop .emailBg {
+	background: url(email.jpg) no-repeat 6px; padding-left: 30px;
+}
+.headerTop .phoneNewspaper {
+	background: url(phone.jpg) no-repeat 6px; padding-top: 2px; padding-left: 26px;
+}
+.headerTopRight {
+	margin-right: 22px; float: right;
+}
+.headerTop .wrapper {
+	background: none;
+}
+.header {
+	background: url(header_bg5.jpg) no-repeat left -27px; height: 128px; position: relative;
+}
+.header p {
+	left: 873px; top: 37px; border-left-color: rgb(160, 160, 160); border-left-width: 1px; border-left-style: solid; position: absolute;
+}
+.header p a {
+	color: rgb(196, 1, 9); font-weight: bold; margin-left: 13px;
+}
+.header .logo1 {
+	left: 772px; top: 43px; position: absolute;
+}
+.headerBottombox {
+	padding: 5px 10px;
+	height: 45px;
+	background-color: #B40003;
+}
+.headerBottombox a {
+	padding: 0px 5px; color: rgb(255, 255, 255); line-height: 22px;
+}
+.headerBottombox .navBox {
+	width: 740px; color: rgb(255, 255, 255); float: left;
+}
+.headerBottombox .search {
+	background: rgb(255, 255, 255); padding: 4px; width: 228px; height: 22px; margin-top: 8px; float: right;
+}
+.headerBottombox .search form {
+	height: 22px;
+}
+.headerBottombox .search a {
+	background: url(search_arrow.jpg) no-repeat right 9px; padding: 0px 10px 0px 0px; width: 50px; height: 22px; color: rgb(153, 153, 153); line-height: 22px; float: left;
+}
+.headerBottombox .search a:hover {
+	text-decoration: none;
+}
+.headerBottombox .search .optionul a {
+	background: none;
+}
+.headerBottombox .search .optionul a:hover {
+	text-decoration: underline;
+}
+.headerBottombox .search .optiond {
+	width: 60px; text-align: center; font-size: 12px; float: left; position: relative;line-height: 22px;
+}
+.headerBottombox .optionul {
+	background: rgb(247, 247, 247); padding: 3px 5px; left: -4px; top: 27px; width: 52px; text-align: center; display: none; position: absolute;
+}
+.headerBottombox .optionul li {
+	height: 24px; line-height: 24px; overflow: hidden; cursor: pointer;
+}
+.headerBottombox .optionul li:hover {
+	
+}
+.headerBottombox .btnSearch {
+	background: none; border: 1px solid rgb(153, 153, 153); border-image: none; width: 134px; height: 20px; color: rgb(0, 0, 0); line-height: 20px; margin-left: 5px; float: left; _width: 126px;
+}
+.headerBottombox .btnSearchButton {
+	background: url(search.jpg) no-repeat; border: currentColor; border-image: none; width: 22px; height: 22px; margin-left: 5px; float: left; cursor: pointer;
+}
+.content {
+	padding: 10px 9px 0px; width: 982px; overflow: auto; -ms-zoom: 1;
+}
+.footer {
+	margin: 0px 10px; text-align: center; padding-bottom: 40px; border-top-color: rgb(180, 0, 1); border-top-width: 2px; border-top-style: solid;
+}
+.footer p {
+	height: 32px; color: rgb(180, 0, 1); line-height: 32px;
+}
+.footer p a {
+	padding: 0px 5px; color: rgb(180, 0, 1); font-weight: bold; text-decoration: underline;
+}

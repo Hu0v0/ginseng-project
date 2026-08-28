@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-login">
+    <!-- ========== 顶部导航栏 ========== -->
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;">
+                <a href="login.html">
+                <button class="btn btn-default btn-sm">登录</button>
+                </a>
+                <a href="register.html">
+                <button class="btn btn-primary btn-sm">注册</button>
+               </a>
+            </div>
+    </header>
+
+    <!-- 登录主体 -->
+    <section class="login-section flex-main">
+        <div class="container">
+            <div class="login-card">
+                <div class="form-header">
+                    <h3>账号登录</h3>
+                    <p>登录后使用检测查询、数据管理等完整功能</p>
+                </div>
+
+                <form id="loginForm">
+                    <!-- 账号 -->
+                    <div class="form-group">
+                        <label for="account">用户名 / 手机号</label>
+                        <input type="text" id="account" placeholder="请输入用户名或手机号" required>
+                    </div>
+
+                    <!-- 密码 -->
+                    <div class="form-group">
+                        <label for="password">登录密码</label>
+                        <input type="password" id="password" placeholder="请输入登录密码" required>
+                    </div>
+
+                    <!-- 选项行 -->
+                    <div class="option-row">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember"> 记住我
+                        </label>
+                        <a href="#" class="forgot-pwd">忘记密码？</a>
+                    </div>
+
+                    <!-- 登录按钮 -->
+                    <button type="submit" class="login-btn">立即登录</button>
+
+                    <div class="register-tip">
+                        还没有账号？<a href="register.html">立即注册</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const account = document.getElementById('account').value.trim();
+            const pwd = document.getElementById('password').value;
+
+            if (!account) {
+                alert('请输入用户名或手机号');
+                return;
+            }
+            if (!pwd) {
+                alert('请输入登录密码');
+                return;
+            }
+
+            const submitBtn = this.querySelector('.login-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = '登录中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/user/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: account, password: pwd })
+                });
+                const result = await res.json();
+                if (result.code === 200) {
+                    // 记录登录用户信息，供其他页面使用
+                    localStorage.setItem('currentUser', JSON.stringify(result.data));
+                    // 若有来源页（如从"立即预约"跳转而来），登录后回跳，否则回首页
+                    let target = 'index.html';
+                    try {
+                        const from = sessionStorage.getItem('redirectAfterLogin');
+                        if (from) { target = from; sessionStorage.removeItem('redirectAfterLogin'); }
+                    } catch (e) {}
+                    alert('登录成功，即将跳转');
+                    window.location.href = target;
+                } else {
+                    alert(result.msg || '登录失败，请检查用户名和密码');
+                }
+            } catch (err) {
+                alert('网络异常，无法连接服务器，请确认后端已启动');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = '立即登录';
+            }
+        });
+    </script>
+</body>
+</html>
