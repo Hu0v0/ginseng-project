@@ -277,7 +277,7 @@
                 tbody.innerHTML = '<tr><td colspan="7" class="empty-tip" style="text-align:center;color:var(--text-tertiary);padding:24px;">暂无检测数据，请先由管理员录入样本</td></tr>';
                 return;
             }
-            const STD = { lead: 0.05, arsenic: 0.02, cadmium: 0.01, mercury: 0.01, copper: 20.0 };
+            const STD = { lead: 5.0, arsenic: 2.0, cadmium: 0.3, mercury: 0.2, copper: 20.0 };
             const ELEM = { lead: '铅(Pb)', arsenic: '砷(As)', cadmium: '镉(Cd)', mercury: '汞(Hg)', copper: '铜(Cu)' };
             const map = {};
             records.forEach(r => {

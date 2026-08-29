@@ -177,7 +177,7 @@
     <script>
         // ========== 后端对接 ==========
         // 前端展示用的国标限量（mg/kg），与后端 HEAVY_METAL_STANDARD 保持一致
-        const LIMIT = { lead: 0.05, cadmium: 0.01, arsenic: 0.02, mercury: 0.01, copper: 20.0 };
+        const LIMIT = { lead: 5.0, cadmium: 0.3, arsenic: 2.0, mercury: 0.2, copper: 20.0 };
         const REGION_MAP = { 'tonghua': '通化', "ji'an": '集安', 'fusong': '抚松', 'jingyu': '靖宇' };
 
         // 当前结果集：供“导出”按钮复用；每项结构：{recordId, sampleId, title, name, age, origin, date, elements[], status, statusLabel, tagClass, inspector, reportId}
