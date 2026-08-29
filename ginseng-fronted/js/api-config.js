@@ -12,7 +12,7 @@
  * ------------------------------------------------------------------
  */
 (function () {
-    var CLOUD_API = ''; // ← 云端部署时在这里填写后端公网地址
+    var CLOUD_API = 'http://81.68.167.116:8000'; // ← 云端部署时在这里填写后端公网地址
     var isLocal = ['127.0.0.1', 'localhost', '::1'].indexOf(window.location.hostname) !== -1;
     window.API_BASE = CLOUD_API || (isLocal ? 'http://127.0.0.1:8000' : '');
 })();

@@ -1,11 +1,13 @@
 # 人参重金属检测溯源系统 - 后端镜像
 FROM python:3.11-slim
 
+RUN apt-get update && apt-get install -y --no-install-recommends fonts-wqy-zenhei && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # 先装依赖（利用缓存层）
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn -r requirements.txt
 
 # 复制后端代码
 COPY main.py .

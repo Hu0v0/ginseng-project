@@ -18,10 +18,17 @@ from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table,
                                 TableStyle, Flowable)
 
 # ---------- 1. 中文字体 ----------
-FONT_DIR = r"C:\Windows\Fonts"
-pdfmetrics.registerFont(TTFont("SimHei", os.path.join(FONT_DIR, "simhei.ttf")))
-pdfmetrics.registerFont(TTFont("SimSun", os.path.join(FONT_DIR, "simsun.ttc"), subfontIndex=0))
-pdfmetrics.registerFont(TTFont("SimKai", os.path.join(FONT_DIR, "simkai.ttf")))
+import platform
+if platform.system() == "Windows":
+    FONT_DIR = r"C:\Windows\Fonts"
+    pdfmetrics.registerFont(TTFont("SimHei", os.path.join(FONT_DIR, "simhei.ttf")))
+    pdfmetrics.registerFont(TTFont("SimSun", os.path.join(FONT_DIR, "simsun.ttc"), subfontIndex=0))
+    pdfmetrics.registerFont(TTFont("SimKai", os.path.join(FONT_DIR, "simkai.ttf")))
+else:
+    WQY = "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc"
+    pdfmetrics.registerFont(TTFont("SimHei", WQY))
+    pdfmetrics.registerFont(TTFont("SimSun", WQY))
+    pdfmetrics.registerFont(TTFont("SimKai", WQY))
 pdfmetrics.registerFontFamily("SimSun", normal="SimSun", bold="SimHei",
                               italic="SimSun", boldItalic="SimHei")
 
