@@ -35,12 +35,12 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# 重金属限量国家标准（单位：mg/kg）
+# 重金属限量国家标准（单位：mg/kg）——《中国药典》2020年版 及 GB 2762-2022
 HEAVY_METAL_STANDARD = {
-    "lead": 0.05,
-    "arsenic": 0.02,
-    "cadmium": 0.01,
-    "mercury": 0.01,
+    "lead": 5.0,
+    "arsenic": 2.0,
+    "cadmium": 0.3,
+    "mercury": 0.2,
     "copper": 20.0
 }
 
