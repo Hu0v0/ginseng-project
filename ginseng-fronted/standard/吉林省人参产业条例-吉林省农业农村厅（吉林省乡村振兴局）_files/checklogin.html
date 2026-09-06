@@ -1,0 +1,204 @@
+
+<!-- saved from url=(0127)https://agri.jl.gov.cn/kz/dl/?tradeResponse=%7B%22code%22%3A%22999999%22%2C%22message%22%3A%22%E6%9C%AA%E7%99%BB%E5%BD%95%22%7D -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function hideCode(str, frontLen, endLen) {
+    var len = str.length - frontLen - endLen;
+    var xing = '';
+    for (var i = 0; i < len; i++) {
+        xing += '*';
+    }
+    return str.substring(0, frontLen) + xing + str.substring(str.length - endLen);
+};
+var ww=window.screen.width;
+var yhid=[];
+			var tradeResponse = GetUrlParam("tradeResponse");
+			var token = "",
+				logInType = "",
+				loginNo = "",
+				tcUrl =
+				'https://user.jl.gov.cn/v1/apigw/none/user/authentication/logout?appId=575ecd1d2d70450ea4c5a6b468c50c7f&backUrl=';
+			window.onload = function() {
+parent.document.getElementById("zcBtn").addEventListener('click', function() {
+var parentUrl = top.location.href;
+						top.location.href = 'https://user.jl.gov.cn/register/natural?redirect=' + encodeURIComponent(parentUrl);
+})
+				//debugger;
+				if (tradeResponse != null && tradeResponse != undefined) {
+					tradeResponse = JSON.parse(tradeResponse);
+					//console.log("tradeResponse", JSON.stringify(tradeResponse));
+					if (tradeResponse.code == "000000") {
+						logInType = tradeResponse.data.loginType;
+						token = tradeResponse.data.accessToken;
+						if (token == null || token == undefined) {
+							token = tradeResponse.data.token;
+						}
+						top.delCookie('token');
+						top.delCookie('logInType');
+						top.delCookie('userInfo');
+						top.setCookie('token', token);
+						top.setCookie('logInType', logInType);
+						top.loginType = logInType;
+						top.token = token;
+						top.islogin = true;
+						getNaturalPersonInfo(token, logInType);
+                                                if(typeof top.islogintest === "function"){
+                                                top.islogintest();
+                                                }
+					} else {
+						//注销登陆删除token
+						top.delCookie('token');
+						top.delCookie('logInType');
+						top.delCookie('userInfo');
+						top.islogin = false;
+						top.userInfo = {};
+					}
+				}
+				parent.document.getElementById("tcBtn").addEventListener('click', function() {
+                                        if(parent.document.getElementById("yhm")){parent.window.location.reload();}
+					parent.document.getElementById("gjdl").setAttribute('src', tcUrl + 'https://agri.jl.gov.cn/kz/tcdl/'); //此处改成退出模板的链接
+				})
+				parent.document.getElementById("loginBtn").addEventListener('click', function() {
+					if (top.islogin) {
+						
+centerUrl="http://www.jl.gov.cn/grzxx/";//个人中心链接
+						if (logInType == '20') {
+							
+centerUrl="http://www.jl.gov.cn/grzxx/";//个人中心链接
+						}
+						top.location.href = centerUrl;
+					} else {
+						var parentUrl = top.location.href;
+      if(parentUrl.indexOf('tradeResponse') != -1){
+       var url = top.location.toString();
+       var arrObj = url.split("?");
+       console.log(arrObj.length);
+       if(arrObj.length > 0){
+        parentUrl = arrObj[0];
+       }
+      }
+						top.location.href = 'https://user.jl.gov.cn/login?redirect=' + encodeURIComponent(parentUrl);
+					}
+				})
+			}
+//获取基本信息
+			function getNaturalPersonInfo(token, logInType) {
+				var logInType = logInType || '10'; //自然人
+				var personInfoUrl = logInType == '10' ? 'getNaturalPersonInfo' : 'legalpersonGetinfo';
+				// var cookieToken = top.getCookie("token");
+				// var cookieLogInType = top.getCookie("logInType");
+				// var cookieUserInfo = top.getCookie("userInfo");
+				// if (cookieToken == token && cookieLogInType == logInType && cookieUserInfo != null) {
+				// 	console.log(cookieUserInfo);
+				// 	if (cookieUserInfo != '{}') {
+				// 		var name = logInType == '10' ? JSON.parse(cookieUserInfo).certName : JSON.parse(cookieUserInfo).legalName;
+				// 		name = top.desensitization(name, 0, -2)
+				// 		parent.document.getElementById("loginBtn").innerText = '个人中心';
+				// 		parent.document.getElementById("tcBtn").style.display = 'inline-block';
+				// 		parent.document.getElementById("zcBtn").style.display = 'none';
+				// 		return;
+				// 	}
+				// }
+				var param = {
+					accessToken: token
+				}
+				
+				top.httpUtils.znSend("jitXyPc", personInfoUrl, param, setData);
+				function setData(data) {
+					
+					if (data.code == '200') {
+						if (data.data == '') {
+							return;
+						}
+						data = JSON.parse(data.data);
+						var res = data.data;
+						
+						top.userInfo = res;
+						top.setCookie('userInfo', JSON.stringify(res));
+						// loginNo = res.loginNo;
+						//var name = logInType == '10' ? res.certName : res.legalName;
+						//name = top.desensitization(name, 0, -2)
+						var card = logInType == '10' ? res.loginNo : res.certificateSno;
+						parent.document.getElementById("loginBtn").innerText = '个人中心'; 
+						parent.document.getElementById("tcBtn").style.display = 'inline-block';
+						parent.document.getElementById("zcBtn").style.display = 'none';
+yhid=res.userId
+if(parent.document.getElementById("yhname")){
+var name = logInType == '10' ? res.certName : res.legalName;
+name=hideCode(name,0,1)
+parent.document.getElementById("yhname").innerText = name+"，您好！"; 
+parent.document.getElementById("yhname").style.display = 'block';
+}
+    if(parent.document.getElementById("netzen_id")){
+                                              parent.document.getElementById("netzen_id").value =yhid;
+if(res.certName!=undefined){
+ parent.document.getElementById("yhm").value =res.certName;
+ parent.document.getElementById("yhm2").value =res.certName;
+ parent.document.getElementById("yhm").disabled = true;
+ parent.document.getElementById("yhdh").value =res.mobileNo;
+ parent.document.getElementById("yhdh2").value =res.mobileNo;
+ parent.document.getElementById("yhdh").disabled = true;
+}else{
+// 法人
+ parent.document.getElementById("yhm").value =res.legalName;
+ parent.document.getElementById("yhm2").value =res.legalName;
+ parent.document.getElementById("yhm").disabled = true;
+ parent.document.getElementById("yhdh").value =res.legalMobile;
+ parent.document.getElementById("yhdh2").value =res.legalMobile;
+ parent.document.getElementById("yhdh").disabled = true;
+}
+
+if(parent.document.getElementById("yhsfz")){
+if(res.certNo !=undefined){
+ parent.document.getElementById("yhsfz").value =res.certNo;
+ parent.document.getElementById("yhmm").value =hideCode(res.certName,0,1);
+ parent.document.getElementById("yhdhh").value =hideCode(res.mobileNo,4,4);
+ parent.document.getElementById("yhsfzz").value =hideCode(res.certNo,4,4);;
+parent.document.getElementById("yhmm").disabled = true;
+parent.document.getElementById("yhdhh").disabled = true;
+parent.document.getElementById("yhsfzz").disabled = true;
+ parent.document.getElementById("yhsfz2").value =res.certNo;
+ parent.document.getElementById("yhsfz").disabled = true;
+}else{
+// 法人
+parent.document.getElementById("yhsfz").value =res.legalCertno;
+ parent.document.getElementById("yhmm").value =hideCode(res.legalName,0,1);
+ parent.document.getElementById("yhdhh").value =hideCode(res.legalMobile,4,4);
+ parent.document.getElementById("yhsfzz").value =hideCode(res.legalCertno,4,4);;
+parent.document.getElementById("yhmm").disabled = true;
+parent.document.getElementById("yhdhh").disabled = true;
+parent.document.getElementById("yhsfzz").disabled = true;
+ parent.document.getElementById("yhsfz2").value =res.legalCertno;
+ parent.document.getElementById("yhsfz").disabled = true;
+}
+}
+}
+//埋码
+top.TA17Callbacks_getAndSendLoginUser = function(callback) {
+							var uId = res.userId;//userId是从用户信息获取来的
+							
+							/**
+							 * 获取用户信息的操作
+							 * 成功获取后执行下面的回调函数
+							 */
+							try {
+								callback(res.userId);
+							} catch (err) {
+								// 记录错误信息
+							}
+						}
+					}
+				}
+			}
+			
+			function GetUrlParam(key) {
+				// // 获取参数
+				var url = document.location.search;
+				// 正则筛选地址栏
+				var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+				// 匹配目标参数
+				var result = url.substr(1).match(reg);
+				//返回参数值
+				return result ? decodeURIComponent(result[2]) : null;
+			}
+		</script></head><body></body></html>

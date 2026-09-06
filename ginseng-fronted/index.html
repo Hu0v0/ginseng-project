@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参安 · 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-index">
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html" class="active">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" id="authArea" style="gap: 12px;">
+                <a href="login.html">
+                <button class="btn btn-default btn-sm">登录</button>
+                </a>
+                <a href="register.html">
+                <button class="btn btn-primary btn-sm">注册</button>
+               </a>
+            </div>
+    </header>
+    <main class="flex-1" style="padding: 32px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; color: var(--text-primary); margin-bottom: 16px; font-weight: 700;">参安 · 人参重金属安全检测数据服务平台</h1>
+                <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 8px;">依托通化师范学院化学专业实验室 · 微波消解-ICP-MS权威检测</p>
+                <p style="color: var(--text-tertiary); font-size: 14px;">为长白山人参核心产区参农提供检测+数据评价+种植指导一体化服务</p>
+                <div class="flex" style="justify-content: center; gap: 16px; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="window.location.href='detect.html'">预约检测服务</button>
+                    <button class="btn btn-default" onclick="window.location.href='about.html'">了解项目详情</button>
+                </div>
+            </div>
+            <div class="flex" style="gap: 20px; margin-bottom: 32px; flex-wrap: wrap;">
+                <div class="card flex-1" style="padding: 24px; min-width: 220px;">
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">试点合作社</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--primary-color);">2</div>
+                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 4px;">通化县试点合作</div>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 220px;">
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">调研参农</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--success-color);">526</div>
+                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 4px;">农户支持率 94.3%</div>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 220px;">
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">检测定价</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--warning-color);">¥80</div>
+                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 4px;">远低于商业机构</div>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 220px;">
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">检测精度</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--info-color);">0.01<span style="font-size: 14px;">μg/kg</span></div>
+                    <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 4px;">满足《中国药典》标准</div>
+                </div>
+            </div>
+
+            <!-- 3. 检测查询区域 -->
+            <div class="card mb-20">
+                <div class="card-header">样本检测查询</div>
+                <div class="card-body">
+                    <form class="form-inline">
+                        <div class="form-item" style="margin-bottom: 0; flex: 1; min-width: 200px;">
+                            <label class="form-label">样本编号</label>
+                            <input type="text" class="form-input" placeholder="请输入样本编号查询">
+                        </div>
+                        <div class="form-item" style="margin-bottom: 0; flex: 1; min-width: 160px;">
+                            <label class="form-label">所属产区</label>
+                            <select class="form-select">
+                                <option value="">全部产区</option>
+                                <option value="tonghua">通化产区</option>
+                                <option value="jian">集安产区</option>
+                                <option value="fusong">抚松产区</option>
+                                <option value="jingyu">靖宇产区</option>
+                            </select>
+                        </div>
+                        <div class="form-item" style="margin-bottom: 0; flex: 1; min-width: 160px;">
+                            <label class="form-label">检测项目</label>
+                            <select class="form-select">
+                                <option value="">全部项目</option>
+                                <option value="pb">铅(Pb)</option>
+                                <option value="cd">镉(Cd)</option>
+                                <option value="as">砷(As)</option>
+                                <option value="hg">汞(Hg)</option>
+                                <option value="cu">铜(Cu)</option>
+                            </select>
+                        </div>
+                        <div style="align-self: flex-end;">
+                            <button type="button" class="btn btn-primary">立即查询</button>
+                            <button type="reset" class="btn btn-default" style="margin-left: 8px;">重置</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 4. 平台功能模块 -->
+            <div class="flex" style="gap: 20px; margin-bottom: 32px; flex-wrap: wrap;">
+                <div class="card flex-1" style="padding: 24px; min-width: 260px;">
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">🧪 人参重金属检测</div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">基于微波消解-ICP-MS技术，检测铅、镉、汞、砷、铜等5项重金属，精度达0.01μg/kg。</p>
+                    <button class="btn btn-primary btn-sm mt-10" onclick="window.location.href='detect.html'">了解检测</button>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 260px;">
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">📋 检测报告查询</div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">凭样本编号查询《人参重金属含量参考数据报告》，含实测数据+国标对比+安全评价。</p>
+                    <button class="btn btn-primary btn-sm mt-10" onclick="window.location.href='query.html'">开始查询</button>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 260px;">
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">📊 数据统计分析</div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">通化地区人参重金属数据库，可视化分析不同年限、不同部位重金属分布规律。</p>
+                    <p id="statSummary" style="color: var(--primary-color); font-size: 13px; font-weight: 600; margin-top: 8px;">累计检测 -- 份 · 合格率 --%</p>
+                    <button class="btn btn-primary btn-sm mt-10" onclick="window.location.href='statistics.html'">查看统计</button>
+                </div>
+                <div class="card flex-1" style="padding: 24px; min-width: 260px;">
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">🌱 种植改良指导</div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">土壤pH调节、重金属钝化改良方案，结合化学专业知识为参农提供种植指导。</p>
+                    <button class="btn btn-primary btn-sm mt-10" onclick="window.location.href='about.html'">了解更多</button>
+                </div>
+            </div>
+
+            <!-- 5. 最新检测数据表格 -->
+            <div class="card">
+                <div class="card-header flex-between">
+                    <span>最新检测数据</span>
+                    <a href="#" style="font-size: 13px; color: var(--primary-color);" onclick="window.location.href='query.html';return false;">查看全部 →</a>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>样本编号</th>
+                                <th>所属产区</th>
+                                <th>人参年限</th>
+                                <th>检测部位</th>
+                                <th>检测项目</th>
+                                <th>检测结果(mg/kg)</th>
+                                <th>限量标准</th>
+                                <th>状态</th>
+                                <th>检测时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="latestTableBody">
+                            <tr><td colspan="9" style="text-align:center;color:var(--text-tertiary);padding:24px;">暂无检测数据，请先由管理员录入样本</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // ========== 首页数据库联动 ==========
+        // 综合状态标签（后端只返回 合格/不合格，这里据此给样式）
+        function statusTag(status) {
+            if (status === '合格') return '<span class="tag tag-success">合格</span>';
+            return '<span class="tag tag-danger">超标</span>';
+        }
+
+        // 加载"数据统计分析"卡片的实时汇总
+        async function loadOverview() {
+            try {
+                const res = await fetch(`${API_BASE}/statistics/overview`);
+                const r = await res.json();
+                if (r.code === 200) {
+                    const d = r.data;
+                    document.getElementById('statSummary').textContent =
+                        `累计检测 ${d.total_count} 份 · 合格率 ${d.qualified_rate}%`;
+                }
+            } catch (err) {
+                console.warn('概览数据加载失败，保留占位：', err);
+            }
+        }
+
+        // 加载"最新检测数据"表格（取最新若干条真实记录）
+        async function loadLatestRecords() {
+            try {
+                const res = await fetch(`${API_BASE}/detection/`);
+                const r = await res.json();
+                if (r.code === 200 && r.data.length) {
+                    const rows = r.data.slice(0, 8).map(rec => `
+                        <tr>
+                            <td>${rec.sample_id}</td>
+                            <td>${rec.origin} · ${rec.name}</td>
+                            <td>${rec.age || '—'}</td>
+                            <td>${rec.part || '根'}</td>
+                            <td>铅(Pb)</td>
+                            <td>${rec.lead}</td>
+                            <td>≤0.05</td>
+                            <td>${statusTag(rec.status)}</td>
+                            <td>${rec.detection_date}</td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('latestTableBody').innerHTML = rows;
+                }
+            } catch (err) {
+                console.warn('最新检测数据加载失败：', err);
+            }
+        }
+
+        loadOverview();
+        loadLatestRecords();
+    </script>
+</body>
+</html>

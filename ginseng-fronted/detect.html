@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>检测服务 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-detect">
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html" class="active">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;" id="authArea">
+                <a href="login.html">
+                <button class="btn btn-default btn-sm">登录</button>
+                </a>
+                <a href="register.html">
+                <button class="btn btn-primary btn-sm">注册</button>
+               </a>
+            </div>
+    </header>
+
+    <main class="service-section flex-main">
+        <div class="container">
+            <!-- 顶部Banner -->
+            <div class="page-banner" style="padding: 50px 0; margin-bottom: 30px;">
+                <h1>人参重金属检测服务</h1>
+                <p>微波消解 - ICP-MS 高精度检测 · 24-48小时出具权威报告 · 平价80元/份</p>
+            </div>
+
+            <!-- 服务套餐 -->
+            <div class="section-title-bar">
+                <h2>服务套餐</h2>
+                <span class="desc">3类服务，满足不同客户需求</span>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="badge basic">基础服务</div>
+                    <div class="service-icon">🔬</div>
+                    <h3>基础检测套餐</h3>
+                    <div class="price">
+                        <span class="amount">¥80</span>
+                        <span class="unit">/份样品</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li>铅(Pb)、镉(Cd)、汞(Hg)、砷(As)、铜(Cu)五项检测</li>
+                        <li>出具正式《人参重金属含量参考数据报告》</li>
+                        <li>含实测数值 + 国家标准对比 + 安全等级评价</li>
+                        <li>24~48小时内交付电子+纸质报告</li>
+                        <li>支持线上查询下载</li>
+                    </ul>
+                    <button class="btn btn-primary btn-service" onclick="bookService('基础检测套餐')">立即预约</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="badge value">增值服务</div>
+                    <div class="service-icon">🌱</div>
+                    <h3>土壤改良套餐</h3>
+                    <div class="price">
+                        <span class="amount">¥150</span>
+                        <span class="unit">/土壤样品</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li>种植土壤重金属含量检测</li>
+                        <li>土壤pH值测定</li>
+                        <li>结合化学专业知识给出土壤改良方案</li>
+                        <li>pH调节 + 重金属钝化改良建议</li>
+                        <li>持续跟踪土壤变化趋势</li>
+                    </ul>
+                    <button class="btn btn-primary btn-service" onclick="window.location.href='about.html'">了解详情</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="badge">高端服务</div>
+                    <div class="service-icon">📊</div>
+                    <h3>品质溯源档案</h3>
+                    <div class="price">
+                        <span class="amount">¥30</span>
+                        <span class="unit">/份档案</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li>为人参合作社建立品质电子溯源档案</li>
+                        <li>区分1~6年不同年限人参建档</li>
+                        <li>通化园参、林下参重金属分布数据库</li>
+                        <li>检测报告一键查询与下载</li>
+                        <li>支持对外展示品质证书</li>
+                    </ul>
+                    <button class="btn btn-primary btn-service" onclick="bookService('品质溯源档案')">预约咨询</button>
+                </div>
+            </div>
+
+            <!-- 批量优惠提示 -->
+            <div class="card mb-20" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border: none; padding: 20px 24px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 28px;">🎉</span>
+                    <div>
+                        <strong style="color: var(--warning-color); font-size: 16px;">批量订单优惠</strong>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">10份以上批量订单享受10%优惠；合作社长期合作享专属折扣</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 检测项目 -->
+            <div class="test-items">
+                <h3>检测项目</h3>
+                <div class="element-grid">
+                    <div class="element-card">
+                        <div class="sym">Pb</div>
+                        <div class="name">铅</div>
+                        <div class="limit">≤ 5.0 mg/kg</div>
+                    </div>
+                    <div class="element-card">
+                        <div class="sym">Cd</div>
+                        <div class="name">镉</div>
+                        <div class="limit">≤ 1.0 mg/kg</div>
+                    </div>
+                    <div class="element-card">
+                        <div class="sym">As</div>
+                        <div class="name">砷</div>
+                        <div class="limit">≤ 2.0 mg/kg</div>
+                    </div>
+                    <div class="element-card">
+                        <div class="sym">Hg</div>
+                        <div class="name">汞</div>
+                        <div class="limit">≤ 0.2 mg/kg</div>
+                    </div>
+                    <div class="element-card">
+                        <div class="sym">Cu</div>
+                        <div class="name">铜</div>
+                        <div class="limit">≤ 20 mg/kg</div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; font-size: 13px; color: var(--text-tertiary); line-height: 1.8;">
+                    <strong style="color: var(--text-secondary);">检测依据：</strong>
+                    严格依据《中国药典》2020年版四部通则2321，采用微波消解-电感耦合等离子体质谱法（ICP-MS）测定，检出限满足《中国药典》中药材检测标准。
+                </p>
+            </div>
+
+            <!-- 检测流程 -->
+            <div class="process-section">
+                <h3>六步检测流程 · 专业可靠</h3>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-title">样品送检</div>
+                        <div class="step-desc">参农或合作社通过线上/线下代收点提交样品</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-title">样品登记</div>
+                        <div class="step-desc">唯一编号登记，建立电子档案</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-title">前处理</div>
+                        <div class="step-desc">微波消解 - 硝酸-过氧化氢体系</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-title">仪器检测</div>
+                        <div class="step-desc">ICP-MS 高精度质谱分析</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">5</div>
+                        <div class="step-title">数据核验</div>
+                        <div class="step-desc">指导教师复核，空白实验校准</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">6</div>
+                        <div class="step-title">报告出具</div>
+                        <div class="step-desc">24-48h 内交付电子+纸质报告</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资质承诺 -->
+            <div class="promise-section">
+                <div class="section-title-bar">
+                    <h2>我们的承诺</h2>
+                    <span class="desc">通化师范学院化学分析实验室 权威检测</span>
+                </div>
+                <div class="promise-grid">
+                    <div class="promise-item">
+                        <div class="icon">🎓</div>
+                        <h4>高校实验室背书</h4>
+                        <p>依托通化师范学院化学实训中心，免费使用微波消解仪、ICP-MS等全套大型分析仪器</p>
+                    </div>
+                    <div class="promise-item">
+                        <div class="icon">⚡</div>
+                        <h4>快速出报告</h4>
+                        <p>样品受理后24~48小时内交付电子+纸质双版本报告</p>
+                    </div>
+                    <div class="promise-item">
+                        <div class="icon">💰</div>
+                        <h4>平价惠民</h4>
+                        <p>单份80元，远低于长春等商业检测机构，让参农用得起检测服务</p>
+                    </div>
+                    <div class="promise-item">
+                        <div class="icon">🛡️</div>
+                        <h4>结果可溯源</h4>
+                        <p>完整原始谱图+实验记录存档，每份数据可追溯、可验证</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 详细价目表 -->
+            <div class="section-title-bar">
+                <h2>详细价目表</h2>
+                <span class="desc">所有价格含试剂耗材，透明公开</span>
+            </div>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>服务项目</th>
+                        <th>检测内容</th>
+                        <th>单价</th>
+                        <th>周期</th>
+                        <th>适合客户</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>人参重金属基础检测</strong></td>
+                        <td>铅、镉、汞、砷、铜 5项</td>
+                        <td><strong style="color: var(--danger-color);">¥80</strong>/份</td>
+                        <td>24-48小时</td>
+                        <td>参农、合作社</td>
+                        <td><span class="price-tag hot">热门</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>土壤重金属检测</strong></td>
+                        <td>pH+5项重金属</td>
+                        <td><strong style="color: var(--danger-color);">¥150</strong>/份</td>
+                        <td>48小时</td>
+                        <td>种植户、合作社</td>
+                        <td>含改良方案</td>
+                    </tr>
+                    <tr>
+                        <td><strong>批量人参检测(10+份)</strong></td>
+                        <td>5项重金属</td>
+                        <td><strong style="color: var(--danger-color);">¥72</strong>/份</td>
+                        <td>3-5个工作日</td>
+                        <td>合作社、加工企业</td>
+                        <td><span class="price-tag new">9折优惠</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>品质溯源档案建立</strong></td>
+                        <td>电子化建档</td>
+                        <td><strong style="color: var(--danger-color);">¥30</strong>/份</td>
+                        <td>实时办理</td>
+                        <td>合作社、加工企业</td>
+                        <td>按年限分类</td>
+                    </tr>
+                    <tr>
+                        <td><strong>下乡免费体验</strong></td>
+                        <td>免费检测少量样品</td>
+                        <td><strong style="color: var(--success-color);">免费</strong></td>
+                        <td>预约</td>
+                        <td>新客户首测</td>
+                        <td><span class="price-tag new">限时活动</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <a href="index.html">首页</a>
+            <a href="detect.html">检测服务</a>
+            <a href="query.html">检测查询</a>
+            <a href="statistics.html">数据统计</a>
+            <a href="standard.html">标准法规</a>
+            <a href="about.html">关于我们</a>
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <!-- 预约表单弹窗 -->
+    <div id="bookModalMask" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:999; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:12px; width:460px; max-width:92vw; padding:28px;">
+            <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">预约检测服务</h3>
+            <p style="font-size:13px; color:var(--text-tertiary); margin-bottom:20px;" id="bookPlanTip"></p>
+            <form id="bookForm">
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; color:var(--text-secondary); margin-bottom:6px;">联系人 *</label>
+                    <input type="text" id="bkContact" required style="width:100%; padding:10px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); box-sizing:border-box; outline:none;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; color:var(--text-secondary); margin-bottom:6px;">联系电话 *</label>
+                    <input type="tel" id="bkPhone" required style="width:100%; padding:10px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); box-sizing:border-box; outline:none;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; color:var(--text-secondary); margin-bottom:6px;">送检样本数量</label>
+                    <input type="number" id="bkCount" value="1" min="1" style="width:100%; padding:10px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); box-sizing:border-box; outline:none;">
+                </div>
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; font-size:13px; color:var(--text-secondary); margin-bottom:6px;">需求说明</label>
+                    <textarea id="bkRemark" rows="3" placeholder="选填，如样本品种、产地、期望完成时间等" style="width:100%; padding:10px 12px; border:1px solid var(--border-color); border-radius:var(--radius-md); box-sizing:border-box; outline:none; resize:vertical;"></textarea>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:12px;">
+                    <button type="button" class="btn btn-default" onclick="closeBookModal()">取消</button>
+                    <button type="submit" class="btn btn-primary" id="bkSubmitBtn">提交预约</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        let currentPlan = '';
+
+        // 点击预约：未登录先跳登录，已登录弹出预约表单
+        function bookService(planName) {
+            GinsengAuth.requireLogin(function () {
+                currentPlan = planName;
+                document.getElementById('bookPlanTip').textContent = '预约服务：' + planName;
+                document.getElementById('bookForm').reset();
+                document.getElementById('bkCount').value = 1;
+                document.getElementById('bookModalMask').style.display = 'flex';
+            }, '预约服务需先登录，即将跳转到登录页');
+        }
+
+        function closeBookModal() {
+            document.getElementById('bookModalMask').style.display = 'none';
+        }
+
+        // 提交预约到后端
+        document.getElementById('bookForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const user = GinsengAuth.getUser();
+            if (!user) { bookService(currentPlan); return; }
+
+            const payload = {
+                user_id: user.id,
+                username: user.username,
+                service_type: currentPlan,
+                contact: document.getElementById('bkContact').value.trim(),
+                phone: document.getElementById('bkPhone').value.trim(),
+                sample_count: parseInt(document.getElementById('bkCount').value, 10) || 1,
+                remark: document.getElementById('bkRemark').value.trim() || null
+            };
+            const btn = document.getElementById('bkSubmitBtn');
+            btn.disabled = true; btn.textContent = '提交中…';
+            try {
+                const res = await fetch(`${API_BASE}/order/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const r = await res.json();
+                if (r.code === 200) {
+                    closeBookModal();
+                    if (confirm('预约提交成功，请等待管理员审核。\n是否现在查看"我的预约"？')) {
+                        window.location.href = 'my-orders.html';
+                    }
+                } else {
+                    alert(r.msg || '提交失败');
+                }
+            } catch (err) {
+                alert('请求失败，请确认后端已启动');
+            } finally {
+                btn.disabled = false; btn.textContent = '提交预约';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的预约 - 参安 | 人参重金属安全检测数据服务平台</title>
+    <link rel="stylesheet" href="css/common.css">
+<script src="js/api-config.js"></script>
+</head>
+<body class="flex flex-column page-myorders">
+    <div class="guard-mask" id="guardMask" style="display:none;">
+        <h3>🔒 请先登录</h3>
+        <p>查看预约记录需要登录，即将跳转到登录页…</p>
+    </div>
+
+    <header style="background: var(--bg-white); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div class="container flex-between" style="height: 64px;">
+            <div class="flex-align-center">
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">参安</div>
+                <span style="margin-left: 8px; color: var(--text-secondary); font-size: 14px;">人参重金属安全检测数据服务平台</span>
+            </div>
+            <nav class="nav-menu flex-align-center" style="gap: 32px;">
+                <a href="index.html">首页</a>
+                <a href="detect.html">检测服务</a>
+                <a href="query.html">检测查询</a>
+                <a href="statistics.html">数据统计</a>
+                <a href="standard.html">标准法规</a>
+                <a href="about.html">关于我们</a>
+            </nav>
+            <div class="flex-align-center" style="gap: 12px;" id="authArea"></div>
+    </header>
+
+    <main class="orders-section flex-main">
+        <div class="container">
+            <div class="orders-header">
+                <h2>📋 我的预约</h2>
+                <div class="sub">查看您提交的检测服务预约及管理员审核进度</div>
+            </div>
+            <div id="ordersWrap">
+                <div class="empty-tip">加载中…</div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="background: #fff; border-top: 1px solid var(--border-light); padding: 24px 0; margin-top: 40px;">
+        <div class="container text-center" style="color: var(--text-tertiary); font-size: 13px;">
+            <p>© 2026 参安 · 人参重金属安全检测数据服务平台 版权所有</p>
+            <p style="margin-top: 4px;">技术支持：通化师范学院化学实训中心 · 徐敏教师团队</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        const user = GinsengAuth.getUser();
+        if (!user) {
+            document.getElementById('guardMask').style.display = 'flex';
+            try { sessionStorage.setItem('redirectAfterLogin', 'my-orders.html'); } catch (e) {}
+            setTimeout(() => { window.location.href = 'login.html'; }, 1800);
+        } else {
+            loadMyOrders();
+        }
+
+        const statusMap = {
+            '待处理': { cls: 'st-pending', label: '⏳ 待审核' },
+            '已通过': { cls: 'st-pass', label: '✅ 已通过' },
+            '已驳回': { cls: 'st-reject', label: '❌ 已驳回' }
+        };
+
+        async function loadMyOrders() {
+            const wrap = document.getElementById('ordersWrap');
+            try {
+                const res = await fetch(`${API_BASE}/order/my/${user.id}`);
+                const r = await res.json();
+                if (r.code !== 200) { wrap.innerHTML = `<div class="empty-tip">${r.msg || '加载失败'}</div>`; return; }
+                if (!r.data.length) {
+                    wrap.innerHTML = '<div class="empty-tip">您还没有任何预约记录<br><br><a href="detect.html">→ 去检测服务页预约</a></div>';
+                    return;
+                }
+                wrap.innerHTML = r.data.map(o => {
+                    const st = statusMap[o.status] || { cls: 'st-pending', label: o.status };
+                    const time = (o.created_at || '').toString().replace('T', ' ').slice(0, 19);
+                    const reply = o.admin_reply
+                        ? `<div class="order-reply"><strong>管理员回复：</strong>${o.admin_reply}</div>`
+                        : (o.status === '待处理' ? '<div class="order-reply">管理员尚未处理，请耐心等待。</div>' : '');
+                    return `
+                        <div class="order-card">
+                            <div class="order-top">
+                                <div>
+                                    <div class="svc">${o.service_type}</div>
+                                    <div class="time">预约编号 #${o.id} · 提交于 ${time}</div>
+                                </div>
+                                <span class="status-badge2 ${st.cls}">${st.label}</span>
+                            </div>
+                            <div class="order-body">
+                                <div><strong>联系人：</strong>${o.contact || '—'}</div>
+                                <div><strong>联系电话：</strong>${o.phone || '—'}</div>
+                                <div><strong>送检数量：</strong>${o.sample_count || 1} 份</div>
+                                <div style="grid-column:1/-1;"><strong>需求说明：</strong>${o.remark || '无'}</div>
+                            </div>
+                            ${reply}
+                        </div>`;
+                }).join('');
+            } catch (err) {
+                wrap.innerHTML = '<div class="empty-tip">❌ 无法连接后端，请确认后端已启动（http://127.0.0.1:8000）</div>';
+            }
+        }
+    </script>
+</body>
+</html>

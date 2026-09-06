@@ -1,0 +1,146 @@
+
+
+
+
+/* slider */
+.slider{width: 522px;height: 270px;float: left;position: relative;}
+
+.focusPic { margin-bottom:20px; position: relative; height:270px; overflow:hidden; }
+.fpic { position: relative; width:522px; height:270px; display:none; }
+.f_bg { background:#000; height:40px; width:522px; position:absolute; left:0; bottom:0; z-index:10; display:block; opacity:0.6; filter:alpha(opacity=60); }
+.fpic img {}
+.l_btn { background:url(../images/sports_m_02_1.png) 0 0; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/sports_m_02_1.png', sizingMethod='crop');
+height:35px; width:35px; position:absolute; left:6px; top:110px; z-index:1000; cursor:pointer; }
+.r_btn { background:url(../images/sports_m_03_1.png) 0 0; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/sports_m_03_1.png', sizingMethod='crop');
+height:35px; width:35px; position:absolute; right:6px; top:110px; z-index:1000; cursor:pointer; }
+.fpic h3 { font-size: 12px; line-height: 20px; position:absolute; left:0px; bottom:10px; z-index:100; left:10px; font-weight:normal; font-family:"微软雅黑"; width: 75%;height: 20px;overflow: hidden;}
+.fpic h3 em { padding-right:8px; }
+.fpic h3 em a { font:16px/30px "微软雅黑"; }
+.fpic h3 span { font:16px/30px "微软雅黑"; }
+.fpic h3 a { color:#fff; font-size:14px; }
+.focusPic .btPhoto { width: 100px; height: 22px; margin:0 0 0 10px; position: absolute; bottom:5px; right: 5px; z-index: 10; }
+.btPhoto .bt02 { background: url(../images/bg_datudian.gif) no-repeat -16px 0; width: 9px; height: 9px; margin: 3px; display: inline; float: left; cursor: pointer; }
+.btPhoto .current { background: url(../images/bg_datudian.gif) no-repeat; }
+.btPhoto .bt01, .btPhoto .bt09 { width: 23px; height: 19px; margin: 0 5px; float: left; }
+.btPhoto .bt01 img, .btPhoto .bt09 img { cursor: pointer; border: none; }
+#bigpic { width:522px; height:270px; overflow:hidden; }
+
+/* sliderRight*/
+.sliderRight{width: 448px;float: right;border: 1px solid #d1d1d1;height: 268px;overflow:hidden;}
+.sliderRigtop{color: #727272;border-bottom: 1px solid #d1d1d1;text-align: center;height: 74px;}
+.sliderRigtop dl{padding: 0 6px;height:60px;overflow: hidden;}
+.sliderRigtop dl dt{color: #c30109;font-weight: bold;font-size: 30px;display: block;height: 42px;line-height: 42px;font-family: '微软雅黑';overflow: hidden;}
+.sliderRigtop dl dt a{color: #c30109;}
+.sliderRigtop dl dd a{color: #727272;padding: 0 3px;}
+.sliderRigtop dl dt a:hover{text-decoration: none;}
+
+.sliderRiglist{margin-top: 6px;}
+.sliderRiglist li{height: 26px;line-height: 26px;padding-left: 24px;background: url(libg.jpg) no-repeat 15px 11px;overflow: hidden;font-size: 14px;padding-right: 6px;}
+.sliderRiglist li span{color: #999;margin-left: 10px;}
+
+/*sidebar*/
+.sidebar{width: 172px;float: left;}
+.constitution{padding: 10px 0;text-align: center;}
+.meeting{border: 1px solid #bcbcbc;border-bottom: none;margin-bottom: 10px;}
+.meeting a{display: block;border-bottom: 1px solid #bcbcbc;}
+.nameBox{border:1px solid #bcbcbc;padding: 8px 0 5px 36px;margin-bottom: 10px;}
+.nameBox font{color: #d11921;font-weight: bold;font-size: 14px;display: block;margin: 5px 0;}
+.nameBox p{height: 30px;line-height: 30px;overflow: hidden;font-size: 14px;}
+
+.organization{border: 1px solid #bcbcbc;}
+.organization h4{background: url(organization.jpg) no-repeat;height: 25px;line-height: 26px;padding-left: 20px;border-bottom: 1px solid #bcbcbc;}
+.organization h4 a{color: #D11921;font-size: 14px;}
+.organizationlist{padding: 5px;}
+.organizationlist li{height: 34px;line-height: 34px;padding-left: 15px;background: url(libg.jpg) no-repeat 5px 17px;overflow: hidden;font-size: 14px;}
+.organizationlist li.special{border-bottom: 1px dashed #C3C3C3;}
+.sidebar .mb10{display: block;}
+
+/*primary*/
+.h285{height: 285px;}
+.h310{height: 310px;}
+.primary{width: 800px;float: right;}
+.primarybox{width: 393px;border: 1px solid #d2d2d2;border-top: none;}
+.primarybox p{height: 32px;line-height: 34px;background: url(primarybox_bg.jpg) repeat-x;padding-left: 14px;padding-right: 5px;font-weight: bold;}
+.primarybox p a{color: #C40109;font-size: 14px;}
+.primarybox .secondLevel{background: url(secondlevel.jpg) repeat-x;height: 29px;line-height: 28px;text-align: right;color: #005C81;padding: 0 5px;}
+.primarybox .secondLevel a{padding: 0 5px;}
+.primarybox p span{font-weight: normal;height: 28px;}
+.primarybox p span a{color: #005C81;font-weight: normal;font-size: 12px;padding: 0 5px;}
+
+
+.primaryTab{border: 1px solid #d2d2d2;border-top: none;height:308px;}
+.primaryTab .primaryTablist{height: 29px;line-height: 28px;background: url(primarybox_bg.jpg) repeat-x;}
+.primaryTab .primaryTablist li{float: left;width: 92px;height: 27px;border-right:1px solid #d2d2d2;text-align: center;margin-top: 2px;line-height: 26px;}
+.primaryTab .primaryTablist li a{color: #D11921;font-size: 14px;}
+.primaryTab .primaryTablist li.on{font-weight: bold;background-color: #fff;}
+.primaryTab .tabBox .tab{height: 265px;display: none;padding: 12px 0 0 0;overflow: hidden;}
+.primaryTab .tabBox .on{display: block;}
+.primaryTab .primaryTablist li a:hover{text-decoration: none;}
+
+.primaryTab .tabBox .picList{margin-left:8px;}
+.primaryTab .tabBox .picList li{float: left;width: 181px;height: 121px;overflow: hidden;margin: 0 7px 10px;display: inline;}
+.primaryTab .tabBox .picList li a{display: block;}
+.primaryTab .tabBox .picList li img{width: 181px;height: 121px;}
+.primaryTab .tabBox .picList li div{height: 36px;line-height: 18px;margin-top: 5px;}
+.hauto{height: auto;}
+.primaryTab .tabBox .list{padding:0;}
+
+.fang1 {float: left;width: 387px;margin-left:10px;}
+.fang1 li {display: block;height: 26px;line-height: 26px;font-size: 14px;padding-left: 10px;background: url(list_bg.jpg) no-repeat left 12px;}
+.fang2 {float:left;width: 137px;height: 91px;}
+.fang2 img {width: 137px;height: 91px;}
+.fang3 {float:left;width: 240px;margin-left:10px;} 
+.fang3 li {width: 230px;height: 22px;line-height: 22px;overflow: hidden;font-size: 12px;}
+.primaryTab .listP{width: 387px;margin-top:10px;}
+
+
+.primarybox .listP{padding: 10px 0 0 10px;float: left;}
+.primarybox .listP li.first{float: left;width: 137px;height: 91px;overflow: hidden;margin-right: 6px;padding-left: 0;background: none;margin-bottom: 8px;}
+.primarybox .listP li.first img{width: 137px;height: 91px;}
+.primarybox .listP li.listop{float: left;width: 230px;height: 22px;line-height: 22px;overflow: hidden;font-size: 12px;}
+.primarybox .listP li{display: block;height: 26px;line-height: 26px;font-size: 14px;padding-left: 10px;background: url(list_bg.jpg) no-repeat left 12px;}
+.primarybox .listP li.clear{clear: both;}
+
+.primaryTab p{height: 32px;line-height: 34px;background: url(primarybox_bg.jpg) repeat-x;padding-left: 14px;padding-right: 5px;font-weight: bold;}
+.primaryTab p a{color: #C40109;font-size: 14px;}
+.primaryTab .list li{width: 370px;float: left;display: inline;}
+.primaryTab p span{padding-left: 10px;font-weight: normal;}
+.primaryTab p span a{color: #005C81;font-weight: normal;font-size: 12px;padding: 0 5px;}
+.primaryTab div.db{border-bottom: 1px solid #c50009;padding: 0 15px;height: 30px;font-size: 14px;line-height: 30px;}
+.primaryTab div.db a{color: #c50009;float: left;width: 48px;}
+.h366{height: 366px;}
+
+/*friendlinks*/
+.friendLinks{border: 1px solid #d2d2d2;height: 91px;padding-left: 40px;background: url(friendlinks.jpg) no-repeat;margin-bottom: 10px;padding: 5px 30px 0 43px;}
+.friendLinks .friendbox{height: 28px;line-height: 28px;overflow: hidden;}
+.friendLinks .friendbox .friendlinksbox{float: left;width: 767px;color:#005C81;overflow: hidden;height: 28px;position: relative;}
+.friendLinks .friendbox .friendlinksbox li{float: left;margin: 0 5px;display: inline;}
+.friendLinks .friendbox .friendlinksbox ul{height: 28px;line-height: 28px;}
+.friendLinks .friendbox b{float: left;display: inline;color: #005C81;padding: 0 5px;}
+.friendLinks .friendbox .more{float: right;color: #B40001;font-weight: bold;}
+
+/*二维码*/
+.qrCode{width: 106px;height: 142px;padding: 2px;position: absolute;position: fixed;top:380px;background: #fff;right:20px;_position: absolute;}
+.qrCode div{border: 1px solid #ebebeb;text-align: center;height: 140px;color: #666;}
+.qrCode p{line-height: 22px;}
+
+.idea .ml10{margin-left: 2px;}
+.examineLink img{width: 395px;height: 68px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

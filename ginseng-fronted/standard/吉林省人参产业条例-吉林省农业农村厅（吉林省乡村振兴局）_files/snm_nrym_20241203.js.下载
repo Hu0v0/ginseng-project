@@ -1,0 +1,129 @@
+/*内容页面*/
+function qrshow() {
+    $("#bsWXBox").show();
+    makeCode();
+  };
+  
+  function qrhide() {
+    $("#bsWXBox").hide();
+  };
+  
+  function sinaShare() {
+    var url = window.location.href;
+    var title =$(".nrtitle").text();
+    window.open('http://service.weibo.com/share/share.php?url=' + url + '&title=' + title);
+  }
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 178,
+    height: 178,
+  });
+  
+  function qqShare() {
+    var url = window.location.href;
+    var title =$(".nrtitle").text();
+    window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + url + '&title=' + title);
+  }
+  
+  
+  function makeCode() {
+    qrcode.makeCode(window.location.href);
+  }
+  $(".icon-Word-add").click(function () {
+    cssfontSize = $("#zoom").css('font-size');
+    var fontSize = parseFloat(cssfontSize);
+    //console.log(fontSize)
+    $("#zoom").css("font-size", fontSize + 1 + "px")
+    $("#zoom p").css("font-size", fontSize + 1 + "px")
+    $("#zoom span").css("font-size", fontSize + 1 + "px")
+    $("#zoom div").css("font-size", fontSize + 1 + "px")
+    $("#zoom strong").css("font-size", fontSize + 1 + "px")
+    $("#zoom font").css("font-size", fontSize + 1 + "px")
+    csslineHeight = $("#zoom").css('line-height');
+    var lineHeight = parseFloat(csslineHeight);
+    $("#zoom").css("line-height", lineHeight + 2 + "px")
+    $("#zoom p").css("line-height", lineHeight + 2 + "px")
+    $("#zoom font").css("line-height", lineHeight + 2 + "px")
+    $("#zoom strong").css("line-height", lineHeight + 2 + "px")
+    $("#zoom div").css("line-height", lineHeight + 2 + "px")
+    $("#zoom span").css("line-height", lineHeight + 2 + "px")
+  });
+  $(".icon-Word-minus").click(function () {
+    cssfontSize = $("#zoom").css('font-size');
+    var fontSize = parseFloat(cssfontSize);
+    //console.log(fontSize)
+    csslineHeight = $("#zoom").css('line-height');
+    var lineHeight = parseFloat(csslineHeight);
+    if (fontSize == 12) {
+        $("#zoom").css("font-size", "12px");
+        $("#zoom").css("line-height", "22px")
+        
+  
+        $(".tips_warn").show().delay(2000).fadeOut();
+  
+    } else {
+        $("#zoom").css("font-size", fontSize - 1 + "px")
+        $("#zoom p").css("font-size", fontSize - 1 + "px")
+        $("#zoom span").css("font-size", fontSize - 1 + "px")
+        $("#zoom font").css("font-size", fontSize - 1 + "px")
+        $("#zoom div").css("font-size", fontSize - 1 + "px")
+        $("#zoom strong").css("font-size", fontSize - 1 + "px")
+  
+        $("#zoom").css("line-height", lineHeight - 2 + "px")
+        $("#zoom p").css("line-height", lineHeight - 2 + "px")
+        $("#zoom span").css("line-height", lineHeight - 2 + "px")
+        $("#zoom strong").css("line-height", lineHeight - 2 + "px")
+        $("#zoom div").css("line-height", lineHeight - 2 + "px")
+        $("#zoom font").css("line-height", lineHeight - 2 + "px")
+    }
+  })
+  function preview(oper) {
+    if (oper < 10) {
+        bdhtml = window.document.body.innerHTML;
+        sprnstr = "<!--startprint" + oper + "-->";
+        eprnstr = "<!--endprint" + oper + "-->";
+        prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18);
+        prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+        window.document.body.innerHTML = prnhtml;
+        window.print();
+        window.document.body.innerHTML = bdhtml;
+        location.reload();
+    } else {
+        window.print();
+        location.reload();
+    }
+  }
+  $(".xx_zh a").click(function(){
+  
+    // $(this).css({
+    // 	color:'#ff0000'
+    // }).siblings().css({
+    // 	color:'#666'
+    // });
+
+    //获取para的字体大小
+    var thisEle = $(".nrtxt p,.nrtxt,.nrtxt font,.nrtxt span,.nrtxt div").css("font-size");
+    //parseFloat的第二个参数表示转化的进制，10就表示转为10进制
+    var textFontSize = parseFloat(thisEle , 10);
+    //javascript自带方法
+    var unit = thisEle.slice(-2); //获取单位
+    var cName = $(this).attr("class");
+    if(cName.indexOf('bigger') != -1){
+        textFontSize = 30;
+      $(this).addClass('on').siblings().removeClass('on')
+    }else if(cName.indexOf('big') != -1){
+        textFontSize = 25;
+      $(this).addClass('on').siblings().removeClass('on')
+    }
+    else if(cName.indexOf('default') != -1){
+      //   textFontSize = 16;
+        location.reload();
+      $(this).addClass('on').siblings().removeClass('on')
+    }
+    //设置para的字体大小
+    $(".nrtxt p,.pages_content,.nrtxt font,.nrtxt span,.nrtxt div").css("font-size",  textFontSize + unit );
+$(".nrtxt p,.pages_content,.nrtxt font,.nrtxt span,.nrtxt div").css("line-height",  1.5*textFontSize + unit );
+  });
+
+  $(".xx_zh a.default").click(function(){
+    $(".nrtxt p,.nrtxt,.nrtxt font,.nrtxt span,.nrtxt div").css("font-size","16px");
+  });
